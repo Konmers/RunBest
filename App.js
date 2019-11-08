@@ -6,109 +6,93 @@
  * @flow
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
+  StyleSheet,//样式相关的组件，专门用来创建样式的
+  ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
+  Image,//图片
+  View,//用来布局，类似div
+  Text,//文本节点，所有文本必须放到这个里面
+  TextInput,//文本框组件
+  Button,//按钮
+  ActivityIndicator,//loading 加载动画转圈
+  Dimensions,//得到手机屏幕的宽和高
   StatusBar,
 } from 'react-native';
+import TabNavigator from 'react-native-tab-navigator';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+//页面引用
+import Home from './src/screens/Home.js'; //首页
+// import Shop from './src/screens/Demo.js';//商城
+import Shop from './src/screens/Shop.js';//商城
+import Leaderboard from './src/screens/LeaderBoard.js';//排行榜
+import Personal from './src/screens/Personal.js';//个人中心
+import VideoDetail from './src/screens/VideoDetail.js';//视频详情
+import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 
-const App: () => React$Node = () => {
+const dataSource = [
+  {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'首页',component:Home},
+  {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Shop',tabName:'排行榜',component:Shop},
+  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Leaderboard',tabName:'走势',component:Leaderboard},
+  {icon:require('./src/public/Iamge/Bottom/personal.png'),selectedIcon:require('./src/public/Iamge/Bottom/personal-after.png'),tabPage:'Personal',tabName:'个人中心',component:Personal}
+]
+var navigation = null;
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    navigation = this.props.navigation;
+    this.state = { 
+      selectedTab:'Home' //默认选中 home 页面
+     }
+  }
+  
+  render() {
+    let tabViews = dataSource.map((item,i) => {
+      return (
+        <TabNavigator.Item
+          title={item.tabName}
+          selected={this.state.selectedTab===item.tabPage}
+          titleStyle={{color:'black'}}
+          selectedTitleStyle={{color:'#17D092'}}
+          renderIcon={()=><Image style={styles.icon} source={item.icon}/>}
+          renderSelectedIcon = {() => <Image style={styles.icon} source={item.selectedIcon}/>}
+          tabStyle={{alignSelf:'center'}}
+          onPress = {() => {this.setState({selectedTab:item.tabPage})}}
+          key={i}
+          >
+            <item.component  navigation={navigation}/>
+        </TabNavigator.Item>
+      );
+    })
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <View style={styles.containner}>
+      <TabNavigator  tabBarStyle={{alignItems:'center',height:'8%'}}
+        hidesTabTouch={true}
+        >
+          {tabViews}
+      </TabNavigator>
+    </View>
   );
-};
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  }
+} 
+const styles =StyleSheet.create({
+  containner:{
+     flex:1,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  icon:{
+    width:30,
+    height:30,
   },
-  body: {
-    backgroundColor: Colors.white,
+  badgeText:{
+    width:15,
+    color:'#fff',
+    fontSize:12,
+    textAlign:'center',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:18,
+    backgroundColor:'red'
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
-
-export default App;
+})

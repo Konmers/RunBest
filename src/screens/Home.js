@@ -18,133 +18,161 @@ import { Actions } from 'react-native-router-flux'
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-     viewPager:{
-       flex:1,
-       height:height*0.5
-     },
-      wrapper: {
-      },
-      slide: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
-        color:'red',
-      },
-      text: {
-        color: 'red',
-        fontSize: 20,
-        marginLeft:10,
-        fontWeight: 'bold'
-      },
-      image: {
-        width,
-        flex: 1
-      },
-      paginationStyle: {
-        position: 'absolute',
-        bottom: -2,
-        right: 10
-      },
-      paginationText: {
-        color: '#23A8F2',
-        fontSize: 20
-      }
-})
+const loading = require('../public/Iamge/Banner/loading.gif')
 
-const renderPagination = (index, total, context) => {
-  return (
-    <View style={styles.paginationStyle}>
-      <Text style={{ color: 'grey' }}>
-        <Text style={styles.paginationText}>{index + 1}</Text>/{total}
-      </Text>
-    </View>
-  )
+const styles = {
+  wrapper: {
+    height: height*0.3,
+  },
+
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+  image: {
+    width,
+    flex: 1,
+    backgroundColor: 'transparent'
+  },
+  loadingView: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,.5)'
+  },
+  loadingImage: {
+    width: 60,
+    height: 60
+  },
+  Exview:{
+    height:height*0.2,
+    flex:1,
+    flexDirection:'column',
+    flexWrap:'wrap',
+    alignContent:'center',
+    alignItems: 'center',
+    margin:10,
+    borderRadius:10,
+    shadowColor:'#000000',
+    shadowOpacity:0.9,
+    shadowRadius:10,
+    elevation: 5,//设置此项Android显示阴影，只能是灰色阴影，不支持其他颜色设置（Android） 
+    backgroundColor: 'white',
+  },
+  Extext:{
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  Extouch:{
+    width: width*0.2,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal:20,
+  },
+  Eximage:{
+    width:60,
+    height:60,
+    marginBottom: 5
+  },
+  Rank:{
+    height:height*0.5,
+    flex:1,
+    flexDirection:'column',
+    flexWrap:'wrap',
+    alignContent:'center',
+    margin:10,
+    borderRadius:10,
+    shadowColor:'#000000',
+    shadowOpacity:0.9,
+    shadowRadius:10,
+    elevation: 5,//设置此项Android显示阴影，只能是灰色阴影，不支持其他颜色设置（Android） 
+    backgroundColor: 'white',
+  }
+}
+
+const Slide = props => {
+  return (<View style={styles.slide}>
+    <Image style={styles.image} source={props.uri} />
+  </View>)
 }
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
+  constructor (props) {
+    super(props)
+    this.state = {
+      imgList: [
+        require('../public/Iamge/Banner/banner_1.jpg'),
+        require('../public/Iamge/Banner/banner_4.jpg'),
+        require('../public/Iamge/Banner/banner_6.jpeg'),
+        require('../public/Iamge/Banner/banner_7.jpg'),
+      ],
+      loadQueue: [0, 0, 0, 0]
     }
-    render() { 
-        return ( 
-                <ScrollView style={{width:'100%',marginBottom:20}}>
-                  <Text>Home --- 首页</Text>
-                  <View style={styles.viewPager}>
-                    <Swiper
-                      style={styles.wrapper}
-                      renderPagination={renderPagination}
-                      loop={false}
-                    >
-                        <View style={styles.slide}>
-                          <Image style={styles.image} source={require('../public/Iamge/Banner/10.jpg')} />
-                          <Text style={styles.text} numberOfLines={1} ellipsizeMode='tail'>Aussie tourist dies at Bali hotel</Text>
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.image} source={require('../public/Iamge/Banner/7.jpg')} />
-                          <Text style={styles.text} numberOfLines={1}>Big lie behind Nine’s new show</Text>
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.image} source={require('../public/Iamge/Banner/9.jpg')} />
-                          <Text style={styles.text} numberOfLines={1}>Why Stone split from Garfield</Text>
-                        </View>
-                        <View style={styles.slide}>
-                          <Image style={styles.image} source={require('../public/Iamge/Banner/1.jpg')} />
-                          <Text style={styles.text} numberOfLines={1}>Learn from Kim K to land that job</Text>
-                        </View>
-                    </Swiper>
-                  </View>
-                  <View style={{height:500,flex:1,flexDirection:'row',flexWrap:'wrap'}}>
-                      <TouchableHighlight style={{marginLeft: 30,marginRight: 30,marginTop:10}} onPress={this.getVideoList} underlayColor={true}>
-                        <View >
-                          <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/a.jpg')}/>
-                          <Text>商家电话</Text>
-                        </View>
-                      </TouchableHighlight>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/cool.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                     <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/ciTooth.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/happy.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/love.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/monster.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/ninja.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/skeleton.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                      <View style={{marginLeft: 30,marginRight: 30,marginTop:10}}>
-                         <Image style={{width:60,height:60}} source={require('../public/Iamge/Expression/smileCry.jpg')}/>
-                         <Text>商家电话</Text>
-                      </View>
-                  </View>
-                </ScrollView>
-         );
-    }
+  }
+  loadHandle (i) {
+    let loadQueue = this.state.loadQueue
+    loadQueue[i] = 1
+    this.setState({
+      loadQueue
+    })
+  }
+  render () {
+    return (
+      <ScrollView style={{flex: 1}}>
+        <Swiper style={styles.wrapper} autoplay 
+        dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}
+        activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#24ACF2'}} />}
+        >
+          {
+            this.state.imgList.map((item, i) => <Slide
+              loadHandle={this.loadHandle}
+              loaded={!!this.state.loadQueue[i]}
+              uri={item}
+              i={i}
+              key={i} />)
+          }
+        </Swiper>
+        <View style={styles.Exview}>
+          <Text style={styles.Extext}>R - Hi !</Text>
+          <View style={{flex:1,flexDirection:'row',flexWrap:'wrap',alignContent:'center',alignItems: "center",paddingVertical:0}}>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList}>
+                <View >
+                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/live.png')}/>
+                  <Text style={{textAlign: 'center',}}>R - Live</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList} underlayColor={true}>
+                <View >
+                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/project.png')}/>
+                  <Text style={{textAlign: 'center',}}>R - Project</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList} underlayColor={true}>
+                <View >
+                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/share.png')}/>
+                  <Text style={{textAlign: 'center',}}>R - Share</Text>
+                </View>
+              </TouchableHighlight>
+          </View>
+        </View>  
+        <View style={styles.Rank}>
+           
+        </View>
+      </ScrollView>
+    )
+  }
 
     getVideoList = () =>{
       // console.warn('wwwwwwwwwww')
       // Actions.videodetail({id:10}) //传参
       Actions.videodetail()// 空传参
     }
-
 } 
 
 

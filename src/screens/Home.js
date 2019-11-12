@@ -202,8 +202,8 @@ class Home extends Component {
     return (
       <ScrollView style={{flex: 1}}>
         <Swiper style={styles.wrapper} autoplay 
-        dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}
-        activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#24ACF2'}} />}
+        dot={<View style={{marginLeft:10,width:30,height:5,borderRadius:50,backgroundColor: '#fff'}} />}
+        activeDot={<View style={{marginLeft:10,width:30,height:5,borderRadius:50,backgroundColor: '#24ACF2'}} />}
         >
           {
             this.state.imgList.map((item, i) => <Slide
@@ -217,19 +217,19 @@ class Home extends Component {
         <View style={styles.Exview}>
           <Text style={styles.Extext}>R - Hi !</Text>
           <View style={{flex:1,flexDirection:'row',flexWrap:'wrap',alignContent:'center',alignItems: "center",paddingVertical:0}}>
-              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList}>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists}>
                 <View >
                   <Image style={styles.Eximage} source={require('../public/Iamge/Expression/live.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Live</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList} underlayColor={true}>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists} underlayColor={true}>
                 <View >
                   <Image style={styles.Eximage} source={require('../public/Iamge/Expression/project.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Project</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoList} underlayColor={true}>
+              <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists} underlayColor={true}>
                 <View >
                   <Image style={styles.Eximage} source={require('../public/Iamge/Expression/share.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Share</Text>
@@ -262,6 +262,11 @@ class Home extends Component {
     )
   }
 
+  getVideoLists = () =>{
+    // console.warn('wwwwwwwwwww')
+    // Actions.videodetail({id:10}) //传参
+    Actions.videodetail()// 空传参
+  }
     getVideoList = (value) =>{
       // console.warn('wwwwwwwwwww')
       // Actions.videodetail({id:10}) //传参

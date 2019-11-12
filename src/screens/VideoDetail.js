@@ -25,6 +25,8 @@ class VideoDetail extends Component {
             <Text>
                 啦啦啦啦啦啦啦啦绿
             </Text>
+            <Text>{this.props.id}</Text>
+
             <View style={{alignItems:'center'}}>
               <Image style={{width:100,height:100}} source={require('../public/Iamge/Head/8.jpg')}/>
               <Text>Learn more about this purple button</Text>

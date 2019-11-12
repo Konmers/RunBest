@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableHighlight,//选中跳转
+  TouchableOpacity,
   ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
 } from 'react-native'
 //swiper banner滚动
@@ -241,15 +242,17 @@ class Home extends Component {
            <View style={styles.RviewTwo}>
                  {
                     this.state.rankTop.map((item,i) =>
-                      <View style={styles.Rrankdetail}>
-                        <View style={styles.Rrankdetails}>
-                          <Image style={styles.Rimage} source={item.head}/>
-                          <View>
-                            <Text style={styles.RtextOne}>{item.name}</Text>
-                            <Text style={styles.RtextTwo}>{item.sketch}</Text>
-                          </View>
-                        </View>
-                        <Text style={styles.Rtexts}>No.{i+1}</Text>
+                      <View style={styles.Rrankdetail} key={i}>
+                          <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                            <View style={styles.Rrankdetails}>
+                              <Image style={styles.Rimage} source={item.head}/>
+                              <View>
+                                <Text style={styles.RtextOne}>{item.name}</Text>
+                                <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                              </View>
+                            </View>
+                            <Text style={styles.Rtexts}>No.{i+1}</Text>
+                          </TouchableOpacity>
                       </View> 
                     )
                  } 
@@ -259,10 +262,10 @@ class Home extends Component {
     )
   }
 
-    getVideoList = () =>{
+    getVideoList = (value) =>{
       // console.warn('wwwwwwwwwww')
       // Actions.videodetail({id:10}) //传参
-      Actions.videodetail()// 空传参
+      Actions.videodetail({id:value})// 空传参
     }
 } 
 

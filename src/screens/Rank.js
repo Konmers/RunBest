@@ -11,11 +11,7 @@ import {
 } from 'react-native'
 
 //tab component 选项卡
-import ScrollableTabView,
-{
-  DefaultTabBar,
-  ScrollableTabBar
-} from 'react-native-scrollable-tab-view';
+import ScrollableTabView,{DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 //swiper banner滚动
 import Swiper from 'react-native-swiper'
@@ -25,6 +21,7 @@ import { Actions } from 'react-native-router-flux'
 
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
+var ScreenWidth = Dimensions.get('window').width;
 
 const loading = require('../public/Iamge/Banner/loading.gif')
 
@@ -115,7 +112,23 @@ const styles = {
   },
   Rtexts:{
     fontSize: 20
-  }
+  },
+  container: {
+    flex: 1,
+    marginTop: 20,
+    backgroundColor: '#F5FCFF',
+  },
+  lineStyle: {
+    width: ScreenWidth / 4,
+    height: 2,
+    backgroundColor:'red'
+  },
+  textStyle: {
+    flex: 1,
+    fontSize: 20,
+    marginTop: 20,
+    textAlign:'center'
+  },
 }
 
 const Slide = props => {
@@ -194,8 +207,19 @@ export default class Rank extends Component {
               key={i} />)
           }
         </Swiper>
+        {/* <ScrollableTabView
+        style={styles.container}
+        renderTabBar={() => <DefaultTabBar />}
+        tabBarUnderlineStyle={styles.lineStyle}
+        tabBarActiveTextColor='#FF0000'
+      >
+        <Text style={styles.textStyle} tabLabel='娱乐'>娱乐</Text>
+        <Text style = {styles.textStyle} tabLabel = '科技'>科技</Text>
+        <Text style={styles.textStyle} tabLabel='军事'>军事</Text>
+        <Text style = {styles.textStyle} tabLabel = '体育'>体育</Text>
+      </ScrollableTabView> */}
         <View style={styles.Rank}>
-           <View style={styles.RviewTwo}>
+            <View style={styles.RviewTwo}>
                  {
                     this.state.rankTop.map((item,i) =>
                       <View style={styles.Rrankdetail} key={i}>
@@ -212,9 +236,8 @@ export default class Rank extends Component {
                       </View> 
                     )
                  } 
-           </View>
+            </View>
         </View>
-
       </ScrollView>
     )
   }

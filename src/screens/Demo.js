@@ -71,7 +71,7 @@ const App: () => React$Node = () => {
             source= {require('../public/Iamge/Banner/6.jpg')}
           />
           <Video
-            source = {require('../public/video/test2.mp4')}
+            source = {require('../public/Video/test2.mp4')}
             // ref={(ref) => {
             //   this.player = ref
             // }}                             // Store reference

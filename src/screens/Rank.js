@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { Text,View,Image,Button} from 'react-native';
 
-export default class Shop extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
+export default class Rank extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {  }
+  }
   
   render() {
     return (

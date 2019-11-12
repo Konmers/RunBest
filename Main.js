@@ -11,8 +11,8 @@ import {Router,Stack,Scene} from 'react-native-router-flux';
 import App from './App.js'
 import HomeScreen from './src/screens/Home.js'; //首页
 // import Shop from './src/screens/demo.js';//商城
-import ShopScreen from './src/screens/Shop.js';//商城
-import LeaderboardScreen from './src/screens/LeaderBoard.js';//排行榜
+import RankScreen from './src/screens/Rank.js';//商城
+import TrendScreen from './src/screens/Trend.js';//排行榜
 import PersonalScreen from './src/screens/Personal.js';//个人中心
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放

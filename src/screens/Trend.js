@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {View,Text}  from 'react-native';
 
-class Leaderboard extends Component {
+class Trend extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
@@ -11,11 +11,11 @@ class Leaderboard extends Component {
         return ( 
             <View>
                 <Text>
-                leaderboard   排行榜
+                Trend   排行榜
                 </Text>
             </View>
          );
     }
 }
  
-export default Leaderboard;
+export default Trend;

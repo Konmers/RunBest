@@ -27,7 +27,7 @@ export default class Videopalyer extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      videoUrl: "../public/video/test2.mp4",
+      videoUrl: "../public/Video/test2.mp4",
       videoCover: "../public/Iamge/Banner/6.jpg",
       videoWidth: screenWidth,
       videoHeight: screenWidth * 9/16, // 默认16：9的宽高比
@@ -49,7 +49,7 @@ export default class Videopalyer extends Component<Props> {
           <Video
             ref={(ref) => this.videoPlayer = ref}
             // source={{uri: this.state.videoUrl}}
-            source = {require('../public/video/test2.mp4')}
+            source = {require('../public/Video/test2.mp4')}
             rate={1.0}
             volume={1.0}
             muted={false}
@@ -98,7 +98,7 @@ export default class Videopalyer extends Component<Props> {
                   <TouchableWithoutFeedback onPress={() => { this.onPressPlayButton() }}>
                     <Image
                       style={styles.playButton}
-                      source={require('../public/Iamge/videoIcons/icon_video_play.png')}
+                      source={require('../public/Iamge/VideoIcons/icon_video_play.png')}
                     />
                   </TouchableWithoutFeedback>
               }
@@ -110,7 +110,7 @@ export default class Videopalyer extends Component<Props> {
                 <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlPlayPress() }}>
                   <Image
                     style={styles.playControl}
-                    source={this.state.isPlaying ? require('../public/Iamge/videoIcons/icon_control_pause.png') : require('../public/Iamge/videoIcons/icon_control_play.png')}
+                    source={this.state.isPlaying ? require('../public/Iamge/VideoIcons/icon_control_pause.png') : require('../public/Iamge/VideoIcons/icon_control_play.png')}
                   />
                 </TouchableOpacity>
                 <Text style={styles.time}>{formatTime(this.state.currentTime)}</Text>
@@ -118,7 +118,7 @@ export default class Videopalyer extends Component<Props> {
                   style={{flex: 1}}
                   maximumTrackTintColor={'#999999'}
                   minimumTrackTintColor={'#00c06d'}
-                  thumbImage={require('../public/Iamge/videoIcons/icon_control_slider.png')}
+                  thumbImage={require('../public/Iamge/VideoIcons/icon_control_slider.png')}
                   value={this.state.currentTime}
                   minimumValue={0}
                   maximumValue={this.state.duration}
@@ -128,7 +128,7 @@ export default class Videopalyer extends Component<Props> {
                 <TouchableOpacity activeOpacity={0.3} onPress={() => { this.onControlShrinkPress() }}>
                   <Image
                     style={styles.shrinkControl}
-                    source={this.state.isFullScreen ? require('../public/Iamge/videoIcons/icon_control_shrink_screen.png') : require('../public/Iamge/videoIcons/icon_control_full_screen.png')}
+                    source={this.state.isFullScreen ? require('../public/Iamge/VideoIcons/icon_control_shrink_screen.png') : require('../public/Iamge/VideoIcons/icon_control_full_screen.png')}
                   />
                 </TouchableOpacity>
               </View> : null

@@ -81,18 +81,61 @@ const styles = {
     marginBottom: 5
   },
   Rank:{
-    height:height*0.5,
     flex:1,
     flexDirection:'column',
-    flexWrap:'wrap',
     alignContent:'center',
-    margin:10,
+    marginHorizontal:10,
+    marginBottom:20,
     borderRadius:10,
     shadowColor:'#000000',
     shadowOpacity:0.9,
     shadowRadius:10,
     elevation: 5,//设置此项Android显示阴影，只能是灰色阴影，不支持其他颜色设置（Android） 
     backgroundColor: 'white',
+  },
+  //marginHorizontal相同于同时设置marginLeft和marginRight
+  //marginVertical相同于同时设置marginTop和marginBottom
+  Rviewtext:{
+    fontSize: 20,
+    marginVertical: 10,
+    textAlign: 'center',
+  },
+  RviewTwo:{
+    width: '100%',
+    flex: 1,
+    flexDirection: 'column'
+  },
+  Rrankdetail:{
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 5,
+    alignItems: 'center',
+    alignContent: 'center',
+    paddingHorizontal: 10,
+  },
+  Rrankdetails:{
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
+    flexDirection: 'row'
+  },
+  Rimage:{
+    width:40,
+    height:40,
+    borderRadius:20,
+    marginRight:10
+  },
+  RtextOne:{
+    fontSize: 18
+  },
+  RtextTwo:{
+    fontSize: 15,
+    color: '#D6D6D6'
+  },
+  Rtexts:{
+    fontSize: 20
   }
 }
 
@@ -112,7 +155,39 @@ class Home extends Component {
         require('../public/Iamge/Banner/banner_6.jpeg'),
         require('../public/Iamge/Banner/banner_7.jpg'),
       ],
-      loadQueue: [0, 0, 0, 0]
+      loadQueue: [0, 0, 0, 0],
+      rankTop:[
+        {
+          head: require('../public/Iamge/Head/10.jpg'),
+          name:'张三',
+          sketch:'哒哒哒哒哒哒'
+        },
+        {
+          head: require('../public/Iamge/Head/12.jpg'),
+          name:'李四',
+          sketch:'哒哒哒哒哒哒'
+        },
+        {
+          head: require('../public/Iamge/Head/4.jpg'),
+          name:'王五',
+          sketch:'哒哒哒哒哒哒'
+        },
+        {
+          head: require('../public/Iamge/Head/8.jpg'),
+          name:'赵六',
+          sketch:'哒哒哒哒哒哒'
+        },
+        {
+          head: require('../public/Iamge/Head/11.png'),
+          name:'田七',
+          sketch:'哒哒哒哒哒哒'
+        },
+        {
+          head: require('../public/Iamge/Head/13.jpg'),
+          name:'陈八',
+          sketch:'哒哒哒哒哒哒'
+        }
+      ],
     }
   }
   loadHandle (i) {
@@ -162,7 +237,23 @@ class Home extends Component {
           </View>
         </View>  
         <View style={styles.Rank}>
-           
+              <Text style={styles.Rviewtext}>Lazy - Rank</Text>
+           <View style={styles.RviewTwo}>
+                 {
+                    this.state.rankTop.map((item,i) =>
+                      <View style={styles.Rrankdetail}>
+                        <View style={styles.Rrankdetails}>
+                          <Image style={styles.Rimage} source={item.head}/>
+                          <View>
+                            <Text style={styles.RtextOne}>{item.name}</Text>
+                            <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                          </View>
+                        </View>
+                        <Text style={styles.Rtexts}>No.{i+1}</Text>
+                      </View> 
+                    )
+                 } 
+           </View>
         </View>
       </ScrollView>
     )

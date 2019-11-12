@@ -25,16 +25,16 @@ import TabNavigator from 'react-native-tab-navigator';
 //页面引用
 import Home from './src/screens/Home.js'; //首页
 // import Shop from './src/screens/Demo.js';//商城
-import Shop from './src/screens/Shop.js';//商城
-import Leaderboard from './src/screens/LeaderBoard.js';//排行榜
+import Rank from './src/screens/Rank.js';//排行榜
+import Trend from './src/screens/Trend.js';//走势
 import Personal from './src/screens/Personal.js';//个人中心
 import VideoDetail from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 
 const dataSource = [
   {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'首页',component:Home},
-  {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Shop',tabName:'排行榜',component:Shop},
-  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Leaderboard',tabName:'走势',component:Leaderboard},
+  {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Rank',tabName:'排行榜',component:Rank},
+  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Trend',tabName:'走势',component:Trend},
   {icon:require('./src/public/Iamge/Bottom/personal.png'),selectedIcon:require('./src/public/Iamge/Bottom/personal-after.png'),tabPage:'Personal',tabName:'个人中心',component:Personal}
 ]
 var navigation = null;

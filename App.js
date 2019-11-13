@@ -46,7 +46,8 @@ export default class App extends Component {
       selectedTab:'Home' //默认选中 home 页面
      }
   }
-  
+  //#A2CEA5 主题色
+
   render() {
     let tabViews = dataSource.map((item,i) => {
       return (

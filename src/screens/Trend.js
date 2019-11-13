@@ -13,6 +13,8 @@ import {
 //tab component 选项卡
 import ScrollableTabView,{DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
+import Echarts from 'native-echarts'
+
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
@@ -21,15 +23,22 @@ var ScreenWidth = Dimensions.get('window').width;
   //marginVertical相同于同时设置marginTop和marginBottom
 const styles = {
   Title:{
-    flex: 1,
-    flexDirection: 'row',
-  },
-  Toptext:{
     width,
     height: height*0.06,
     textAlign: 'center',
     lineHeight: height*0.06,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  Toptext:{
+    textAlign: 'center',
     fontSize: 20
+  },
+  Share:{
+    position:'absolute',
+    right: 15
   },
   container: {
     flex: 1,
@@ -120,12 +129,34 @@ export default class Trend extends Component{
     }
   }
 
+  
+
   render() {
+    const option = {
+      title: {
+          text: 'ECharts demo'
+      },
+      tooltip: {},
+      legend: {
+          data: ['销量']
+      },
+      xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+      },
+      yAxis: {},
+      series: [{
+          name: '销量',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+      }]
+    };
     return (
       <View style={{flex:1}}>
         <View style={styles.Title}>
           <Text style={styles.Toptext}>Run - Trend</Text>
-          <View> <Image source={require('../public/Iamge/Else')} /></View>
+          <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
+            <Image style={{width:30,height: 30}} source={require('../public/Iamge/Else/share.png')} />
+          </TouchableOpacity >
         </View>
         <ScrollableTabView
           style={styles.container}
@@ -134,7 +165,9 @@ export default class Trend extends Component{
           tabBarActiveTextColor='#FF0000'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
-            
+            <View style={{flex: 1, height:height*0.4, width: width*0.4}}>
+                <Echarts option={option} height={300}/>
+            </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsWeek'>
             
@@ -152,4 +185,9 @@ export default class Trend extends Component{
       </View>
     );
   }
+
+  onPress = () => {
+    console.warn('ddddd') 
+  };
+
 }

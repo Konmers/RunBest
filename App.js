@@ -54,7 +54,7 @@ export default class App extends Component {
           title={item.tabName}
           selected={this.state.selectedTab===item.tabPage}
           titleStyle={{color:'black'}}
-          selectedTitleStyle={{color:'#17D092'}}
+          selectedTitleStyle={{color:'#A2CEA5'}}
           renderIcon={()=><Image style={styles.icon} source={item.icon}/>}
           renderSelectedIcon = {() => <Image style={styles.icon} source={item.selectedIcon}/>}
           tabStyle={{alignSelf:'center'}}

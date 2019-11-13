@@ -33,10 +33,11 @@ const styles = {
     lineHeight: height*0.06,
     fontSize: 20
   },
-  wrapper: {
-    height: height*0.3,
+  SwiperView:{
+    height: 200,
+    width:width
   },
-
+  wrapper: {},
   slide: {
     flex: 1,
     justifyContent: 'center',
@@ -115,19 +116,16 @@ const styles = {
   },
   container: {
     flex: 1,
-    marginTop: 20,
     backgroundColor: '#F5FCFF',
   },
   lineStyle: {
-    width: ScreenWidth / 4,
+    width: ScreenWidth / 5,
     height: 2,
     backgroundColor:'red'
   },
-  textStyle: {
+  tabStyle: {
     flex: 1,
-    fontSize: 20,
-    marginTop: 20,
-    textAlign:'center'
+     marginVertical: 10,
   },
 }
 
@@ -148,38 +146,73 @@ export default class Rank extends Component {
         require('../public/Iamge/Banner/bannerTwo.jpg'),
       ],
       loadQueue: [0, 0, 0, 0],
-      rankTop:[
-        {
-          head: require('../public/Iamge/Head/10.jpg'),
-          name:'张三',
-          sketch:'哒哒哒哒哒哒'
-        },
-        {
-          head: require('../public/Iamge/Head/12.jpg'),
-          name:'李四',
-          sketch:'哒哒哒哒哒哒'
-        },
-        {
-          head: require('../public/Iamge/Head/4.jpg'),
-          name:'王五',
-          sketch:'哒哒哒哒哒哒'
-        },
-        {
-          head: require('../public/Iamge/Head/8.jpg'),
-          name:'赵六',
-          sketch:'哒哒哒哒哒哒'
-        },
-        {
-          head: require('../public/Iamge/Head/11.png'),
-          name:'田七',
-          sketch:'哒哒哒哒哒哒'
-        },
-        {
-          head: require('../public/Iamge/Head/13.jpg'),
-          name:'陈八',
-          sketch:'哒哒哒哒哒哒'
-        }
+      rankArr:[
+        [
+          {
+            head: require('../public/Iamge/Head/10.jpg'),
+            name:'张三',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/12.jpg'),
+            name:'李四',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/4.jpg'),
+            name:'王五',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/8.jpg'),
+            name:'赵六',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/11.png'),
+            name:'田七',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/13.jpg'),
+            name:'陈八',
+            sketch:'哒哒哒哒哒哒'
+          }
+        ],
+        [
+          {
+            head: require('../public/Iamge/Head/8.jpg'),
+            name:'赵六',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/11.png'),
+            name:'田七',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/10.jpg'),
+            name:'张三',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/13.jpg'),
+            name:'陈八',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/12.jpg'),
+            name:'李四',
+            sketch:'哒哒哒哒哒哒'
+          },
+          {
+            head: require('../public/Iamge/Head/4.jpg'),
+            name:'王五',
+            sketch:'哒哒哒哒哒哒'
+          }
+        ],
       ],
+      data:['ToDay','ThisWeek','ThisMonth','ThisYear']
     }
   }
   loadHandle (i) {
@@ -192,53 +225,142 @@ export default class Rank extends Component {
   
   render() {
     return (
-      <ScrollView style={{flex: 1}}>
+      <View style={{flex:1}}>
         <Text style={styles.Toptext}>Lazy - Rank</Text>
-        <Swiper style={styles.wrapper} autoplay 
-        dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}
-        activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#24ACF2'}} />}
-        >
-          {
-            this.state.imgList.map((item, i) => <Slide
-              loadHandle={this.loadHandle}
-              loaded={!!this.state.loadQueue[i]}
-              uri={item}
-              i={i}
-              key={i} />)
-          }
-        </Swiper>
-        {/* <ScrollableTabView
-        style={styles.container}
-        renderTabBar={() => <DefaultTabBar />}
-        tabBarUnderlineStyle={styles.lineStyle}
-        tabBarActiveTextColor='#FF0000'
-      >
-        <Text style={styles.textStyle} tabLabel='娱乐'>娱乐</Text>
-        <Text style = {styles.textStyle} tabLabel = '科技'>科技</Text>
-        <Text style={styles.textStyle} tabLabel='军事'>军事</Text>
-        <Text style = {styles.textStyle} tabLabel = '体育'>体育</Text>
-      </ScrollableTabView> */}
-        <View style={styles.Rank}>
-            <View style={styles.RviewTwo}>
-                 {
-                    this.state.rankTop.map((item,i) =>
-                      <View style={styles.Rrankdetail} key={i}>
-                          <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
-                            <View style={styles.Rrankdetails}>
-                              <Image style={styles.Rimage} source={item.head}/>
-                              <View>
-                                <Text style={styles.RtextOne}>{item.name}</Text>
-                                <Text style={styles.RtextTwo}>{item.sketch}</Text>
-                              </View>
-                            </View>
-                            <Text style={styles.Rtexts}>No.{i+1}</Text>
-                          </TouchableOpacity>
-                      </View> 
-                    )
-                 } 
-            </View>
+        <View style={styles.SwiperView}>
+          <Swiper style={styles.wrapper}
+          dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}
+          activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#24ACF2'}} />}
+          autoplay
+          >
+            {
+              this.state.imgList.map((item, i) => <Slide
+                loadHandle={this.loadHandle}
+                loaded={!!this.state.loadQueue[i]}
+                uri={item}
+                i={i}
+                key={i} />)
+            }
+          </Swiper>
         </View>
-      </ScrollView>
+        <ScrollableTabView
+          style={styles.container}
+          renderTabBar={() => <DefaultTabBar />}
+          tabBarUnderlineStyle={styles.lineStyle}
+          tabBarActiveTextColor='#FF0000'
+        >
+          <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
+            <View style={styles.Rank}>
+                <View style={styles.RviewTwo}>
+                    {
+                        this.state.rankArr[0].map((item,i) =>
+                          <View style={styles.Rrankdetail} key={i}>
+                              <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                                <View style={styles.Rrankdetails}>
+                                  <Image style={styles.Rimage} source={item.head}/>
+                                  <View>
+                                    <Text style={styles.RtextOne}>{item.name}</Text>
+                                    <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                                  </View>
+                                </View>
+                                <Text style={styles.Rtexts}>No.{i+1}</Text>
+                              </TouchableOpacity>
+                          </View> 
+                        )
+                    } 
+                </View>
+            </View>
+          </ScrollView>
+          <ScrollView style={styles.tabStyle} tabLabel='TsWeek'>
+            <View style={styles.Rank}>
+                <View style={styles.RviewTwo}>
+                    {
+                        this.state.rankArr[1].map((item,i) =>
+                          <View style={styles.Rrankdetail} key={i}>
+                              <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                                <View style={styles.Rrankdetails}>
+                                  <Image style={styles.Rimage} source={item.head}/>
+                                  <View>
+                                    <Text style={styles.RtextOne}>{item.name}</Text>
+                                    <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                                  </View>
+                                </View>
+                                <Text style={styles.Rtexts}>No.{i+1}</Text>
+                              </TouchableOpacity>
+                          </View> 
+                        )
+                    } 
+                </View>
+            </View>
+          </ScrollView>
+          <ScrollView style={styles.tabStyle} tabLabel='TsMonth'>
+            <View style={styles.Rank}>
+                <View style={styles.RviewTwo}>
+                    {
+                        this.state.rankArr[1].map((item,i) =>
+                          <View style={styles.Rrankdetail} key={i}>
+                              <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                                <View style={styles.Rrankdetails}>
+                                  <Image style={styles.Rimage} source={item.head}/>
+                                  <View>
+                                    <Text style={styles.RtextOne}>{item.name}</Text>
+                                    <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                                  </View>
+                                </View>
+                                <Text style={styles.Rtexts}>No.{i+1}</Text>
+                              </TouchableOpacity>
+                          </View> 
+                        )
+                    } 
+                </View>
+            </View>
+          </ScrollView>
+          <ScrollView style={styles.tabStyle} tabLabel='TsSeason'>
+            <View style={styles.Rank}>
+                <View style={styles.RviewTwo}>
+                    {
+                        this.state.rankArr[1].map((item,i) =>
+                          <View style={styles.Rrankdetail} key={i}>
+                              <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                                <View style={styles.Rrankdetails}>
+                                  <Image style={styles.Rimage} source={item.head}/>
+                                  <View>
+                                    <Text style={styles.RtextOne}>{item.name}</Text>
+                                    <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                                  </View>
+                                </View>
+                                <Text style={styles.Rtexts}>No.{i+1}</Text>
+                              </TouchableOpacity>
+                          </View> 
+                        )
+                    } 
+                </View>
+            </View>
+          </ScrollView>
+          <ScrollView style={styles.tabStyle} tabLabel='TsYear'>
+          <View style={styles.Rank}>
+              <View style={styles.RviewTwo}>
+                  {
+                      this.state.rankArr[1].map((item,i) =>
+                        <View style={styles.Rrankdetail} key={i}>
+                            <TouchableOpacity style={styles.Rrankdetail} onPress={() => this.getVideoList(i)}>
+                              <View style={styles.Rrankdetails}>
+                                <Image style={styles.Rimage} source={item.head}/>
+                                <View>
+                                  <Text style={styles.RtextOne}>{item.name}</Text>
+                                  <Text style={styles.RtextTwo}>{item.sketch}</Text>
+                                </View>
+                              </View>
+                              <Text style={styles.Rtexts}>No.{i+1}</Text>
+                            </TouchableOpacity>
+                        </View> 
+                      )
+                  } 
+              </View>
+          </View>
+        </ScrollView>
+        </ScrollableTabView>
+      </View>
     )
   }
 }

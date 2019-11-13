@@ -20,6 +20,10 @@ var ScreenWidth = Dimensions.get('window').width;
   //marginHorizontal相同于同时设置marginLeft和marginRight
   //marginVertical相同于同时设置marginTop和marginBottom
 const styles = {
+  Title:{
+    flex: 1,
+    flexDirection: 'row',
+  },
   Toptext:{
     width,
     height: height*0.06,
@@ -32,7 +36,7 @@ const styles = {
     backgroundColor: '#F5FCFF',
   },
   lineStyle: {
-    width: ScreenWidth / 4,
+    width: ScreenWidth / 5,
     height: 2,
     backgroundColor:'red'
   },
@@ -119,7 +123,10 @@ export default class Trend extends Component{
   render() {
     return (
       <View style={{flex:1}}>
-        <Text style={styles.Toptext}>Run - Trend</Text>
+        <View style={styles.Title}>
+          <Text style={styles.Toptext}>Run - Trend</Text>
+          <View> <Image source={require('../public/Iamge/Else')} /></View>
+        </View>
         <ScrollableTabView
           style={styles.container}
           renderTabBar={() => <DefaultTabBar />}

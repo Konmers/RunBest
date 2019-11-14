@@ -13,6 +13,10 @@ import {
 //tab component 选项卡
 import ScrollableTabView,{DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
+//环形进度条
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+//Echart
 import Echarts from 'native-echarts';
 
 // Dimensions 用于获取设备宽、高、分辨率
@@ -168,6 +172,9 @@ export default class Trend extends Component{
         data: [20,10, 36, 10, 10, 20]
       }]
      };
+     const MAX_POINTS = 6000;
+     const fill = 2000 / MAX_POINTS * 100;
+
     return (      
       <View style={{flex:1}}>
         <View style={styles.Title}>
@@ -183,7 +190,27 @@ export default class Trend extends Component{
           tabBarActiveTextColor='#FF0000'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
-            <View style={{flex: 1, height:height*0.4, width: width*0.4}}>
+             <View style={{flex: 1,alignItems: "center",marginVertical:20}}>
+              <AnimatedCircularProgress
+                size={150}
+                width={10}
+                fill={fill}
+                tintColor="#A2CEA5" //滑动线
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#dfdfdf" // 默认的背景滑动线
+              >
+                {(fill) => (
+                  <View style={styles.AnimateMonyDetailViewCotan}>
+                    <View style={styles.AnimateMonyDetailView}>
+                      {/* <Text style={styles.canMony}>可借额度(元)</Text> */}
+                      <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
+                      {/* <Text style={styles.canMony}>总额度6000元</Text> */}
+                    </View>
+                  </View>
+                )}
+              </AnimatedCircularProgress>
+             </View>
+            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
               <Echarts style={{backgroundColor: 'red'}} option={option} height={300} width={width} />
             </View>
           </ScrollView>
@@ -193,7 +220,14 @@ export default class Trend extends Component{
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsMonth'>
-            
+          <AnimatedCircularProgress
+            size={120}
+            width={15}
+            fill={100}
+            tintColor="#00e0ff"
+            onAnimationComplete={() => console.log('onAnimationComplete')}
+            backgroundColor="#3d5875" 
+          />
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsSeason'>
             

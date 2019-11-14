@@ -13,7 +13,7 @@ import {
 //tab component 选项卡
 import ScrollableTabView,{DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
-import Echarts from 'react-native-echarts';
+import Echarts from 'native-echarts';
 
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
@@ -147,10 +147,28 @@ export default class Trend extends Component{
       series: [{
         name: '销量',
         type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
+        data: [20, 10, 36, 10, 10, 20]
       }]
      };
-    return (
+     const options = {
+      title: {
+        text: 'ECharts demo'
+      },
+      tooltip: {},
+      legend: {
+        data:['销量']
+      },
+      xAxis: {
+        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'line',
+        data: [20,10, 36, 10, 10, 20]
+      }]
+     };
+    return (      
       <View style={{flex:1}}>
         <View style={styles.Title}>
           <Text style={styles.Toptext}>Run - Trend</Text>
@@ -166,12 +184,13 @@ export default class Trend extends Component{
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
             <View style={{flex: 1, height:height*0.4, width: width*0.4}}>
-              <Text>Echart</Text>
-              {/* <Echarts option={option} height={300} /> */}
+              <Echarts style={{backgroundColor: 'red'}} option={option} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsWeek'>
-            
+            <View style={{flex: 1, height:height*0.4, width: width*0.4}}>
+              <Echarts style={{backgroundColor: 'red'}} option={options} height={300} width={width} />
+            </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsMonth'>
             

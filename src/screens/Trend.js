@@ -55,8 +55,19 @@ const styles = {
   },
   tabStyle: {
     flex: 1,
-     marginVertical: 10,
+    marginVertical: 20,
   },
+  ProgressView:{
+    height:'30%', 
+    display: 'flex',
+    alignItems: 'center',
+    // backgroundColor: 'blue'
+  },
+  monyText:{
+     color: '#A8CEA5',
+     fontSize: 40,
+     marginTop: -50
+  }
 }
 
 export default class Trend extends Component{
@@ -134,7 +145,6 @@ export default class Trend extends Component{
   }
 
   
-
   render() {
     const option = {
       title: {
@@ -172,8 +182,8 @@ export default class Trend extends Component{
         data: [20,10, 36, 10, 10, 20]
       }]
      };
-     const MAX_POINTS = 6000;
-     const fill = 2000 / MAX_POINTS * 100;
+     const MAX_POINTS = 8000;
+     const fill = 3000 / MAX_POINTS * 100;
 
     return (      
       <View style={{flex:1}}>
@@ -190,23 +200,22 @@ export default class Trend extends Component{
           tabBarActiveTextColor='#FF0000'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
-             <View style={{flex: 1,alignItems: "center",marginVertical:20}}>
+            <View style={styles.ProgressView}>
               <AnimatedCircularProgress
-                size={150}
-                width={10}
+                size={270}
+                width={28}
+                backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线
+                tintColor="#A2CEA5" //滑动线颜色
+                tintColorSecondary="#65E75F"
+                rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}
-                backgroundColor="#dfdfdf" // 默认的背景滑动线
+                backgroundColor="#dfdfdf" // 默认的背景滑动线颜色
+                arcSweepAngle='180' // 半圆 指定弧角
+                dashedBackground={{width:2.5}} // 条形背景为虚线类型
               >
                 {(fill) => (
-                  <View style={styles.AnimateMonyDetailViewCotan}>
-                    <View style={styles.AnimateMonyDetailView}>
-                      {/* <Text style={styles.canMony}>可借额度(元)</Text> */}
-                      <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
-                      {/* <Text style={styles.canMony}>总额度6000元</Text> */}
-                    </View>
-                  </View>
+                  <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
                 )}
               </AnimatedCircularProgress>
              </View>

@@ -19,6 +19,8 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 //Echart
 import Echarts from 'native-echarts';
 
+import {dataEcharts} from '../middleware/until.js'
+
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
@@ -73,6 +75,7 @@ const styles = {
 export default class Trend extends Component{
   constructor (props) {
     super(props)
+
     this.state = {
       rankArr:[
         [
@@ -140,51 +143,36 @@ export default class Trend extends Component{
           }
         ],
       ],
-      data:['ToDay','ThisWeek','ThisMonth','ThisYear']
+      data:['ToDay','ThisWeek','ThisMonth','ThisYear'],
+      dataArr:[
+        {
+          data:[10,20,50,40,10,5,60],
+          Xdata:['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        {
+          data:[10,20,50,40,10,5,60,10,20,50,40,10,5,60,10,20,50,40,10,5,60,5,60,10,20,50,40,10,5,60],
+          Xdata:['1日', '2日', '3日', '4日', '5日', '6日', '7日', '8日', '9日', '10日', '11日', '12日', '13日', '14日', '15日', '16日', '17日', '18日', '19日', '20日', '21日', '22日', '23日', '24日', '25日', '26日', '27日', '28日', '29日', '30日'],
+        },
+        {
+          data:[100,80,600,400],
+          Xdata:['第一季度', '第二季度', '第三季度', '第四季度'],
+        },
+        {
+          data:[100,80,200,400,900,800,600,400,80,100,400,100],
+          Xdata:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+        },
+      ]
     }
   }
 
   
   render() {
-    const option = {
-      title: {
-        text: 'ECharts demo'
-      },
-      tooltip: {},
-      legend: {
-        data:['销量']
-      },
-      xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-      },
-      yAxis: {},
-      series: [{
-        name: '销量',
-        type: 'bar',
-        data: [20, 10, 36, 10, 10, 20]
-      }]
-     };
-     const options = {
-      title: {
-        text: 'ECharts demo'
-      },
-      tooltip: {},
-      legend: {
-        data:['销量']
-      },
-      xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-      },
-      yAxis: {},
-      series: [{
-        name: '销量',
-        type: 'line',
-        data: [20,10, 36, 10, 10, 20]
-      }]
-     };
      const MAX_POINTS = 8000;
      const fill = 3000 / MAX_POINTS * 100;
-
+     const weekData = dataEcharts(this.state.dataArr[0].Xdata,this.state.dataArr[0].data)
+     const monthData = dataEcharts(this.state.dataArr[1].Xdata,this.state.dataArr[1].data)
+     const seasonData = dataEcharts(this.state.dataArr[2].Xdata,this.state.dataArr[2].data)
+     const yearData = dataEcharts(this.state.dataArr[3].Xdata,this.state.dataArr[3].data)
     return (      
       <View style={{flex:1}}>
         <View style={styles.Title}>
@@ -220,29 +208,104 @@ export default class Trend extends Component{
               </AnimatedCircularProgress>
              </View>
             <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
-              <Echarts style={{backgroundColor: 'red'}} option={option} height={300} width={width} />
+              <Echarts style={{backgroundColor: 'red'}} option={weekData} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsWeek'>
-            <View style={{flex: 1, height:height*0.4, width: width*0.4}}>
-              <Echarts style={{backgroundColor: 'red'}} option={options} height={300} width={width} />
+          <View style={styles.ProgressView}>
+              <AnimatedCircularProgress
+                size={270}
+                width={28}
+                backgroundWidth={30}
+                fill={fill}
+                tintColor="#A2CEA5" //滑动线颜色
+                tintColorSecondary="#65E75F"
+                rotation='270' //旋转度数
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#dfdfdf" // 默认的背景滑动线颜色
+                arcSweepAngle='180' // 半圆 指定弧角
+                dashedBackground={{width:2.5}} // 条形背景为虚线类型
+              >
+                {(fill) => (
+                  <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
+                )}
+              </AnimatedCircularProgress>
+             </View>
+            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
+              <Echarts style={{backgroundColor: 'red'}} option={weekData} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsMonth'>
-          <AnimatedCircularProgress
-            size={120}
-            width={15}
-            fill={100}
-            tintColor="#00e0ff"
-            onAnimationComplete={() => console.log('onAnimationComplete')}
-            backgroundColor="#3d5875" 
-          />
+            <View style={styles.ProgressView}>
+              <AnimatedCircularProgress
+                size={270}
+                width={28}
+                backgroundWidth={30}
+                fill={fill}
+                tintColor="#A2CEA5" //滑动线颜色
+                tintColorSecondary="#65E75F"
+                rotation='270' //旋转度数
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#dfdfdf" // 默认的背景滑动线颜色
+                arcSweepAngle='180' // 半圆 指定弧角
+                dashedBackground={{width:2.5}} // 条形背景为虚线类型
+              >
+                {(fill) => (
+                  <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
+                )}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
+              <Echarts style={{backgroundColor: 'red'}} option={monthData} height={300} width={width} />
+            </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsSeason'>
-            
+            <View style={styles.ProgressView}>
+              <AnimatedCircularProgress
+                size={270}
+                width={28}
+                backgroundWidth={30}
+                fill={fill}
+                tintColor="#A2CEA5" //滑动线颜色
+                tintColorSecondary="#65E75F"
+                rotation='270' //旋转度数
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#dfdfdf" // 默认的背景滑动线颜色
+                arcSweepAngle='180' // 半圆 指定弧角
+                dashedBackground={{width:2.5}} // 条形背景为虚线类型
+              >
+                {(fill) => (
+                  <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
+                )}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
+              <Echarts style={{backgroundColor: 'red'}} option={seasonData} height={300} width={width} />
+            </View>            
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsYear'>
-          
+            <View style={styles.ProgressView}>
+              <AnimatedCircularProgress
+                size={270}
+                width={28}
+                backgroundWidth={30}
+                fill={fill}
+                tintColor="#A2CEA5" //滑动线颜色
+                tintColorSecondary="#65E75F"
+                rotation='270' //旋转度数
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#dfdfdf" // 默认的背景滑动线颜色
+                arcSweepAngle='180' // 半圆 指定弧角
+                dashedBackground={{width:2.5}} // 条形背景为虚线类型
+              >
+                {(fill) => (
+                  <Text style={styles.monyText}> {Math.round(MAX_POINTS * fill / 100)}KM</Text>
+                )}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
+              <Echarts style={{backgroundColor: 'red'}} option={yearData} height={300} width={width} />
+            </View>          
         </ScrollView>
         </ScrollableTabView>
       </View>

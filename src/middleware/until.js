@@ -37,6 +37,7 @@ const charge = (weekdate) => {
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          animation:false,
           splitLine: { show: false },
           axisLine: {
             lineStyle: {
@@ -46,6 +47,10 @@ const charge = (weekdate) => {
           axisTick: {
             show: false
           },
+          // axisLabel:{
+          //   //X轴刻度配置
+          //   interval:2 //0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数
+          // },
           data: Xdata
         },
         yAxis: {
@@ -72,7 +77,7 @@ const charge = (weekdate) => {
         },
         series: [
           {
-            name: 'KM',
+            name: '/KM',
             type: 'line',
             showSymbol: true,
             sampling: 'average',

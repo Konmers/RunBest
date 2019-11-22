@@ -48,7 +48,7 @@ const styles = {
   },
   container: {
     flex: 1,
-    backgroundColor: 'write',
+    backgroundColor: '#f6f6f6',
   },
   lineStyle: {
     width: ScreenWidth / 5,
@@ -62,22 +62,16 @@ const styles = {
   ProgressView:{
     height:'30%', 
     alignItems: 'center',
-//     flexDirection:'column',
-//     alignContent:'center',
-//     marginHorizontal:10,
-//     marginVertical: 10,
-//     borderRadius:15,
-//     shadowColor:'#000000',
-//     shadowOpacity:0.9,
-//     shadowRadius:10,
-//     elevation: 5,//设置此项Android显示阴影，只能是灰色阴影，不支持其他颜色设置（Android） 
-//     backgroundColor: 'white',
-//     overflow: 'hidden',
+    backgroundColor: 'white',
   },
   echartView:{
     flex: 1, 
-    height:height*0.4, 
-    width: width*0.4,
+    marginVertical: 10,
+    backgroundColor: 'white',
+  },
+  echarts:{
+    width: '95%',
+    backgroundColor: '#A2CEA5'
   },
   monyText:{
      color: '#A8CEA5',
@@ -219,7 +213,7 @@ export default class Trend extends Component{
               </AnimatedCircularProgress>
              </View>
             <View style={styles.echartView}>
-              <Echarts style={{backgroundColor: 'red'}} option={weekData} height={300} width={width} />
+              <Echarts style={styles.echarts} option={weekData} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsWeek'>
@@ -243,7 +237,7 @@ export default class Trend extends Component{
               </AnimatedCircularProgress>
              </View>
             <View style={styles.echartView}>
-              <Echarts style={{backgroundColor: 'red'}} option={weekData} height={300} width={width} />
+              <Echarts style={styles.echarts} option={weekData} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsMonth'>
@@ -266,8 +260,8 @@ export default class Trend extends Component{
                 )}
               </AnimatedCircularProgress>
             </View>
-            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
-              <Echarts style={{backgroundColor: 'red'}} option={monthData} height={300} width={width} />
+            <View style={styles.echartView}>
+              <Echarts style={styles.echarts} option={monthData} height={300} width={width} />
             </View>
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsSeason'>
@@ -290,8 +284,8 @@ export default class Trend extends Component{
                 )}
               </AnimatedCircularProgress>
             </View>
-            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
-              <Echarts style={{backgroundColor: 'red'}} option={seasonData} height={300} width={width} />
+            <View style={styles.echartView}>
+              <Echarts style={styles.echarts} option={seasonData} height={300} width={width} />
             </View>            
           </ScrollView>
           <ScrollView style={styles.tabStyle} tabLabel='TsYear'>
@@ -314,8 +308,8 @@ export default class Trend extends Component{
                 )}
               </AnimatedCircularProgress>
             </View>
-            <View style={{flex: 1, height:height*0.4, width: width*0.4,}}>
-              <Echarts style={{backgroundColor: 'red'}} option={yearData} height={300} width={width} />
+            <View style={styles.echartView}>
+              <Echarts style={styles.echarts} option={yearData} height={300} width={width} />
             </View>          
         </ScrollView>
         </ScrollableTabView>

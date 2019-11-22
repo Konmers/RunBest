@@ -67,8 +67,8 @@ const styles = {
     flexDirection:'column',
     alignContent:'center',
     marginHorizontal:10,
-    marginBottom:20,
-    borderRadius:10,
+    marginVertical: 10,
+    borderRadius:15,
     shadowColor:'#000000',
     shadowOpacity:0.9,
     shadowRadius:10,
@@ -116,12 +116,12 @@ const styles = {
   },
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
   lineStyle: {
     width: ScreenWidth / 5,
-    height: 2,
-    backgroundColor:'red'
+    height: 5,
+    backgroundColor:'#A2CEA5'
   },
   tabStyle: {
     flex: 1,
@@ -247,7 +247,7 @@ export default class Rank extends Component {
           style={styles.container}
           renderTabBar={() => <DefaultTabBar />}
           tabBarUnderlineStyle={styles.lineStyle}
-          tabBarActiveTextColor='#FF0000'
+          tabBarActiveTextColor='#A2CEA5'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
             <View style={styles.Rank}>

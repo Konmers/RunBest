@@ -1,3 +1,4 @@
+//走势
 import React, {Component} from 'react';
 import {
   Text,

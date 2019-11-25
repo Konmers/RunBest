@@ -6154,6 +6154,11 @@ react-native-git-upgrade@^0.2.7:
     shelljs "^0.7.5"
     yeoman-environment "1.5.3"
 
+react-native-image-picker@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-1.1.0.tgz#c2a0523886edb4cf2cdc008ad0a71433142a4d53"
+  integrity sha1-wqBSOIbttM8s3ACK0KcUMxQqTVM=
+
 react-native-orientation-locker@^1.1.7:
   version "1.1.7"
   resolved "https://registry.npm.taobao.org/react-native-orientation-locker/download/react-native-orientation-locker-1.1.7.tgz#f027a9ff63f7e6ad89be430cf0a5723b6434ccf7"

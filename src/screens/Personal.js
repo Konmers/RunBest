@@ -11,6 +11,9 @@ import {
   ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
 } from 'react-native'
 
+//时间
+import dayjs from 'dayjs'
+
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
@@ -41,31 +44,47 @@ const styles = {
       right: 15
     },
     content:{
-        display: 'flex',
         width,
         height,
-        flexDirection: 'column',
-        alignItems: 'center',
         backgroundColor: '#f0f0f0'  //底色
+    },
+    weatherStyle:{
+        width,
+        height: '8%',
+        backgroundColor: 'white'
+    },
+    weatherView:{
+        width:'50%',
+        height: '100%',
+        padding:0,
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    weatherImg:{
+        width: 50,
+        height: 50,
     },
     avatar:{
        width,
-       height: '40%',
+       height: '30%',
        display: 'flex',
-       alignContent: 'center',
        alignItems: 'center',
-       justifyContent: 'center',
        backgroundColor: 'white',
+    //    backgroundColor: 'red',
     },
     ViewImg:{
-        width: '40%',
-        height: '50%',
+        width: '35%',
+        height: '55%',
         borderRadius: 100,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
         overflow: 'hidden'
+    },
+    ViewText:{
+        marginTop:30,
+        fontSize: 20,
+        color: '#333'
     },
     optionArrs:{
         display: 'flex',
@@ -124,7 +143,7 @@ const styles = {
     lifeViewimg:{
         width: 25,
         height: 25,
-        marginRight: 5
+        marginRight: 10
     },
     optionsText:{
         fontSize: 18,
@@ -164,26 +183,48 @@ const styles = {
                 img:require('../public/Iamge/Else/feedback_after.png')
             }
         }
+        this.nowHour = dayjs().hour() 
+    }
+        // let nowDate = dayjs().format("YYYY-MM-DD HH:mm:ss")
+    weather(){
+        console.warn('nowHour-------- ',this.nowHour)
+        if(6 <= this.nowHour&&this.nowHour < 12)
+        {
+            return (<View style={styles.weatherView}>
+                <Image style={styles.weatherImg} source={require('../public/Iamge/Else/sun.png')} /><Text>上午好~</Text></View>)
+        }
+        else if(12 <= this.nowHour&&this.nowHour < 18)
+        {
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../public/Iamge/Else/sun.png')} /><Text>下午好~</Text></View>)
+        }
+        else
+        {
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../public/Iamge/Else/moon.png')} /><Text>晚上好~</Text></View>)
+        }
     }
     render() { 
         return ( 
             <View style={{flex:1}}>
                 <View style={styles.Title}>
-                    {/* <Text style={styles.Toptext}>Run - Personal</Text> */}
+                    <Text style={styles.Toptext}>Run - Personal</Text>
                     <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
                         <Image style={{width:30,height: 30}} source={require('../public/Iamge/Else/seting.png')} />
                     </TouchableOpacity >
                 </View>
                 <View style={styles.content}>
-                    <View style={styles.avatar}>
-                        <TouchableOpacity style={styles.ViewImg} onPress={() => this.getVideoList()}>
-                            <Image style={{width:'100%',height:'100%'}} source={require('../public/Iamge/Head/14.jpg')} />
-                        </TouchableOpacity>
+                    <View style={styles.weatherStyle}>
+                    {this.weather()}
                     </View>
+                    <TouchableOpacity style={styles.avatar}  onPress={() => this.getVideoList()}>
+                        <View style={styles.ViewImg}>
+                            <Image style={{width:'100%',height:'100%'}} source={require('../public/Iamge/Head/14.jpg')} />
+                        </View>
+                        <Text style={styles.ViewText}>Konmer <Image style={{width:20,height: 20}} source={require('../public/Iamge/Else/edit_1.png')} /> </Text>
+                    </TouchableOpacity>
                     <View style={styles.optionArrs}>
                        {
                            this.state.optionArr.map((item,i) =>
-                           <View style={styles.options}>
+                           <View style={styles.options} key={i}>
                                {i===0 ?(
                                 <TouchableOpacity style={styles.optionsdetail} onPress={() => this.getVideoList(i)}>
                                     <View style={styles.lifeView}>

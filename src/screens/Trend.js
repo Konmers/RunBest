@@ -76,7 +76,7 @@ const styles = {
     backgroundColor: '#17C6AC'
   },
   monyText:{
-     color: '#A8CEA5',
+     color: '#17C6AC',
      fontSize: 40,
      marginTop: -50
   }

@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-native-community/viewpager": "^2.0.2",
     "@react-navigation/native": "^3.6.2",
+    "dayjs": "^1.8.17",
     "native-echarts": "^0.5.0",
     "react": "16.9.0",
     "react-native": "^0.61.3",

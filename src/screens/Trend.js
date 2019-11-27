@@ -41,7 +41,8 @@ const styles = {
   },
   Toptext:{
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 20,
+    color: '#333'
   },
   Share:{
     position:'absolute',
@@ -54,7 +55,7 @@ const styles = {
   lineStyle: {
     width: ScreenWidth / 5,
     height: 5,
-    backgroundColor:'#A2CEA5'
+    backgroundColor:'#17C6AC'
   },
   tabStyle: {
     flex: 1,
@@ -68,11 +69,11 @@ const styles = {
   echartView:{
     flex: 1, 
     marginVertical: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   echarts:{
     width: '95%',
-    backgroundColor: '#A2CEA5'
+    backgroundColor: '#17C6AC'
   },
   monyText:{
      color: '#A8CEA5',
@@ -80,7 +81,6 @@ const styles = {
      marginTop: -50
   }
 }
-
 export default class Trend extends Component{
   constructor (props) {
     super(props)
@@ -125,7 +125,7 @@ export default class Trend extends Component{
           style={styles.container}
           renderTabBar={() => <DefaultTabBar />}
           tabBarUnderlineStyle={styles.lineStyle} 
-          tabBarActiveTextColor='#A2CEA5'
+          tabBarActiveTextColor='#17C6AC'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
             <View style={styles.ProgressView}>
@@ -134,7 +134,7 @@ export default class Trend extends Component{
                 width={28}
                 backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线颜色
+                tintColor="#17C6AC" //滑动线颜色
                 tintColorSecondary="#65E75F"
                 rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}
@@ -158,7 +158,7 @@ export default class Trend extends Component{
                 width={28}
                 backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线颜色
+                tintColor="#17C6AC" //滑动线颜色
                 tintColorSecondary="#65E75F"
                 rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}
@@ -182,7 +182,7 @@ export default class Trend extends Component{
                 width={28}
                 backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线颜色
+                tintColor="#17C6AC" //滑动线颜色
                 tintColorSecondary="#65E75F"
                 rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}
@@ -206,7 +206,7 @@ export default class Trend extends Component{
                 width={28}
                 backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线颜色
+                tintColor="#17C6AC" //滑动线颜色
                 tintColorSecondary="#65E75F"
                 rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}
@@ -230,7 +230,7 @@ export default class Trend extends Component{
                 width={28}
                 backgroundWidth={30}
                 fill={fill}
-                tintColor="#A2CEA5" //滑动线颜色
+                tintColor="#17C6AC" //滑动线颜色
                 tintColorSecondary="#65E75F"
                 rotation='270' //旋转度数
                 onAnimationComplete={() => console.log('onAnimationComplete')}

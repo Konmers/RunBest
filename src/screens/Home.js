@@ -203,7 +203,7 @@ class Home extends Component {
       <ScrollView style={{flex: 1}}>
         <Swiper style={styles.wrapper} autoplay 
         dot={<View style={{marginLeft:10,width:30,height:5,borderRadius:50,backgroundColor: '#fff'}} />}
-        activeDot={<View style={{marginLeft:10,width:30,height:5,borderRadius:50,backgroundColor: '#24ACF2'}} />}
+        activeDot={<View style={{marginLeft:10,width:30,height:5,borderRadius:50,backgroundColor: '#17C6AC'}} />}
         >
           {
             this.state.imgList.map((item, i) => <Slide

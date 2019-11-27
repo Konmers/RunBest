@@ -963,7 +963,7 @@
 
 "@react-navigation/native@^3.6.2":
   version "3.6.2"
-  resolved "https://registry.npm.taobao.org/@react-navigation/native/download/@react-navigation/native-3.6.2.tgz#3634697b6350cc5189657ae4551f2d52b57fbbf0"
+  resolved "https://registry.npm.taobao.org/@react-navigation/native/download/@react-navigation/native-3.6.2.tgz?cache=0&sync_timestamp=1573957501726&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40react-navigation%2Fnative%2Fdownload%2F%40react-navigation%2Fnative-3.6.2.tgz#3634697b6350cc5189657ae4551f2d52b57fbbf0"
   integrity sha1-NjRpe2NQzFGJZXrkVR8tUrV/u/A=
   dependencies:
     hoist-non-react-statics "^3.0.1"
@@ -6257,10 +6257,10 @@ react-native-video@^5.0.2:
     prop-types "^15.5.10"
     shaka-player "^2.4.4"
 
-react-native-webview@^7.5.1:
-  version "7.5.1"
-  resolved "https://registry.npm.taobao.org/react-native-webview/download/react-native-webview-7.5.1.tgz#01b026c1110d7548123460cc640fb1d4227a0f54"
-  integrity sha1-AbAmwRENdUgSNGDMZA+x1CJ6D1Q=
+react-native-webview@^7.5.2:
+  version "7.5.2"
+  resolved "https://registry.npm.taobao.org/react-native-webview/download/react-native-webview-7.5.2.tgz?cache=0&sync_timestamp=1574762205135&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-webview%2Fdownload%2Freact-native-webview-7.5.2.tgz#9da3006e03636faaa9d05f3abff46cd40bfb80f9"
+  integrity sha1-naMAbgNjb6qp0F86v/Rs1Av7gPk=
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"

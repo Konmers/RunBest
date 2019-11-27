@@ -1,3 +1,6 @@
+import {Echarts,echarts} from 'native-echarts';
+
+
 const charge = (weekdate) => {
     const max = Math.max.apply(null, weekdate)
     if (!max) return 0
@@ -85,9 +88,30 @@ const charge = (weekdate) => {
             itemStyle: {
               borderWidth: 5,
               normal: {
-                color: '#FF5314'
+                color: '#65E75F'
               }
             },
+            smooth:true, 
+            areaStyle: {
+              normal: {
+                  color: {
+                      type: 'linear',
+                      x: 0,
+                      y: 0,
+                      x2: 0,
+                      y2: 1,
+                      colorStops: [
+                          {
+                              offset: 0, color: '#65E75F' // 100% 处的颜色
+                          },
+                          {
+                              offset: 1, color: '#17C6AC' // 0% 处的颜色
+                          },
+
+                      ],
+                  }
+              }
+          },
             data: Arrdata
           }
         ]

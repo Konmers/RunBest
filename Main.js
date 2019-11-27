@@ -6,6 +6,7 @@ import {View,Text,Image} from 'react-native';
 // Stack:这是一个分组的容器,他不表示具体的路由,专门用来给路由分组的 
 // Scene:就表示一个具体的路由规则,好比昨天学到的Route
 import {Router,Stack,Scene} from 'react-native-router-flux';
+import {createAppContainer,directly} from '@react-navigation/native'
 
 //引用页面
 import App from './App.js'

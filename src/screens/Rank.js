@@ -31,7 +31,8 @@ const styles = {
     height: height*0.06,
     textAlign: 'center',
     lineHeight: height*0.06,
-    fontSize: 20
+    fontSize: 20,
+    color: '#333'
   },
   SwiperView:{
     height: 200,
@@ -121,7 +122,7 @@ const styles = {
   lineStyle: {
     width: ScreenWidth / 5,
     height: 5,
-    backgroundColor:'#A2CEA5'
+    backgroundColor:'#17C6AC'
   },
   tabStyle: {
     flex: 1,
@@ -230,7 +231,7 @@ export default class Rank extends Component {
         <View style={styles.SwiperView}>
           <Swiper style={styles.wrapper}
           dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}
-          activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#24ACF2'}} />}
+          activeDot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#17C6AC'}} />}
           autoplay
           >
             {
@@ -247,7 +248,7 @@ export default class Rank extends Component {
           style={styles.container}
           renderTabBar={() => <DefaultTabBar />}
           tabBarUnderlineStyle={styles.lineStyle}
-          tabBarActiveTextColor='#A2CEA5'
+          tabBarActiveTextColor='#17C6AC'
         >
           <ScrollView style={styles.tabStyle} tabLabel='ToDay'>
             <View style={styles.Rank}>

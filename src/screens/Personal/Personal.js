@@ -156,7 +156,7 @@ const styles = {
         width:15,
         height:15,
     },
-  }
+}
 
 
  class Personal extends Component {

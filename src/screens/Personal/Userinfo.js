@@ -26,17 +26,30 @@ import {
         alignItems: 'center',
         backgroundColor:'#f0f0f0'
     },
-    datail:{
+    datailView:{
         width,
-        height: '10%',
+        height: '80%',
+        display: 'flex',
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    datail:{
+        width:'90%',
+        height: '11%',
         display: 'flex',
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 15,
-        backgroundColor: 'white'
+        paddingHorizontal: 5,
+        borderTopWidth: 0.5,
+        borderColor: '#c9c9c9'
     }, 
+    line:{
+        borderTopWidth: 0.5,
+        borderColor: '#c9c9c9'
+    },
     datailsTitle:{
        fontFamily: 'DIN alternate',
        fontSize: 15
@@ -50,8 +63,8 @@ import {
         justifyContent: 'flex-end',
     },
     datailsImage:{
-        width: 20,
-        height: 20
+        width: 40,
+        height: 40
     },
     datailsRight:{
         width:15,
@@ -107,27 +120,29 @@ import {
     render() {
         return (
             <View style={styles.BigView}>
-                {
-                    this.state.dataArr.map((item,i) =>
-                        <View style={styles.datail} key={i}>
-                           <Text style={styles.datailsTitle}>{item.title}</Text>
-                           <View style={styles.dataRightView}>
-                            {
-                                i==0?(
-                                    <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
-                                        <Image style={styles.datailsImage} source={item.data} />         
-                                    </TouchableOpacity>
-                                ):(
-                                    <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
-                                        <Text style={styles.datailsData}>{item.data}</Text>         
-                                    </TouchableOpacity>
-                                )
-                            }
-                            <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
-                           </View>
-                        </View>
-                    )
-                }
+                <View style={styles.datailView}>
+                    {
+                        this.state.dataArr.map((item,i) =>
+                            <View style={styles.datail} key={i}>
+                            <Text style={styles.datailsTitle}>{item.title}</Text>
+                            <View style={styles.dataRightView}>
+                                {
+                                    i==0?(
+                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
+                                            <Image style={styles.datailsImage} source={item.data} />         
+                                        </TouchableOpacity>
+                                    ):(
+                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
+                                            <Text style={styles.datailsData}>{item.data}</Text>         
+                                        </TouchableOpacity>
+                                    )
+                                }
+                                <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
+                            </View>
+                            </View>
+                        )
+                    }
+                </View>
             </View>
         )
     }

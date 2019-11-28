@@ -2,7 +2,7 @@
 
 **主题色**
 
-![image-20191128151117880](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20191128151117880.png)
+![image-20191128151117880](\image-20191128151117880.png)
 
 ​                                                                         #17C6AC 
 

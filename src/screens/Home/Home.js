@@ -267,11 +267,11 @@ class Home extends Component {
     // Actions.videodetail({id:10}) //传参
     Actions.videodetail()// 空传参
   }
-    getVideoList = (value) =>{
-      // console.warn('wwwwwwwwwww')
-      // Actions.videodetail({id:10}) //传参
-      Actions.videodetail({id:value})// 空传参
-    }
+  getVideoList = (value) =>{
+    // console.warn('wwwwwwwwwww')
+    // Actions.videodetail({id:10}) //传参
+    Actions.videodetail({id:value})// 空传参
+  }
 } 
 
 

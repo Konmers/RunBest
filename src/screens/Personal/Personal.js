@@ -14,6 +14,9 @@ import {
 //时间
 import dayjs from 'dayjs'
 
+// Actions表示要进行路由的JS操作了,可以跳特到新路由
+import { Actions } from 'react-native-router-flux'
+
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
@@ -215,7 +218,7 @@ const styles = {
                     <View style={styles.weatherStyle}>
                     {this.weather()}
                     </View>
-                    <TouchableOpacity style={styles.avatar}  onPress={() => this.getVideoList()}>
+                    <TouchableOpacity style={styles.avatar}  onPress={() => this.getUserinfo('sdfsd')}>
                         <View style={styles.ViewImg}>
                             <Image style={{width:'100%',height:'100%'}} source={require('../../public/Iamge/Head/14.jpg')} />
                         </View>
@@ -226,7 +229,7 @@ const styles = {
                            this.state.optionArr.map((item,i) =>
                            <View style={styles.options} key={i}>
                                {i===0 ?(
-                                <TouchableOpacity style={styles.optionsdetail} onPress={() => this.getVideoList(i)}>
+                                <TouchableOpacity style={styles.optionsdetail} onPress={() => this.getUserinfo(i)}>
                                     <View style={styles.lifeView}>
                                         <Image style={styles.lifeViewimg} source={item.img} />
                                         <Text style={styles.optionsText}>{item.title}</Text>
@@ -234,7 +237,7 @@ const styles = {
                                     <Image style={styles.optionsImg} source={require('../../public/Iamge/Else/rightnavigation.png')} />
                                 </TouchableOpacity>  
                                ):(
-                                <TouchableOpacity style={[styles.optionsdetail,styles.line]} onPress={() => this.getVideoList(i)}>
+                                <TouchableOpacity style={[styles.optionsdetail,styles.line]} onPress={() => this.getUserinfo(i)}>
                                     <View style={styles.lifeView}>
                                         <Image style={styles.lifeViewimg} source={item.img} />
                                         <Text style={styles.optionsText}>{item.title}</Text>
@@ -248,7 +251,7 @@ const styles = {
                     </View>
                     <View style={[styles.optionArrss]}>
                         <View style={styles.optionss}>
-                            <TouchableOpacity style={[styles.optionsdetail]} onPress={() => this.getVideoList()}>
+                            <TouchableOpacity style={[styles.optionsdetail]} onPress={() => this.getUserinfo()}>
                                 <View style={styles.lifeView}>
                                     <Image style={styles.lifeViewimg} source={this.state.optionDatail.img} />
                                     <Text style={styles.optionsText}>{this.state.optionDatail.title}</Text>
@@ -264,7 +267,12 @@ const styles = {
 
     onPress = () => {
         console.warn('ddddd') 
-      };
+    };
+    getUserinfo = (value) =>{
+        // console.warn('wwwwwwwwwww')
+        // Actions.videodetail({id:10}) //传参
+        Actions.userinfo({id:value})// 空传参
+    }
 }
 
 export default Personal;

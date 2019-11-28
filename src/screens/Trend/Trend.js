@@ -20,7 +20,7 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 //Echart
 import Echarts from 'native-echarts';
 
-import {dataEcharts} from '../middleware/until.js'
+import {dataEcharts} from '../../middleware/until.js'
 
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
@@ -118,7 +118,7 @@ export default class Trend extends Component{
         <View style={styles.Title}>
           <Text style={styles.Toptext}>Run - Trend</Text>
           <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
-            <Image style={{width:30,height: 30}} source={require('../public/Iamge/Else/share.png')} />
+            <Image style={{width:30,height: 30}} source={require('../../public/Iamge/Else/share.png')} />
           </TouchableOpacity >
         </View>
         <ScrollableTabView

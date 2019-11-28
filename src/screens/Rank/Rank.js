@@ -23,7 +23,7 @@ import { Actions } from 'react-native-router-flux'
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
 
-const loading = require('../public/Iamge/Banner/loading.gif')
+const loading = require('../../public/Iamge/Banner/loading.gif')
 
 const styles = {
   Toptext:{
@@ -141,73 +141,73 @@ export default class Rank extends Component {
     super(props)
     this.state = {
       imgList: [
-        require('../public/Iamge/Banner/bannerOne.jpg'),
-        require('../public/Iamge/Banner/banner_5.png'),
-        require('../public/Iamge/Banner/banner_8.jpg'),
-        require('../public/Iamge/Banner/bannerTwo.jpg'),
+        require('../../public/Iamge/Banner/bannerOne.jpg'),
+        require('../../public/Iamge/Banner/banner_5.png'),
+        require('../../public/Iamge/Banner/banner_8.jpg'),
+        require('../../public/Iamge/Banner/bannerTwo.jpg'),
       ],
       loadQueue: [0, 0, 0, 0],
       rankArr:[
         [
           {
-            head: require('../public/Iamge/Head/10.jpg'),
+            head: require('../../public/Iamge/Head/10.jpg'),
             name:'张三',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/12.jpg'),
+            head: require('../../public/Iamge/Head/12.jpg'),
             name:'李四',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/4.jpg'),
+            head: require('../../public/Iamge/Head/4.jpg'),
             name:'王五',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/8.jpg'),
+            head: require('../../public/Iamge/Head/8.jpg'),
             name:'赵六',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/11.png'),
+            head: require('../../public/Iamge/Head/11.png'),
             name:'田七',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/13.jpg'),
+            head: require('../../public/Iamge/Head/13.jpg'),
             name:'陈八',
             sketch:'哒哒哒哒哒哒'
           }
         ],
         [
           {
-            head: require('../public/Iamge/Head/8.jpg'),
+            head: require('../../public/Iamge/Head/8.jpg'),
             name:'赵六',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/11.png'),
+            head: require('../../public/Iamge/Head/11.png'),
             name:'田七',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/10.jpg'),
+            head: require('../../public/Iamge/Head/10.jpg'),
             name:'张三',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/13.jpg'),
+            head: require('../../public/Iamge/Head/13.jpg'),
             name:'陈八',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/12.jpg'),
+            head: require('../../public/Iamge/Head/12.jpg'),
             name:'李四',
             sketch:'哒哒哒哒哒哒'
           },
           {
-            head: require('../public/Iamge/Head/4.jpg'),
+            head: require('../../public/Iamge/Head/4.jpg'),
             name:'王五',
             sketch:'哒哒哒哒哒哒'
           }

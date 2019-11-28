@@ -10,11 +10,11 @@ import {createAppContainer,directly} from '@react-navigation/native'
 
 //引用页面
 import App from './App.js'
-import HomeScreen from './src/screens/Home.js'; //首页
+import HomeScreen from './src/screens/Home/Home.js'; //首页
 // import Shop from './src/screens/demo.js';//商城
-import RankScreen from './src/screens/Rank.js';//商城
-import TrendScreen from './src/screens/Trend.js';//排行榜
-import PersonalScreen from './src/screens/Personal.js';//个人中心
+import RankScreen from './src/screens/Rank/Rank.js';//商城
+import TrendScreen from './src/screens/Trend/Trend.js';//排行榜
+import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 

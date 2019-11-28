@@ -19,7 +19,7 @@ import { Actions } from 'react-native-router-flux'
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 
-const loading = require('../public/Iamge/Banner/loading.gif')
+const loading = require('../../public/Iamge/Banner/loading.gif')
 
 const styles = {
   wrapper: {
@@ -151,40 +151,40 @@ class Home extends Component {
     super(props)
     this.state = {
       imgList: [
-        require('../public/Iamge/Banner/banner_1.jpg'),
-        require('../public/Iamge/Banner/banner_4.jpg'),
-        require('../public/Iamge/Banner/banner_6.jpeg'),
-        require('../public/Iamge/Banner/banner_7.jpg'),
+        require('../../public/Iamge/Banner/banner_1.jpg'),
+        require('../../public/Iamge/Banner/banner_4.jpg'),
+        require('../../public/Iamge/Banner/banner_6.jpeg'),
+        require('../../public/Iamge/Banner/banner_7.jpg'),
       ],
       loadQueue: [0, 0, 0, 0],
       rankTop:[
         {
-          head: require('../public/Iamge/Head/10.jpg'),
+          head: require('../../public/Iamge/Head/10.jpg'),
           name:'张三',
           sketch:'哒哒哒哒哒哒'
         },
         {
-          head: require('../public/Iamge/Head/12.jpg'),
+          head: require('../../public/Iamge/Head/12.jpg'),
           name:'李四',
           sketch:'哒哒哒哒哒哒'
         },
         {
-          head: require('../public/Iamge/Head/4.jpg'),
+          head: require('../../public/Iamge/Head/4.jpg'),
           name:'王五',
           sketch:'哒哒哒哒哒哒'
         },
         {
-          head: require('../public/Iamge/Head/8.jpg'),
+          head: require('../../public/Iamge/Head/8.jpg'),
           name:'赵六',
           sketch:'哒哒哒哒哒哒'
         },
         {
-          head: require('../public/Iamge/Head/11.png'),
+          head: require('../../public/Iamge/Head/11.png'),
           name:'田七',
           sketch:'哒哒哒哒哒哒'
         },
         {
-          head: require('../public/Iamge/Head/13.jpg'),
+          head: require('../../public/Iamge/Head/13.jpg'),
           name:'陈八',
           sketch:'哒哒哒哒哒哒'
         }
@@ -219,19 +219,19 @@ class Home extends Component {
           <View style={{flex:1,flexDirection:'row',flexWrap:'wrap',alignContent:'center',alignItems: "center",paddingVertical:0}}>
               <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists}>
                 <View >
-                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/live.png')}/>
+                  <Image style={styles.Eximage} source={require('../../public/Iamge/Expression/live.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Live</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists} underlayColor={true}>
                 <View >
-                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/project.png')}/>
+                  <Image style={styles.Eximage} source={require('../../public/Iamge/Expression/project.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Project</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight style={styles.Extouch} onPress={this.getVideoLists} underlayColor={true}>
                 <View >
-                  <Image style={styles.Eximage} source={require('../public/Iamge/Expression/share.png')}/>
+                  <Image style={styles.Eximage} source={require('../../public/Iamge/Expression/share.png')}/>
                   <Text style={{textAlign: 'center',}}>R - Share</Text>
                 </View>
               </TouchableHighlight>

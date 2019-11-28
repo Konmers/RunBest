@@ -163,24 +163,24 @@ const styles = {
             optionArr:[
                 {
                     title:'我的里程',
-                    img:require('../public/Iamge/Else/accomplish_after.png')
+                    img:require('../../public/Iamge/Else/accomplish_after.png')
                 },
                 {
                     title:'步数记录',
-                    img:require('../public/Iamge/Else/record_after.png')
+                    img:require('../../public/Iamge/Else/record_after.png')
                 },
                 {
                     title:'关于我们',
-                    img:require('../public/Iamge/Else/about_after.png')
+                    img:require('../../public/Iamge/Else/about_after.png')
                 },
                 {
                     title:'意见反馈',
-                    img:require('../public/Iamge/Else/message_after.png')
+                    img:require('../../public/Iamge/Else/message_after.png')
                 }
             ],
             optionDatail:{
                 title:'意见反馈',
-                img:require('../public/Iamge/Else/feedback_after.png')
+                img:require('../../public/Iamge/Else/feedback_after.png')
             }
         }
         this.nowHour = dayjs().hour() 
@@ -191,15 +191,15 @@ const styles = {
         if(6 <= this.nowHour&&this.nowHour < 12)
         {
             return (<View style={styles.weatherView}>
-                <Image style={styles.weatherImg} source={require('../public/Iamge/Else/sun.png')} /><Text>上午好~</Text></View>)
+                <Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.png')} /><Text>上午好~</Text></View>)
         }
         else if(12 <= this.nowHour&&this.nowHour < 18)
         {
-            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../public/Iamge/Else/sun.png')} /><Text>下午好~</Text></View>)
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.png')} /><Text>下午好~</Text></View>)
         }
         else
         {
-            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../public/Iamge/Else/moon.png')} /><Text>晚上好~</Text></View>)
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/moon.png')} /><Text>晚上好~</Text></View>)
         }
     }
     render() { 
@@ -208,7 +208,7 @@ const styles = {
                 <View style={styles.Title}>
                     <Text style={styles.Toptext}>Run - Personal</Text>
                     <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
-                        <Image style={{width:30,height: 30}} source={require('../public/Iamge/Else/seting.png')} />
+                        <Image style={{width:30,height: 30}} source={require('../../public/Iamge/Else/seting.png')} />
                     </TouchableOpacity >
                 </View>
                 <View style={styles.content}>
@@ -217,9 +217,9 @@ const styles = {
                     </View>
                     <TouchableOpacity style={styles.avatar}  onPress={() => this.getVideoList()}>
                         <View style={styles.ViewImg}>
-                            <Image style={{width:'100%',height:'100%'}} source={require('../public/Iamge/Head/14.jpg')} />
+                            <Image style={{width:'100%',height:'100%'}} source={require('../../public/Iamge/Head/14.jpg')} />
                         </View>
-                        <Text style={styles.ViewText}>Konmer <Image style={{width:20,height: 20}} source={require('../public/Iamge/Else/edit_1.png')} /> </Text>
+                        <Text style={styles.ViewText}>Konmer <Image style={{width:20,height: 20}} source={require('../../public/Iamge/Else/edit_1.png')} /> </Text>
                     </TouchableOpacity>
                     <View style={styles.optionArrs}>
                        {
@@ -231,7 +231,7 @@ const styles = {
                                         <Image style={styles.lifeViewimg} source={item.img} />
                                         <Text style={styles.optionsText}>{item.title}</Text>
                                     </View>
-                                    <Image style={styles.optionsImg} source={require('../public/Iamge/Else/rightnavigation.png')} />
+                                    <Image style={styles.optionsImg} source={require('../../public/Iamge/Else/rightnavigation.png')} />
                                 </TouchableOpacity>  
                                ):(
                                 <TouchableOpacity style={[styles.optionsdetail,styles.line]} onPress={() => this.getVideoList(i)}>
@@ -239,7 +239,7 @@ const styles = {
                                         <Image style={styles.lifeViewimg} source={item.img} />
                                         <Text style={styles.optionsText}>{item.title}</Text>
                                     </View>
-                                    <Image style={styles.optionsImg} source={require('../public/Iamge/Else/rightnavigation.png')} />
+                                    <Image style={styles.optionsImg} source={require('../../public/Iamge/Else/rightnavigation.png')} />
                                 </TouchableOpacity> 
                                )}
                             </View>
@@ -253,7 +253,7 @@ const styles = {
                                     <Image style={styles.lifeViewimg} source={this.state.optionDatail.img} />
                                     <Text style={styles.optionsText}>{this.state.optionDatail.title}</Text>
                                 </View>
-                                <Image style={styles.optionsImg} source={require('../public/Iamge/Else/rightnavigation.png')} />
+                                <Image style={styles.optionsImg} source={require('../../public/Iamge/Else/rightnavigation.png')} />
                             </TouchableOpacity> 
                         </View>
                     </View>

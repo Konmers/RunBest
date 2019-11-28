@@ -23,11 +23,11 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 
 //页面引用
-import Home from './src/screens/Home.js'; //首页
+import Home from './src/screens/Home/Home.js'; //首页
 // import Shop from './src/screens/Demo.js';//商城
-import Rank from './src/screens/Rank.js';//排行榜
-import Trend from './src/screens/Trend.js';//走势
-import Personal from './src/screens/Personal.js';//个人中心
+import Rank from './src/screens/Rank/Rank.js';//排行榜
+import Trend from './src/screens/Trend/Trend.js';//走势
+import Personal from './src/screens/Personal/Personal.js';//个人中心
 import VideoDetail from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 

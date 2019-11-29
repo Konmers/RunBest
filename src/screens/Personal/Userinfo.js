@@ -150,7 +150,7 @@ import {
                                             <Image style={styles.datailsImage} source={{uri:this.state.imgURL}} />      
                                         </TouchableOpacity>
                                     ):(
-                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
+                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data)}>
                                             <Text style={styles.datailsData}>{item.data}</Text>         
                                         </TouchableOpacity>
                                     )
@@ -165,19 +165,19 @@ import {
         )
     }
 
-    getUserinfo = () =>{
+    editUserinfo = (title,value) =>{
         console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
-        // Actions.userinfo({id:value})// 空传参
+        Actions.userinfoedit({title:title,data:value})// 空传参
     }
-
+ 
     cameraAction = () => {
         ImagePicker.showImagePicker(photoOptions, (response) => {
           console.warn('response' + response);
           if (response.didCancel) {
             return
           }
-          console.warn('response.uri----------- ',response.uri)
+        //   console.warn('response.uri----------- ',response.uri)
           this.setState({
             imgURL: response.uri
           });

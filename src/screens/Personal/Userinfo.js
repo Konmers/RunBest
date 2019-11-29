@@ -14,6 +14,8 @@ import {
   import dayjs from 'dayjs'
 
   import { Actions } from 'react-native-router-flux';
+
+  import ImagePicker from 'react-native-image-picker'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
@@ -72,6 +74,21 @@ import {
     }
   }
 
+  var photoOptions = {
+    //底部弹出框选项
+    title: '请选择',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: '选择相册',
+    quality: 0.75,
+    allowsEditing: true,
+    noData: false,
+    storageOptions: {
+      skipBackup: true,
+      path: 'images'
+    }
+  }
+
  class Userinfo extends Component {
     constructor(props) {
         super(props);
@@ -79,7 +96,7 @@ import {
             dataArr : [
                 {
                     title:'avatar',
-                    data:require('../../public/Iamge/Head/14.jpg')
+                    data:'https://github.com/Dliveaman/RunBest/blob/master/src/public/Iamge/Head/14.jpg'
                 },
                 {
                     title:'name',
@@ -113,7 +130,8 @@ import {
                     title:'email',
                     data:'1916794877@qq.com'
                 },
-            ]
+            ],
+            imgURL: 'https://raw.githubusercontent.com/Dliveaman/RunBest/master/src/public/Iamge/Head/14.jpg?token=AF5C5JW2ZQ6X5HDCXCRH6AK54C6HG'
         }
     }
 
@@ -128,8 +146,8 @@ import {
                             <View style={styles.dataRightView}>
                                 {
                                     i==0?(
-                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
-                                            <Image style={styles.datailsImage} source={item.data} />         
+                                        <TouchableOpacity style={styles.datailsTouch} onPress={() => this.cameraAction()}>
+                                            <Image style={styles.datailsImage} source={{uri:this.state.imgURL}} />      
                                         </TouchableOpacity>
                                     ):(
                                         <TouchableOpacity style={styles.datailsTouch} onPress={() => this.getUserinfo()}>
@@ -151,6 +169,19 @@ import {
         console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
         // Actions.userinfo({id:value})// 空传参
+    }
+
+    cameraAction = () => {
+        ImagePicker.showImagePicker(photoOptions, (response) => {
+          console.warn('response' + response);
+          if (response.didCancel) {
+            return
+          }
+          console.warn('response.uri----------- ',response.uri)
+          this.setState({
+            imgURL: response.uri
+          });
+        })
     }
 }
 

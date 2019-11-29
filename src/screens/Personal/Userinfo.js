@@ -95,39 +95,39 @@ import {
         this.state ={
             dataArr : [
                 {
-                    title:'avatar',
+                    title:'Avatar',
                     data:'https://github.com/Dliveaman/RunBest/blob/master/src/public/Iamge/Head/14.jpg'
                 },
                 {
-                    title:'name',
+                    title:'Name',
                     data:'Konmer'
                 },
                 {
-                    title:'gender',
+                    title:'Gender',
                     data:1   //1.男 0.女
                 },
                 {
-                    title:'birthday',
+                    title:'Birthday',
                     data:'2019-11-28'
                 },
                 {
-                    title:'stature',
+                    title:'Stature',
                     data:180
                 },
                 {
-                    title:'weight',
+                    title:'Weight',
                     data:128
                 },
                 {
-                    title:'city',
+                    title:'City',
                     data:'chongqing'
                 },
                 {
-                    title:'phone',
+                    title:'Phone',
                     data:'17623261139'
                 },
                 {
-                    title:'email',
+                    title:'E-mail',
                     data:'1916794877@qq.com'
                 },
             ],

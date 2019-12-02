@@ -131,8 +131,8 @@ import {
                     data:'1916794877@qq.com'
                 },
             ],
-            imgURL: 'https://raw.githubusercontent.com/Dliveaman/RunBest/master/src/public/Iamge/Head/14.jpg?token=AF5C5JW2ZQ6X5HDCXCRH6AK54C6HG'
-        }
+            imgURL: 'https://avatars1.githubusercontent.com/u/24784550?s=460&v=4'
+        } 
     }
 
     render() {

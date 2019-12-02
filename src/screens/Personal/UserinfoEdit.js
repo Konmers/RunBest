@@ -51,8 +51,8 @@ class UserinfoEdit extends Component {
 
     render() {
         //title:title,data:value
-        console.warn('this.propstitle----- ',this.props.title)
-        console.warn('this.propsdata----- ',this.props.data)
+        // console.warn('this.propstitle----- ',this.props.title)
+        // console.warn('this.propsdata----- ',this.props.data)
         return (
             <View style={styles.bigView}>
                 <View style={styles.editView}> 
@@ -65,12 +65,12 @@ class UserinfoEdit extends Component {
                         editable={true} // 是否可编辑，默认为: true
                         secureTextEntry={false} // 是否为密码，默认为: false
                         keyboardType='default' // 弹出键盘类型
-                        maxLength={10} // 限制文本框中最多的字符数
+                        maxLength={18} // 限制文本框中最多的字符数
                         multiline={false} // 是否为多行文本，默认为: false
-                        onChangeText={this.onChangeTextHandle} // 文本变化事件
-                        onBlur={this.onBlurHandle} // 失去焦点事件
-                        onFocus={this.onFocusHandle} // 得到焦点事件
-                        onSubmitEditing={this.onSubmitEditingHandle} // 提交编辑内容事件
+                        // onChangeText={this.onChangeTextHandle} // 文本变化事件
+                        // onBlur={this.onBlurHandle} // 失去焦点事件
+                        // onFocus={this.onFocusHandle} // 得到焦点事件
+                        // onSubmitEditing={this.onSubmitEditingHandle} // 提交编辑内容事件
                     />
                 </View>
             </View>

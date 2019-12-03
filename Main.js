@@ -5,7 +5,7 @@ import {View,Text,Image} from 'react-native';
 // Router:就相当干昨天我们所学的HashRouter
 // Stack:这是一个分组的容器,他不表示具体的路由,专门用来给路由分组的 
 // Scene:就表示一个具体的路由规则,好比昨天学到的Route
-import {Router,Stack,Scene} from 'react-native-router-flux';
+import {Router,Stack,Scene} from 'react-native-router-flux'
 
 //引用页面
 import App from './App.js'
@@ -19,6 +19,11 @@ import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 
+{/* key 就是给页面的标签,供Actions使用 */}
+{/* component 设置关联的页面 */}
+{/* title 就是给页面标题 */}
+{/* initial 就是设置默认页面*/}
+
 export default  class Main extends Component {
     constructor(props) {
         super(props);
@@ -26,11 +31,7 @@ export default  class Main extends Component {
     }
     render() { 
         return ( 
-            <Router sceneStyle={{backgroundColor:'White'}}>
-                       {/* key 就是给页面的标签,供Actions使用 */}
-                        {/* component 设置关联的页面 */}
-                        {/* title 就是给页面标题 */}
-                        {/* initial 就是设置默认页面*/}
+            <Router>
                 <Scene key='root'>
                     <Scene key='app' component={App} hideNavBar={true}></Scene>
                     <Scene key='videodetail' component={VideoDetailScreen} title='VideoDetailScreen组件'></Scene>

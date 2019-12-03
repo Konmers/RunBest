@@ -15,9 +15,17 @@ import {
   //时间
   import dayjs from 'dayjs'
 
-  import { Actions } from 'react-native-router-flux';
+  //router
+  import { Actions } from 'react-native-router-flux'
 
+  //camera 
   import ImagePicker from 'react-native-image-picker'
+
+  //bounced
+  import ModalBox from 'react-native-modalbox'
+
+  //radio
+  import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
@@ -93,9 +101,27 @@ import {
         paddingLeft: 30,
         paddingRight: 30,
         marginTop: 10
-    }
+    },
+
+      modal1: {
+        width: 500,
+        height: 200,
+        backgroundColor: 'red'
+      },
+      text: {
+        color: "black",
+        fontSize: 22
+      },
+      btn: {
+        margin: 10,
+        backgroundColor: "#3B5998",
+        color: "white",
+        padding: 10
+      },
+     
   }
 
+  //choose camera
   var photoOptions = {
     //底部弹出框选项
     title: '请选择',
@@ -154,11 +180,11 @@ import {
                 },
             ],
             genderVisible: false,
-            imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp'
+            imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
+            text: ''
         } 
+        this.onSelect = this.onSelect.bind(this)
     }
-
-    //1.男 0.女
 
     render() {
         return (
@@ -193,34 +219,80 @@ import {
                         )
                     } 
                 </View>
-                <Modal
-                  animationType='fade' // 指定了 modal 的动画类型。类型：slide 从底部滑入滑出|fade 淡入淡出|none 没有动画
-                  transparent={true} // 背景是否透明，默认为白色，当为true时表示背景为透明。
-                  visible={this.state.genderVisible} // 是否显示 modal 窗口
-                  onRequestClose={() => { this._closeGenderVisible(); }} // 回调会在用户按下 Android 设备上的后退按键或是 Apple TV 上的菜单键时触发。请务必注意本属性在 Android 平台上为必填，且会在 modal 处于开启状态时阻止BackHandler事件
-                  onShow={()=>{console.log('modal窗口显示了');}} // 回调函数会在 modal 显示时调用
-                >
+                <ModalBox style={styles.modal1} 
+                 ref={"ThirdProtocolModal"} 
+                 position="center"  
+                 onClosed={this.onClose} 
+                 onOpened={this.onOpen} 
+                 onClosingState={this.onClosingState}>
+                    <Text style={styles.text}>Basic modal</Text>
+                    <Button onPress={this.changeText} style={styles.btn} title='Change text'></Button>
+                    <Button onPress={this.closeModal1} style={styles.btn} title='Close modal'></Button>
                     <View style={styles.modalLayer}>
                         <View style={styles.modalContainer}>
-                            <Text style={styles.modalTitleStyle}>这是个Modal窗口！</Text>
+                            <RadioGroup
+                                onSelect = {(index, value) => this.onSelect(index, value)}
+                            >
+                                <RadioButton value={1} >
+                                    <Text>男</Text>
+                                </RadioButton>
+                                <RadioButton value={0}>
+                                    <Text>女</Text>
+                                </RadioButton>
+                            </RadioGroup>
                             <View style={styles.modalButtonStyle}>
                                 <Button 
-                                    title='取消' 
-                                    color="#A4A4A4"
+                                    title='保存' 
+                                    color="#17C6AC"
                                     onPress={this._closeGenderVisible}
                                 ></Button>
                             </View>
                         </View>
                     </View>
-                </Modal>  
+                </ModalBox>
             </View>
         )
+    }
+
+    //open modalbox
+
+    //choose radio
+    onSelect(index, value){
+        console.warn('index------ ',index)
+        console.warn('value------ ',value)
+        this.setState({
+            text: `Selected index: ${index} , value: ${value}`
+        })
     }
 
     //open Gendershow
     setGenderVisible(visible) {
         console.warn('visible------ ',visible)
         this.setState({genderVisible: visible });
+        this.refs.ThirdProtocolModal.open()//打开
+          if(this.state.genderVisible){
+                console.log('1111111111111')
+                this.refs.ThirdProtocolModal.open()//打开
+            }else{
+                console.log('2222222222222')
+                this.refs.ThirdProtocolModal.close()//关闭
+            }
+    }
+    closeModal1() {
+        this.refs.modal1.close();
+    }
+    changeText() {
+        this.setState({text:"Hello world!"});
+      }
+
+    onClose() {
+        console.log('Modal just closed');
+    }
+    onOpen() {
+    console.log('Modal just opened');
+    }
+    onClosingState(state) {
+    console.log('the open/close of the swipeToClose just changed');
     }
  
     //close Gendershow

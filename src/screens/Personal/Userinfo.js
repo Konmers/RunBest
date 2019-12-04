@@ -94,16 +94,6 @@ import {
         backgroundColor: 'white',
         justifyContent: 'center'
     },
-    modalTitleStyle: {
-        textAlign: 'center',
-        fontSize: 26
-    },
-    modalButtonStyle: {
-        paddingLeft: 30,
-        paddingRight: 30,
-        marginTop: 10
-    },
-
       modal:{
         height: '30%',
         width,
@@ -118,7 +108,21 @@ import {
         color: "white",
         padding: 10
       },
-     
+      checkBox:{
+        backgroundColor:'white',
+        height:56,
+        marginTop:1,
+        justifyContent:'center'
+      },
+      image:{
+        marginLeft:16,
+        width:30,
+        height:30,
+      },
+      text: {
+        fontSize:18,
+        color:'#424242'
+      }
   }
 
   //choose camera
@@ -180,6 +184,7 @@ import {
                 },
             ],
             imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
+            isOneChecked:false,
             isTwoChecked:false,
         } 
         this.onSelect = this.onSelect.bind(this)
@@ -231,14 +236,14 @@ import {
                             style={styles.checkBox}
                             onClick={()=>{
                                 this.setState({
-                                isTwoChecked:!this.state.isTwoChecked
+                                isOneChecked:!this.state.isOneChecked
                                 })
                             }}
-                            isChecked={this.state.isTwoChecked}
+                            isChecked={this.state.isOneChecked}
                             rightText={'男'}
                             rightTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('./img/disable.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('./img/enable.png')} style = {styles.image}/>}
+                            checkedImage = {<Image source = {require('../../public/Iamge/Check/choose.png')} style = {styles.image}/>}
+                            unCheckedImage = {<Image source = {require('../../public/Iamge/Check/chooseChange.png')} style = {styles.image}/>}
                             />
                             <CheckBox
                             style={styles.checkBox}
@@ -250,8 +255,8 @@ import {
                             isChecked={this.state.isTwoChecked}
                             rightText={'女'}
                             rightTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('./img/disable.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('./img/enable.png')} style = {styles.image}/>}
+                            checkedImage = {<Image source = {require('../../public/Iamge/Check/choose.png')} style = {styles.image}/>}
+                            unCheckedImage = {<Image source = {require('../../public/Iamge/Check/chooseChange.png')} style = {styles.image}/>}
                             />
                             <View style={styles.modalButtonStyle}>
                                 <Button 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Modal,
     Text,
     View,
     Image,
@@ -18,16 +17,14 @@ import {
   //router
   import { Actions } from 'react-native-router-flux'
 
-  //checkbox
-  import CheckBox from 'react-native-check-box'
-
   //camera 
   import ImagePicker from 'react-native-image-picker'
 
   //bounced
   import ModalBox from 'react-native-modalbox'
 
-
+  //radio
+  import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
@@ -85,12 +82,13 @@ import {
         height:15,
     },
     modalLayer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.45)',
         flex: 1,
         justifyContent: 'center',
         padding: 32
     },
     modalContainer: {
-        height: '100%',
+        height: 300,
         backgroundColor: 'white',
         justifyContent: 'center'
     },
@@ -104,9 +102,10 @@ import {
         marginTop: 10
     },
 
-      modal:{
-        height: '30%',
-        width,
+      modal1: {
+        width: 500,
+        height: 200,
+        backgroundColor: 'red'
       },
       text: {
         color: "black",
@@ -179,8 +178,9 @@ import {
                     data:'1916794877@qq.com'
                 },
             ],
+            genderVisible: false,
             imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
-            isTwoChecked:false,
+            text: ''
         } 
         this.onSelect = this.onSelect.bind(this)
     }
@@ -201,7 +201,7 @@ import {
                                         </TouchableOpacity>
                                     ):(
                                         item.title == 'Gender'?(
-                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.openGenderVisible()}>
+                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.setGenderVisible(true)}>
                                                 <Text style={styles.datailsData}>{item.data}</Text>         
                                             </TouchableOpacity>
                                         ):(
@@ -218,46 +218,35 @@ import {
                         )
                     } 
                 </View>
-                <ModalBox 
-                 style={styles.modal} 
-                 ref={"GenderModal"} 
-                 position="center"
-                 isDisabled={false}
-                 backdropPressToClose={true}
-                >
+                <ModalBox  
+                    ref={"ThirdProtocolModal"}
+                    isDisabled={false}
+                    swipeToClose={false}
+                    style={{backgroundColor:'transparent',flex:1, justifyContent:'center', alignItems:'center',width: "100%"}}
+                    animationDuration={0}
+                    backdropPressToClose={false}//在背景处点击是否关闭modal,默认是关闭
+                    backdropColor='red'//背景颜色，因为这个背景颜色有默认透明度的，感觉使用很方便，默认black
+                 >
+                    <Text style={styles.text}>Basic modal</Text>
+                    <Button onPress={this.changeText} style={styles.btn} title='Change text'></Button>
+                    <Button onPress={this.closeModal1} style={styles.btn} title='Close modal'></Button>
                     <View style={styles.modalLayer}>
                         <View style={styles.modalContainer}>
-                            <CheckBox
-                            style={styles.checkBox}
-                            onClick={()=>{
-                                this.setState({
-                                isTwoChecked:!this.state.isTwoChecked
-                                })
-                            }}
-                            isChecked={this.state.isTwoChecked}
-                            rightText={'男'}
-                            rightTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('./img/disable.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('./img/enable.png')} style = {styles.image}/>}
-                            />
-                            <CheckBox
-                            style={styles.checkBox}
-                            onClick={()=>{
-                                this.setState({
-                                isTwoChecked:!this.state.isTwoChecked
-                                })
-                            }}
-                            isChecked={this.state.isTwoChecked}
-                            rightText={'女'}
-                            rightTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('./img/disable.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('./img/enable.png')} style = {styles.image}/>}
-                            />
+                            <RadioGroup
+                                onSelect = {(index, value) => this.onSelect(index, value)}
+                            >
+                                <RadioButton value={1} >
+                                    <Text>男</Text>
+                                </RadioButton>
+                                <RadioButton value={0}>
+                                    <Text>女</Text>
+                                </RadioButton>
+                            </RadioGroup>
                             <View style={styles.modalButtonStyle}>
                                 <Button 
                                     title='保存' 
                                     color="#17C6AC"
-                                    onPress={this.closeGenderVisible}
+                                    onPress={this._closeGenderVisible}
                                 ></Button>
                             </View>
                         </View>
@@ -271,6 +260,7 @@ import {
 
     //choose radio
     onSelect(index, value){
+        console.warn('index------ ',index)
         console.warn('value------ ',value)
         this.setState({
             text: `Selected index: ${index} , value: ${value}`
@@ -278,15 +268,38 @@ import {
     }
 
     //open Gendershow
-    openGenderVisible() {
-        console.warn('111111111------ ')
-        this.refs.GenderModal.open()//打开
+    setGenderVisible(visible) {
+        console.warn('visible------ ',visible)
+        this.setState({genderVisible: visible });
+        this.refs.ThirdProtocolModal.open()//打开
+//           if(this.state.genderVisible){
+//                 console.log('1111111111111')
+//                 this.refs.ThirdProtocolModal.open()//打开
+//             }else{
+//                 console.log('2222222222222')
+//                 this.refs.ThirdProtocolModal.close()//关闭
+//             }
+    }
+    closeModal1() {
+        this.refs.modal1.close();
+    }
+    changeText() {
+        this.setState({text:"Hello world!"});
+      }
+
+    onClose() {
+        console.log('Modal just closed');
+    }
+    onOpen() {
+    console.log('Modal just opened');
+    }
+    onClosingState(state) {
+    console.log('the open/close of the swipeToClose just changed');
     }
  
     //close Gendershow
-    closeGenderVisible = () => {
-        console.warn('222222222------ ')
-        this.refs.GenderModal.close();
+    _closeGenderVisible = () => {
+        this.setState({genderVisible: false});
     }
 
     //pass vlaue web

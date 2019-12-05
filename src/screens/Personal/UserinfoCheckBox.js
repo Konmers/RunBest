@@ -21,9 +21,6 @@ import {
   //checkbox
   import CheckBox from 'react-native-check-box'
 
-  //radio
-  import { RadioButtons } from 'react-native-radio-buttons'
-
   //camera 
   import ImagePicker from 'react-native-image-picker'
 
@@ -86,9 +83,6 @@ import {
     datailsRight:{
         width:15,
         height:15,
-    },
-    datailsData:{
-        color: '#999999' 
     },
     modalLayer: {
         flex: 1,

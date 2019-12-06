@@ -15,6 +15,7 @@ import RankScreen from './src/screens/Rank/Rank.js';//商城
 import TrendScreen from './src/screens/Trend/Trend.js';//排行榜
 import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心
 import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
+import RadioScreen from './src/screens/Radio.js';//Radio
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
@@ -38,6 +39,7 @@ export default  class Main extends Component {
                     <Scene key='videoplay' component={VideoPlayScreen} title='VideoPlayScreen组件'></Scene>
                     <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'></Scene>
                     <Scene key='userinfoedit' component={UserinfoEditScreen} title='UserinfoEdit'></Scene>
+                    <Scene key='radio' component={RadioScreen} title='UserinfoEdit'></Scene>
                 </Scene>
             </Router>
          );

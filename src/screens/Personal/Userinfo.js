@@ -21,16 +21,15 @@ import {
   //checkbox
   import CheckBox from 'react-native-check-box'
 
-  //radio
-  import { RadioButtons } from 'react-native-radio-buttons'
+//   //radio
+//   import { Radio } from "@ant-design/react-native";
+//   const RadioChoose = Radio.RadioItem;
 
   //camera 
   import ImagePicker from 'react-native-image-picker'
 
   //bounced
   import ModalBox from 'react-native-modalbox'
-
-
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
@@ -191,8 +190,8 @@ import {
                 },
             ],
             imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
-            isOneChecked:false,
-            isTwoChecked:false,
+            sex: "男",
+            gender: 1
         } 
     }
 
@@ -238,34 +237,14 @@ import {
                 >
                     <View style={styles.modalLayer}>
                         <View style={styles.modalContainer}>
-                            <CheckBox
-                            style={styles.checkBox}
-                            // onClick={()=>{
-                            //     this.setState({
-                            //     isOneChecked:!this.state.isOneChecked
-                            //     })
-                            // }}
-                            onClick={()=>this.chooseValue('OneChecked')}
-                            isChecked={this.state.isOneChecked}
-                            leftText={'男'}
-                            leftTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('../../public/Iamge/Check/chooseChange.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('../../public/Iamge/Check/choose.png')} style = {styles.image}/>}
-                            />
-                            <CheckBox
-                            style={styles.checkBox}
-                            // onClick={()=>{
-                            //     this.setState({
-                            //     isTwoChecked:!this.state.isTwoChecked
-                            //     })
-                            // }}
-                            onClick={()=>this.chooseValue('TwoChecked')}
-                            isChecked={this.state.isTwoChecked}
-                            leftText={'女'}
-                            leftTextStyle = {styles.text}
-                            checkedImage = {<Image source = {require('../../public/Iamge/Check/chooseChange.png')} style = {styles.image}/>}
-                            unCheckedImage = {<Image source = {require('../../public/Iamge/Check/choose.png')} style = {styles.image}/>}
-                            />
+
+                        <View style={{height: 111, borderBottomColor: 'gray', borderBottomWidth: 1, flexDirection: 'row'}}>
+                            {this.renderShowEditView(this.state.gender)}
+                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <Text>{this.state.sex}</Text>
+                            </View>
+                        </View>
+
                             <View style={styles.modalButtonStyle}>
                                 <Button 
                                     title='保存' 
@@ -292,26 +271,20 @@ import {
         this.refs.GenderModal.close();//关闭
     }
 
-    //choose value
-    chooseValue = (value) =>{
-       console.warn('3333333333------')
-       console.warn('value------- ',value)
-       if(value === 'OneChecked')
-       {
-            this.setState({
-                isOneChecked:false,
-                isTwoChecked:true,
-            })
-          console.log('OneChecked--------')
-       }
-       else if(value === 'TwoChecked')
-       {
-            this.setState({ 
-                isOneChecked:true,
-                isTwoChecked:false
-            })
-          console.log('TwoChecked--------')
-       }
+    //是否选中
+    renderShowEditView(gender) {
+
+            let imageURL = require('../../public/Iamge/Check/choose.png')
+            if (gender === 1) {
+                imageURL = require('../../public/Iamge/Check/chooseChange.png')
+            }
+            return (
+                <TouchableOpacity 
+                onPress={()=> { onPress(index) }} 
+                style={{height: 111, width: 40, justifyContent: 'center', alignItems: 'center'}}>
+                    <Image style={{width: 30, height: 30}} source={imageURL}/>
+                </TouchableOpacity>
+            )
     }
 
     //pass vlaue web

@@ -190,7 +190,7 @@ const styles = {
     }
         // let nowDate = dayjs().format("YYYY-MM-DD HH:mm:ss")
     weather(){
-        console.warn('nowHour-------- ',this.nowHour)
+        // console.warn('nowHour-------- ',this.nowHour)
         if(6 <= this.nowHour&&this.nowHour < 12)
         {
             return (<View style={styles.weatherView}>
@@ -271,7 +271,8 @@ const styles = {
     getUserinfo = (value) =>{
         // console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
-        Actions.userinfo({id:value})// 空传参
+        // Actions.userinfo({id:value})// 空传参
+        Actions.radio() //空传参
     }
 }
 

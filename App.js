@@ -34,7 +34,7 @@ import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 const dataSource = [
   {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'首页',component:Home},
   {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Rank',tabName:'排行榜',component:Rank},
-  {icon:require('./src/public/Iamge/Bottom/statistical1.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after1.png'),tabPage:'Trend',tabName:'走势',component:Trend},
+  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Trend',tabName:'走势',component:Trend},
   {icon:require('./src/public/Iamge/Bottom/personal.png'),selectedIcon:require('./src/public/Iamge/Bottom/personal-after.png'),tabPage:'Personal',tabName:'个人中心',component:Personal}
 ]
 var navigation = null;

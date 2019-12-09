@@ -271,8 +271,9 @@ const styles = {
     getUserinfo = (value) =>{
         // console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
-        // Actions.userinfo({id:value})// 空传参
-        Actions.radio() //空传参
+        Actions.userinfo({id:value})// 空传参
+        // Actions.radio() //空传参
+        // Actions.datetimepicker() //空传参
     }
 }
 

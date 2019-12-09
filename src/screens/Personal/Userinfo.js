@@ -18,12 +18,11 @@ import {
   //router
   import { Actions } from 'react-native-router-flux'
 
-  //checkbox
-  import CheckBox from 'react-native-check-box'
+  //radio
+  import RadioModal from 'react-native-radio-master'
 
-//   //radio
-//   import { Radio } from "@ant-design/react-native";
-//   const RadioChoose = Radio.RadioItem;
+  // date picker
+  import DatetimePicker from '../DatetimePicker';
 
   //camera 
   import ImagePicker from 'react-native-image-picker'
@@ -146,6 +145,20 @@ import {
     }
   }
 
+  //dafult gender
+  var datas=[
+    {
+        "selecteId": 0,
+        "content": "女",
+        "selected": false
+    },
+    {
+        "selecteId": 1,
+        "content": "男",
+        "selected": false
+    }
+  ]
+
  class Userinfo extends Component {
     constructor(props) {
         super(props);
@@ -162,7 +175,7 @@ import {
                 {
                     //1.男 0.女
                     title:'Gender',
-                    data:1
+                    data:0
                 },
                 {
                     title:'Birthday',
@@ -190,8 +203,9 @@ import {
                 },
             ],
             imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
-            sex: "男",
-            gender: 1
+            language:'',
+            item:'',
+            isDateTimePickerVisible: false
         } 
     }
 
@@ -211,15 +225,28 @@ import {
                                         </TouchableOpacity>
                                     ):(
                                         item.title == 'Gender'?(
-                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.openGenderVisible()}>
-                                                <Text style={styles.datailsData}>{item.data}</Text>         
+                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.openGenderVisible(item.data)}>
+                                                {
+                                                   item.data == 1?(
+                                                    <Text style={styles.datailsData}>男</Text>         
+                                                   ):(
+                                                    <Text style={styles.datailsData}>女</Text>         
+                                                   ) 
+                                                }
                                             </TouchableOpacity>
                                         ):(
-                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data)}>
-                                                <Text style={styles.datailsData}>{item.data}</Text>         
-                                            </TouchableOpacity>
+                                            item.title == 'Birthday'?(
+                                                <TouchableOpacity style={styles.datailsTouch} >
+                                                {/* <TouchableOpacity style={styles.datailsTouch} onPress={() => this.openBirthday(item.data)}> */}
+                                                    <DatetimePicker/>
+                                                </TouchableOpacity>
+                                            ):(
+                                                <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data)}>
+                                                    <Text style={styles.datailsData}>{item.data}</Text>         
+                                                </TouchableOpacity>
+                                            )
                                         )
-
+                                        
                                     )
                                 }
                                 <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
@@ -237,14 +264,24 @@ import {
                 >
                     <View style={styles.modalLayer}>
                         <View style={styles.modalContainer}>
-
-                        <View style={{height: 111, borderBottomColor: 'gray', borderBottomWidth: 1, flexDirection: 'row'}}>
-                            {this.renderShowEditView(this.state.gender)}
-                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                                <Text>{this.state.sex}</Text>
+                            <View style={{padding:2,flex:1,flexDirection:'column'}}>
+                                <RadioModal
+                                options={{id:'selecteId',value:'content',disabled:'selected'}}
+                                innerStyle={{width:'100%',paddingLeft: 20}} //每个单选按钮的样式
+                                txtColor={'#000'} //每个单选按钮文字的样式
+                                noneColor={'#efefef'} //不点击按钮样式
+                                selectedValue={this.state.language}
+                                onValueChange={(id,item) => this.changeGender(id,item)}
+                                seledImg={require('../../public/Iamge/Check/chooseChange.png')}
+                                selImg={require('../../public/Iamge/Check/choose.png')}
+                                // selnoneImg={require('./imgs/selectnone.png')}
+                                dataOption={datas}
+                                style={{
+                                    justifyContent:'space-around',
+                                    // backgroundColor:'#666',
+                                }} 
+                                />
                             </View>
-                        </View>
-
                             <View style={styles.modalButtonStyle}>
                                 <Button 
                                     title='保存' 
@@ -260,37 +297,34 @@ import {
     }
 
     //open Gendershow
-    openGenderVisible = () => {
-        console.warn('111111111------ ')
+    openGenderVisible = (value) => {
         this.refs.GenderModal.open()//打开
+        if(value === 0)
+        {
+            this.setState({language:datas[0].selecteId,item:datas[0].content})
+        }
+        else if(value === 1)
+        {
+            this.setState({language:datas[1].selecteId,item:datas[1].content})
+        }
     }
- 
+    // change gender
+    changeGender = (id,item) => {
+        this.setState({language: id,item:item})
+        this.state.dataArr[2].data = id
+    }
     //close Gendershow
     closeGenderVisible = () => {
-        console.warn('222222222------ ')
         this.refs.GenderModal.close();//关闭
     }
 
-    //是否选中
-    renderShowEditView(gender) {
-
-            let imageURL = require('../../public/Iamge/Check/choose.png')
-            if (gender === 1) {
-                imageURL = require('../../public/Iamge/Check/chooseChange.png')
-            }
-            return (
-                <TouchableOpacity 
-                onPress={()=> { onPress(index) }} 
-                style={{height: 111, width: 40, justifyContent: 'center', alignItems: 'center'}}>
-                    <Image style={{width: 30, height: 30}} source={imageURL}/>
-                </TouchableOpacity>
-            )
+    //openBirthday
+    openBirthday = () =>{
+        this.refs.BirthdayModal.open()//打开
     }
 
     //pass vlaue web
     editUserinfo = (title,value) =>{
-        console.warn('title------ ',title)
-        console.warn('value------ ',value)
         // Actions.videodetail({id:10}) //传参
         Actions.userinfoedit({title:title,data:value})// 空传参
     }
@@ -298,7 +332,6 @@ import {
     //camera
     cameraAction = () => {
         ImagePicker.showImagePicker(photoOptions, (response) => {
-          console.warn('response' + response);
           if (response.didCancel) {
             return
           }

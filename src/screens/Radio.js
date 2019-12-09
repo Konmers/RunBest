@@ -45,16 +45,13 @@ class RadioDemo extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-            language:datas[3].selecteId,
-            item:datas[3].content,
-            initItem:'选项a',
-            initId:'0'
+            language:datas[1].selecteId,
+            item:datas[1].content
         };
 	}
 	render(){
-        console.warn('datas[3]--------  ',datas[3])
-        console.warn('datas[3].content--------  ',datas[3].content)
-        console.warn('datas[3].selecteId--------  ',datas[3].selecteId)
+        console.warn('datas[3]--------  ',this.state.language)
+        console.warn('datas[3].content--------  ',this.state.item)
 		return (
 			<View style={{padding:20,flex:1,flexDirection:'column'}}>
 			    <Text style={{backgroundColor:'#ffffff',color:'#414141',padding:5,}}>
@@ -82,7 +79,6 @@ class RadioDemo extends Component{
 				}} 
 			     />
 		   </View>
-
 		);
 	}
 }

@@ -194,15 +194,15 @@ const styles = {
         if(6 <= this.nowHour&&this.nowHour < 12)
         {
             return (<View style={styles.weatherView}>
-                <Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.png')} /><Text>上午好~</Text></View>)
+                <Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.gif')} /><Text>上午好~</Text></View>)
         }
-        else if(12 <= this.nowHour&&this.nowHour < 18)
+        else if(12 <= this.nowHour&&this.nowHour < 19)
         {
-            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.png')} /><Text>下午好~</Text></View>)
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/sun.gif')} /><Text>下午好~</Text></View>)
         }
         else
         {
-            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/moon.png')} /><Text>晚上好~</Text></View>)
+            return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/moon.gif')} /><Text>晚上好~</Text></View>)
         }
     }
     render() { 

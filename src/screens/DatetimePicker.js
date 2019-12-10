@@ -5,9 +5,10 @@ import Picker from 'react-native-picker';
 class DatePicker extends Component{
     constructor(props){
       super(props);
-      this.state = ({
-        currentDate:this._getCurrentDate(),
-      })
+      this.state = {
+        // currentDate:this._getCurrentDate(),// 获取当前时间
+        currentDate:this.props.child// this.props.child 父级页面 默认传值
+      }      
     }
     //获取当前日期  格式如 2018-12-15
     _getCurrentDate(){
@@ -59,6 +60,7 @@ class DatePicker extends Component{
       }
       return date;
     }
+
     //打开日期选择 视图
     _showDatePicker() {
       var year = ''
@@ -89,10 +91,15 @@ class DatePicker extends Component{
             })
         },
         onPickerCancel: (pickedValue, pickedIndex) => {
-            console.log('date', pickedValue, pickedIndex);
+            console.warn('11111111111111')
+            console.warn('dateCancel------- ', pickedValue, pickedIndex);
+        },
+        onPickerConfirm: (pickedValue, pickedIndex) => {
+            console.warn('222222222222222')
+            console.warn('dateCancel------- ', pickedValue, pickedIndex);
         },
         onPickerSelect: (pickedValue, pickedIndex) => {
-            console.log('date', pickedValue, pickedIndex);
+            console.warn('dateSelect----- ', pickedValue, pickedIndex);
         }
       });
       Picker.show();

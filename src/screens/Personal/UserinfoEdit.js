@@ -6,6 +6,7 @@ import {
     TextInput,
     StyleSheet,
     Dimensions,
+    Button,
     TouchableHighlight,//选中跳转
     TouchableOpacity,
     ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
@@ -46,35 +47,51 @@ import {
 class UserinfoEdit extends Component {
     constructor(props) {
         super(props);
-        this.state ={}
+        this._onChangeText = this._onChangeText.bind(this);
+        this.state={
+            text:'',
+            dafultText:this.props.data
+        }
     }
 
     render() {
-        //title:title,data:value
-        // console.warn('this.propstitle----- ',this.props.title)
-        // console.warn('this.propsdata----- ',this.props.data)
         return (
             <View style={styles.bigView}>
                 <View style={styles.editView}> 
                     <Text style={styles.titleText}>Please enter  {this.props.title}</Text>
+                    
                     <TextInput
                         style={styles.TextInputStyle} 
-                        value={this.props.data} 
-                        placeholder="请输入您需要的商品"
+                        // value={} 
+                        placeholder={this.state.dafultText}
                         placeholderTextColor='#A4A4A4'
                         editable={true} // 是否可编辑，默认为: true
                         secureTextEntry={false} // 是否为密码，默认为: false
                         keyboardType='default' // 弹出键盘类型
                         maxLength={18} // 限制文本框中最多的字符数
                         multiline={false} // 是否为多行文本，默认为: false
-                        // onChangeText={this.onChangeTextHandle} // 文本变化事件
+                        onChangeText={this._onChangeText}//输入框改变触发的函数
                         // onBlur={this.onBlurHandle} // 失去焦点事件
                         // onFocus={this.onFocusHandle} // 得到焦点事件
                         // onSubmitEditing={this.onSubmitEditingHandle} // 提交编辑内容事件
                     />
+                    <Button 
+                        title='耍得黑粉黛花海见客户' 
+                        color="#17C6AC"
+                        onPress={() => this.saveVlue(this.state.text)}
+                    >
+                    </Button>
                 </View>
             </View>
         )
+    }
+    _onChangeText(inputData){
+        console.log("输入的内容",inputData);
+        //把获取到的内容，设置给showValue
+        this.setState({text:inputData});
+    }
+    saveVlue(vlaue){
+        console.warn('save----------------',vlaue)
     }
 }
 

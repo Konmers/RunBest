@@ -183,11 +183,11 @@ import {
                 },
                 {
                     title:'Stature',
-                    data:180
+                    data:'180'
                 },
                 {
                     title:'Weight',
-                    data:128
+                    data:'128'
                 },
                 {
                     title:'City',
@@ -236,9 +236,8 @@ import {
                                             </TouchableOpacity>
                                         ):(
                                             item.title == 'Birthday'?(
-                                                <TouchableOpacity style={styles.datailsTouch} >
-                                                {/* <TouchableOpacity style={styles.datailsTouch} onPress={() => this.openBirthday(item.data)}> */}
-                                                    <DatetimePicker/>
+                                                <TouchableOpacity style={styles.datailsTouch}>
+                                                    <DatetimePicker  ref={'datetimePicker'} child = {this.state.dataArr[3].data}/>
                                                 </TouchableOpacity>
                                             ):(
                                                 <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data)}>
@@ -246,7 +245,6 @@ import {
                                                 </TouchableOpacity>
                                             )
                                         )
-                                        
                                     )
                                 }
                                 <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
@@ -254,6 +252,14 @@ import {
                             </View>
                         )
                     } 
+                </View>
+                <View >
+                   <Button 
+                        title='耍得黑粉黛花海见客户' 
+                        color="#17C6AC"
+                        onPress={() => this.openBirthday()}
+                    >
+                    </Button>
                 </View>
                 <ModalBox 
                  style={styles.modal} 
@@ -320,7 +326,8 @@ import {
 
     //openBirthday
     openBirthday = () =>{
-        this.refs.BirthdayModal.open()//打开
+        console.warn('DatetimePicker------- ',this.refs.datetimePicker.state.currentDate)
+        this.state.dataArr[3].data = this.refs.datetimePicker.state.currentDate
     }
 
     //pass vlaue web

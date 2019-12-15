@@ -40,6 +40,8 @@ target 'runs' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-amap-geolocation', :path => '../node_modules/react-native-amap-geolocation'
+
   target 'runsTests' do
     inherit! :search_paths
     # Pods for testing

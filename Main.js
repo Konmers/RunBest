@@ -16,7 +16,8 @@ import TrendScreen from './src/screens/Trend/Trend.js';//排行榜
 import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心
 import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
 import RadioScreen from './src/screens/Radio.js';//Radio
-import DatetimePickerScreen from './src/screens/DatetimePicker.js';//Radio
+import DatetimePickerScreen from './src/screens/DatetimePicker.js';//DatetimePicker
+import MapDemoScreen from './src/screens/MapDemo.js';//MapDemo
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
@@ -25,6 +26,12 @@ import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 {/* component 设置关联的页面 */}
 {/* title 就是给页面标题 */}
 {/* initial 就是设置默认页面*/}
+
+// index.js文件最开始
+ 
+if (!window.navigator.userAgent) {
+    window.navigator.userAgent = "react-native";
+  }  
 
 export default  class Main extends Component {
     constructor(props) {
@@ -42,6 +49,7 @@ export default  class Main extends Component {
                     <Scene key='userinfoedit' component={UserinfoEditScreen} title='UserinfoEdit'></Scene>
                     <Scene key='radio' component={RadioScreen} title='radioEdit'></Scene>
                     <Scene key='datetimepicker' component={DatetimePickerScreen} title='datetimepickerEdit'></Scene>
+                    <Scene key='map' component={MapDemoScreen} title='mapEdit'></Scene>
                 </Scene>
             </Router>
          );

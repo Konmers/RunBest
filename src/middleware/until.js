@@ -1,6 +1,5 @@
 import {Echarts,echarts} from 'native-echarts';
 
-
 const charge = (weekdate) => {
     const max = Math.max.apply(null, weekdate)
     if (!max) return 0

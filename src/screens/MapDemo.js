@@ -70,10 +70,12 @@ export default class MapDemo extends Component {
         this.setState({
           location:position,
           getLatitude:position.coords.latitude,
-          getLongitude:position.coords.longitude})
-          console.log('position--ss---- ',position.co)
-      //设置每隔15S获取一次定位
-      setInterval(5000);
+          getLongitude:position.coords.longitude
+        })
+        console.log('position--ss---- ',position.coords)
+        
+        //设置每隔15S获取一次定位
+        setInterval(5000);
       });
 
 
@@ -109,49 +111,6 @@ export default class MapDemo extends Component {
                   showsLabels={true}
                   zoomLevel={15}
               >
-                  
-              {/* // 画marker  
-               < Marker 
-              key={navigation.getParam('currentCarName','')}
-              active
-              title={navigation.getParam('currentCarName','')}
-              color='blue'
-              description={'battery:'+this.props.carwebsocket.carstatus.battery}
-              coordinate={ {
-                  latitude: 40.006901,
-                  longitude: 116.097972,
-                }}
-              ></Marker> */}
-               
-        
-            {/* //画框
-              <Polygon 
-              coordinates={gps} 
-              fillColor={'transparent'} 
-              strokeColor={'#1398E2'} 
-              strokeWidth={4}
-              ></Polygon>   */}
-                  
-              {/* //画线条 */}
-              {/* <Polyline
-                width={10}
-                color='rgba(255, 0, 0, 0.5)'
-                
-                coordinates={[
-                  {
-                    latitude: 40.006901,
-                    longitude: 116.097972,
-                  },
-                  {
-                    latitude: 40.006901,
-                    longitude: 116.597972,
-                  },
-                  {
-                    latitude: 39.706901,
-                    longitude: 116.597972,
-                  },
-                ]}
-              />       */}
              </MapView>
             </View>
         );

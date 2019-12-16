@@ -72,7 +72,7 @@ export default class MapDemo extends Component {
           getLatitude:position.coords.latitude,
           getLongitude:position.coords.longitude
         })
-        console.log('position--ss---- ',position.coords)
+        console.warn('position--ss---- ',position.coords)
         
         //设置每隔15S获取一次定位
         setInterval(5000);

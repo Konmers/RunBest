@@ -16,7 +16,7 @@ import {
   setLocatingWithReGeocode
 } from 'react-native-amap-geolocation';
 
-import { MapView,Marker,Polyline,Polygon } from 'react-native-amap3d';
+import { MapView} from 'react-native-amap3d';
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
@@ -51,31 +51,29 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#689F38',
   },
+  mapBlock:{
+    height:deviceHeight,
+    width:deviceWidth
+}
 });
 
 export default class MapDemo extends Component {
   constructor (props) {
     super(props)  
-    this.state = {
-      location:null,
-      locationArr:[
-        // {
-        //   latitude: 40.006901,
-        //   longitude: 116.097972,
-        // },
-        // {
-        //   latitude: 40.006901,
-        //   longitude: 116.597972,
-        // },
-        // {
-        //   latitude: 39.706901,
-        //   longitude: 116.597972,
-        // }
-      ],
-      getLatitude: '',
-      getLongitude:'',
+    this.polyline = [];
+    this.state= {
+        center:{
+            latitude:0,
+            longitude:0
+        },
+        line : [
+            {
+                latitude:0,
+                longitude:0
+            }
+        ]
     }
-  }
+}
 
    componentDidMount = async () =>{
       if (Platform.OS === "android") {
@@ -89,100 +87,79 @@ export default class MapDemo extends Component {
      
       //注册一个监听，它会每隔一段时间返回当前地理位置
       Geolocation.watchPosition(position=>{
-        let item = []
-        // item = this.state.locationArr
-
-        console.log('item-sss--aaaa---- ',item)
-
         let data = 
         {
           latitude:Number(position.coords.latitude),
           longitude:Number(position.coords.longitude)
-        }
-        console.log('item-data---- ',data)
-
-        if(this.state.locationArr.length == 0)
-        {
-          console.log('1111------- ',11111)
-          item.push(data)
-        }
-        else
-        {
-          console.log('2222------- ',2222)
-          for (let index = 0; index < this.state.locationArr.length; index++) {
-              // item = this.state.locationArr,
-              item.push(data)
-              console.log('item-sss------ ', this.state.locationArr)
-              // item[this.state.locationArr.length].push(data)
-          }
-        }       
-
+        }    
         this.setState({
-          location:position,
-          locationArr:item
+          center:data
         })
-        //newData是新的对象数组
-        // model = Object.assign({}, model ,newData.data)
-
-        // console.warn('position--ss---- ',position.coords)
-        // console.log('this.state.locationArr------- ',this.state.locationArr)
-           
-        //设置每隔15S获取一次定位
-        setInterval(5000);
       });
+  }
+  getCenter(lat, long) {
+      this.setState({
+          center:{
+              latitude: lat,
+              longitude: long,
+          }
+      })
+  }
 
-
+  userAnimate(lat, long){
+      let coordinate = {
+          latitude: lat,
+          longitude: long
+      }
+      console.warn("用户当前的坐标", coordinate)
+      this._mapView.animateTo({
+          coordinate : coordinate
+      })
+      this.polyline.push(coordinate)
+      this.setState({
+          line:[...this.polyline]
+      })
   }
 
     render() {
         return (            
             <View>
-                {/* <ScrollView contentContainerStyle={style.body}>
-                  <View style={style.controls}>
-                    <Text>{`${JSON.stringify(this.state.location,null,2)}`}</Text>
-                    <Text>{this.state.getLatitude}</Text>
-                    <Text>{this.state.getLongitude}</Text>
-                  </View>
-                </ScrollView> */}
-             {/* <MapView
-              draggable
-              mapType={'standard'}
-              zoomEnabled={true}
-              scrollEnabled={true}
-              rotateEnabled={true}
-              style={styles.mapStyles}
-              showsZoomControls={false}
-              locationEnabled={true}
-              showsLabels={true}
-              zoomLevel={15}
-              coordinate={{
-                latitude: Number(this.state.getLatitude),
-                longitude: Number(this.state.getLongitude),
-              }}
-               >
-
-             </MapView> */}
-                <MapView
-                    draggable
-                    zoomEnabled={true}
-                    scrollEnabled={true}
-                    rotateEnabled={true}
-                    style={styles.mapStyles}
-                    showsZoomControls={false}
-                    locationEnabled={true}
-                    showsLabels={true}
-                    zoomLevel={15} 
-                    // coordinate={{
-                    //   latitude: Number(this.state.getLatitude),
-                    //   longitude: Number(this.state.getLongitude),
-                    // }}
+                 <MapView style={styles.mapBlock}
+                    mapType = "standard" //地图类型  standard: 标准地图  satellite: 卫星地图 navigation: 导航地图 night: 夜间地图  bus: 公交地图
+                    ref={(ref) => {this._mapView = ref}}    
+                    locationStyle={{fillColor:'rgba(0,0,0,0)',strokeWidth:0}}
+                    locationEnabled={true} // 是否启用定位
+                    locationInterval={500} //定位间隔(ms)，默认 2000
+                    distanceFilter={2} //定位的最小更新距离
+                    showsBuildings={true} //是否显示3D建筑
+                    showsZoomControls={false} //是否显示放大缩小按钮
+                    showsCompass={true} //是否显示指南针
+                    showsScale={false} //是否显示比例尺
+                    showsLabels={true} //是否显示文本标签
+                    scrollEnabled={true}//是否启用滑动手势，用于平移
+                    rotateEnabled={true} //是否启用旋转手势，用于调整方向
+                    tiltEnabled={true} //是否启用倾斜手势，用于改变视角
+                    coordinate={this.state.center} //中心坐标
+                    zoomLevel={18}//当前缩放级别，取值范围 [3, 20]
+                    zoomEnabled={true} //是否启用缩放手势，用于放大缩小
+                    // minZoomLevel = {18}//最大缩放级别
+                    // minZoomLevel ={5}//最小缩放级别
+                    onLocation={({ nativeEvent }) => {
+                        // console.log("经度纬度",`${nativeEvent.latitude}, ${nativeEvent.longitude}`)
+                        this.getCenter(nativeEvent.latitude, nativeEvent.longitude)
+                        this.userAnimate(nativeEvent.latitude, nativeEvent.longitude)
+                    }}
                 >
-                  <Polyline
-                    width={10}
-                    color='rgba(255, 0, 0, 0.5)'
-                    coordinates={this.state.locationArr}
-                  />
+                    <MapView.Polyline
+                        key={Math.random()}
+                        ref={ref=>{this._polyline = ref}}
+                        dashed={true}
+                        width={10}
+                        color='rgba(255, 0, 0, 0.5)'
+                        coordinates={this.state.line}
+                    />
                 </MapView>
+
             </View>
         );
     }

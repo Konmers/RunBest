@@ -10,6 +10,7 @@ import {Router,Stack,Scene} from 'react-native-router-flux'
 //引用页面
 import App from './App.js'
 import HomeScreen from './src/screens/Home/Home.js'; //首页
+import LoginScreen from './src/screens/Login/Login.js'; //Login
 // import Shop from './src/screens/demo.js';//商城
 import RankScreen from './src/screens/Rank/Rank.js';//商城
 import TrendScreen from './src/screens/Trend/Trend.js';//排行榜
@@ -44,6 +45,8 @@ export default  class Main extends Component {
             <Router>
                 <Scene key='root'>
                     <Scene key='app' component={App} hideNavBar={true}></Scene>
+                    <Scene key='Login' component={LoginScreen} title='Login' initial={true}></Scene>
+                    <Scene key='home' component={HomeScreen} navTransparent={true}></Scene>
                     <Scene key='videodetail' component={VideoDetailScreen} title='VideoDetailScreen组件'></Scene>
                     <Scene key='videoplay' component={VideoPlayScreen} title='VideoPlayScreen组件'></Scene>
                     <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'></Scene>

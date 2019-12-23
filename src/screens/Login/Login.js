@@ -10,6 +10,14 @@ import {
   TouchableOpacity,
   ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
 } from 'react-native'
+// Dimensions 用于获取设备宽、高、分辨率
+const { width,height } = Dimensions.get('window')
+
+import SplashScreen from 'react-native-splash-screen'
+
+// Actions表示要进行路由的JS操作了,可以跳特到新路由
+import { Actions } from 'react-native-router-flux'
+
 
 class Login extends Component {
     constructor(props) {
@@ -29,7 +37,7 @@ class Login extends Component {
         // 隐藏启动页，如果不设置消失时间，在组件加载完启动页自动隐藏
         setTimeout(() => {
             SplashScreen.hide();
-        }, 3000);
+        }, 1000);
     }
 
     static navigationOptions = {
@@ -77,7 +85,8 @@ class Login extends Component {
     onPressLogin() {
         const {navigation} = this.props;
         if (navigation) {
-            this.props.navigation.navigate('Home');
+            // this.props.navigation.navigate('Home');
+            Actions.app()// 空传参
         }  
     }
     render() {
@@ -174,7 +183,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     lineBottom: {
-        borderBottomWidth: 5 / PixelRatio.get(),
+        // borderBottomWidth: 5 / PixelRatio.get(),
+        borderBottomWidth: 20,
         borderColor: 'rgb(208,208,208)'
      },
     button: {
@@ -215,7 +225,8 @@ const styles = StyleSheet.create({
         
     },
     lineTopBottom: {
-        borderBottomWidth: 3 / PixelRatio.get(),
+        // borderBottomWidth: 3 / PixelRatio.get(),
+        borderBottomWidth: 30,
         borderColor: 'rgb(208,208,208)',
     },
     centering: {

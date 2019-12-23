@@ -42,6 +42,8 @@ target 'runs' do
 
   pod 'react-native-amap-geolocation', :path => '../node_modules/react-native-amap-geolocation'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'runsTests' do
     inherit! :search_paths
     # Pods for testing

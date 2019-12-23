@@ -258,6 +258,7 @@ export default class Trend extends Component{
   onPress = () => {
     console.warn('ddddd') 
     Actions.map()// 空传参
+    // Actions.Webmap()// 空传参
 
   };
 

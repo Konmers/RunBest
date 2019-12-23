@@ -18,6 +18,7 @@ import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
 import RadioScreen from './src/screens/Radio.js';//Radio
 import DatetimePickerScreen from './src/screens/DatetimePicker.js';//DatetimePicker
 import MapDemoScreen from './src/screens/MapDemo.js';//MapDemo
+import WebmapofoScreen from './src/screens/Webmapofo.js';//WebMapofo
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
 import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
@@ -50,6 +51,7 @@ export default  class Main extends Component {
                     <Scene key='radio' component={RadioScreen} title='radioEdit'></Scene>
                     <Scene key='datetimepicker' component={DatetimePickerScreen} title='datetimepickerEdit'></Scene>
                     <Scene key='map' component={MapDemoScreen} title='mapEdit'></Scene>
+                    <Scene key='Webmap' component={WebmapofoScreen} title='WebmapofoEdit'></Scene>
                 </Scene>
             </Router>
          );

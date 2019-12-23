@@ -19,6 +19,8 @@ import { Actions } from 'react-native-router-flux'
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 
+import SplashScreen from 'react-native-splash-screen'
+
 const loading = require('../../public/Iamge/Banner/loading.gif')
 
 const styles = {
@@ -147,6 +149,10 @@ const Slide = props => {
 }
 
 class Home extends Component {
+  componentDidMount(){
+    //3秒后关闭启动页
+       setTimeout(()=>{SplashScreen.hide()}, 1000, )
+     };
   constructor (props) {
     super(props)
     this.state = {

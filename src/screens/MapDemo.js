@@ -17,7 +17,7 @@ import {
   setLocatingWithReGeocode
 } from 'react-native-amap-geolocation';
 
-import { MapView} from 'v';
+import { MapView} from 'react-native-amap3d';
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 

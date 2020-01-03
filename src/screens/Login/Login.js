@@ -105,7 +105,7 @@ class Login extends Component {
                 <View style={{height:height/10}}></View>
                 <View style={styles.inputView}>
                     <View style={[styles.view, styles.lineTopBottom]}>
-                      <Text style={styles.text}>手机号:</Text>
+                      <Text style={{color:"#17C6AC"}}>手机号:</Text>
                       <TextInput
                         style={styles.textInputStyle}
                         placeholder="请输入您的手机号码"
@@ -120,7 +120,7 @@ class Login extends Component {
                       />
                     </View>
                     <View style={[styles.view, styles.lineTopBottom]}>
-                        <Text style={styles.text}>验证码:</Text>
+                        <Text style={{color:"#17C6AC"}}>验证码:</Text>
                         <TextInput
                             style={styles.textInputStyle}
                             placeholder="请输入验证码"
@@ -158,14 +158,14 @@ const styles = StyleSheet.create({
     textStyle:{
         fontSize:36,
         textAlign:'center',   
-        backgroundColor:'#17C6AC',
-        color:'#17C6ACs'
+        backgroundColor:'#FFFFFF',
+        color:'#1874CD'
     },   
     containers:{
         height:height/4,
         justifyContent: 'flex-end',
         alignItems:'center',
-        backgroundColor:'#17C6AC'
+        backgroundColor:'#FFFFFF'
     },
     container: {
         flex: 1,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
         width:width*0.8,
         height: 44,
         borderRadius: 10,
-        backgroundColor: '#17C6ACs',
+        backgroundColor: '#17C6AC',
         justifyContent: 'center',
         alignItems:'center'
     },
@@ -200,16 +200,16 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         color: 'white',
-
     },
     text: {
         lineHeight: 44,
         fontSize: 14,
+        color:'#17C6AC'
     },
     texts: {
         lineHeight: 44,
         fontSize: 16,
-        color:'#17C6ACs'
+        color:'#17C6AC'
     },
     view: {
         flexDirection: 'row',

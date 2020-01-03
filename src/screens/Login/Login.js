@@ -158,14 +158,14 @@ const styles = StyleSheet.create({
     textStyle:{
         fontSize:36,
         textAlign:'center',   
-        backgroundColor:'#FFFFFF',
-        color:'#1874CD'
+        backgroundColor:'#17C6AC',
+        color:'#17C6ACs'
     },   
     containers:{
         height:height/4,
         justifyContent: 'flex-end',
         alignItems:'center',
-        backgroundColor:'#FFFFFF'
+        backgroundColor:'#17C6AC'
     },
     container: {
         flex: 1,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
         width:width*0.8,
         height: 44,
         borderRadius: 10,
-        backgroundColor: '#1874CD',
+        backgroundColor: '#17C6ACs',
         justifyContent: 'center',
         alignItems:'center'
     },
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     texts: {
         lineHeight: 44,
         fontSize: 16,
-        color:'#1874CD'
+        color:'#17C6ACs'
     },
     view: {
         flexDirection: 'row',

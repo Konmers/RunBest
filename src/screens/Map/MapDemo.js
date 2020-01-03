@@ -1,3 +1,4 @@
+// 地图 运动轨迹
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   Dimensions,
   Platform,
   Button, 
+  TouchableOpacity,
 } from "react-native";
 import {
   init,
@@ -17,7 +19,21 @@ import {
   setLocatingWithReGeocode
 } from 'react-native-amap-geolocation';
 
+//地图组件
 import { MapView} from 'react-native-amap3d';
+
+//计算距离
+import {computedRange} from '../../middleware/ComputedRange.js';
+
+//计算时间
+import {computationTimeTwo} from '../../middleware/Computationtime.js';
+
+//bounced 
+import ModalBox from 'react-native-modalbox'
+
+//时间
+import dayjs from 'dayjs'
+
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
@@ -36,7 +52,16 @@ const styles = StyleSheet.create({
   },
   chooseView:{
 
-  }
+  },
+  modal:{
+    height: '30%',
+    width:deviceWidth*0.9,
+  },
+  modalLayer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 32
+  }  
 });
 
 export default class MapDemo extends Component {
@@ -59,7 +84,11 @@ export default class MapDemo extends Component {
         isStartcenter:{
           latitude:0,
           longitude:0
-        }
+        },
+        distance:0,
+        startTime:'',
+        endTime:'',
+        spendTime:''
     }
 }
 
@@ -113,16 +142,32 @@ export default class MapDemo extends Component {
   }
   //开始
   _StartExercise = () =>{
+    let startTime= dayjs().valueOf()
     this.setState({
-      isStausChange:true
+      isStausChange:true,
+      startTime:new Date()
     })
   }
-  //结束
+  //结束  open Gendershow
   _StopExercise = () =>{
+    this.refs.GenderModal.open()//打开
+    let endTime= new Date()
+    //computedRange
+    let startvalue = this.polyline[0]
+    let endvalue = this.polyline[this.polyline.length-1]
+    let distance = computedRange(startvalue,endvalue)
     this.setState({
       isStausChange:false,
-      isStausPiont:false
+      isStausPiont:false,
+      endTime:endTime,
+      spendTime:computationTimeTwo(this.state.startTime),
+      distance:distance
     })
+  }
+
+  //close Gendershow
+  closeGenderVisible = () => {
+    this.refs.GenderModal.close();//关闭
   }
 
   render() {
@@ -202,6 +247,25 @@ export default class MapDemo extends Component {
                 color="#17C6AC"
               />
               </View>
+              <ModalBox 
+                 style={styles.modal} 
+                 ref={"GenderModal"} 
+                 position="center"
+                 isDisabled={false}
+                 backdropPressToClose={false}
+                >
+                  <View style={styles.modalLayer}>
+                    <Text>使用时间： {this.state.spendTime}</Text>
+                    <Text>奔跑距离： {this.state.distance}</Text>
+                    <View style={styles.modalButtonStyle}>
+                        <Button 
+                            title='保存' 
+                            color="#17C6AC"
+                            onPress={this.closeGenderVisible}
+                        ></Button>
+                    </View>
+                  </View>
+                </ModalBox>
           </View>
       );
   }

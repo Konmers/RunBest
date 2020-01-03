@@ -1,3 +1,4 @@
+//视频详情页面
 import React,{Component } from 'react';
 import {
   Text,
@@ -20,7 +21,8 @@ class VideoDetail extends Component {
   }
   render() { 
     return ( 
-      <TouchableHighlight  style={{marginLeft: 30,marginRight: 30,marginTop:10}} onPress={()=>{Actions.videoplay({title:'湖广会馆恢复规划'})}}>
+       // Actions.videoplay({title:'湖广会馆恢复规划'}) 视频播放页面
+      <TouchableHighlight  style={{marginLeft: 30,marginRight: 30,marginTop:10}} onPress={()=>{Actions.videoplay({title:'湖广会馆恢复规划'})}}> 
         <View style={{width:'100%',marginBottom:20,flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
             <Text>
                 啦啦啦啦啦啦啦啦绿
@@ -28,7 +30,7 @@ class VideoDetail extends Component {
             <Text>{this.props.id}</Text>
 
             <View style={{alignItems:'center'}}>
-              <Image style={{width:100,height:100}} source={require('../public/Iamge/Head/8.jpg')}/>
+              <Image style={{width:100,height:100}} source={require('../../public/Iamge/Head/8.jpg')}/>
               <Text>Learn more about this purple button</Text>
             </View>
         </View>

@@ -22,12 +22,12 @@ import {
   import RadioModal from 'react-native-radio-master'
 
   // date picker
-  import DatetimePicker from '../DatetimePicker';
+  import DatetimePicker from '../../middleware/DatetimePicker';
 
   //camera 
   import ImagePicker from 'react-native-image-picker'
 
-  //bounced
+  //bounced 
   import ModalBox from 'react-native-modalbox'
   
   // Dimensions 用于获取设备宽、高、分辨率
@@ -266,7 +266,7 @@ import {
                  ref={"GenderModal"} 
                  position="center"
                  isDisabled={false}
-                 backdropPressToClose={true}
+                 backdropPressToClose={false}
                 >
                     <View style={styles.modalLayer}>
                         <View style={styles.modalContainer}>

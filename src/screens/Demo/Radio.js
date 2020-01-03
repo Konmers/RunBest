@@ -67,8 +67,8 @@ class RadioDemo extends Component{
 				noneColor={'#efefef'}
 				selectedValue={this.state.language}
 				onValueChange={(id,item) => this.setState({language: id,item:item})}
-				seledImg={require('../public/Iamge/Check/chooseChange.png')}
-				selImg={require('../public/Iamge/Check/choose.png')}
+				seledImg={require('../../public/Iamge/Check/chooseChange.png')}
+				selImg={require('../../public/Iamge/Check/choose.png')}
 				// selnoneImg={require('./imgs/selectnone.png')}
 				dataOption={datas}
 				style={{ flexDirection:'row',

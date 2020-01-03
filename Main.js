@@ -16,13 +16,12 @@ import RankScreen from './src/screens/Rank/Rank.js';//商城
 import TrendScreen from './src/screens/Trend/Trend.js';//排行榜
 import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心
 import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
-import RadioScreen from './src/screens/Radio.js';//Radio
-import DatetimePickerScreen from './src/screens/DatetimePicker.js';//DatetimePicker
-import MapDemoScreen from './src/screens/MapDemo.js';//MapDemo
-import WebmapofoScreen from './src/screens/Webmapofo.js';//WebMapofo
+import RadioScreen from './src/screens/Demo/Radio.js';//Radio
+import DatetimePickerScreen from './src/middleware/DatetimePicker.js';//DatetimePicker
+import MapDemoScreen from './src/screens/Map/MapDemo.js';//MapDemo
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
-import VideoDetailScreen from './src/screens/VideoDetail.js';//视频详情
-import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
+import VideoDetailScreen from './src/screens/Video/VideoDetail.js';//视频详情
+import VideoPlayScreen from './src/screens/Video/VideoPlayer.js';//视频播放
 
 {/* key 就是给页面的标签,供Actions使用 */}
 {/* component 设置关联的页面 */}
@@ -54,7 +53,6 @@ export default  class Main extends Component {
                     <Scene key='radio' component={RadioScreen} title='radioEdit'></Scene>
                     <Scene key='datetimepicker' component={DatetimePickerScreen} title='datetimepickerEdit'></Scene>
                     <Scene key='map' component={MapDemoScreen} title='mapEdit'></Scene>
-                    <Scene key='Webmap' component={WebmapofoScreen} title='WebmapofoEdit'></Scene>
                 </Scene>
             </Router>
          );

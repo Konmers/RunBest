@@ -28,8 +28,6 @@ import Home from './src/screens/Home/Home.js'; //首页
 import Rank from './src/screens/Rank/Rank.js';//排行榜
 import Trend from './src/screens/Trend/Trend.js';//走势
 import Personal from './src/screens/Personal/Personal.js';//个人中心
-import VideoDetail from './src/screens/VideoDetail.js';//视频详情
-import VideoPlayScreen from './src/screens/VideoPlayer.js';//视频播放
 
 const dataSource = [
   {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'首页',component:Home},

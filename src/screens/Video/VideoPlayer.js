@@ -138,7 +138,7 @@ export default class Videopalyer extends Component<Props> {
         {/* <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
           <Button title={'开始播放'} onPress={() => {this.playVideo()}}/>
           <Button title={'暂停播放'} onPress={() => {this.pauseVideo()}}/>
-          <Button title={'切换视频'} onPress={() => {this.switchVideo("../public/video/test.mp4", 0)}}/>
+          <Button title={'切换视频'} onPress={() => {this.switchVideo("../public/Video/test.mp4", 0)}}/>
         </View> */}
       </View>
     )

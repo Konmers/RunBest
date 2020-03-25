@@ -40,7 +40,6 @@ const state = {
 const App: () => React$Node = () => {
 
   return (
-    <>
     <View>
        <ScrollView style={{width:'100%',marginBottom:20}}>
           <ActivityIndicator style={{margin: 20}} color='red' size='large' animating={true}></ActivityIndicator>
@@ -98,7 +97,6 @@ const App: () => React$Node = () => {
           />
        </ScrollView>
     </View>
-    </>
   );
 };
 const styles = StyleSheet.create({

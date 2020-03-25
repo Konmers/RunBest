@@ -21,6 +21,10 @@ import { Actions } from 'react-native-router-flux'
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
 
+import { baseFormData } from '../../server/formData'
+import Floatball from "../../middleware/Floatball.js"
+import api from '../../server/api'
+
 const styles = {
     Title:{
       width,
@@ -158,11 +162,11 @@ const styles = {
     },
 }
 
-
- class Personal extends Component {
+class Personal extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            list:{},
             optionArr:[
                 {
                     title:'我的里程',
@@ -205,6 +209,23 @@ const styles = {
             return (<View style={styles.weatherView}><Image style={styles.weatherImg} source={require('../../public/Iamge/Else/moon.gif')} /><Text>晚上好~</Text></View>)
         }
     }
+
+    //初始化
+    componentDidMount = async () =>{
+        // const formData = baseFormData()
+        const formData = new FormData()
+        // formData.append('tid', 1)
+        // formData.append('page', 1)
+        api.user.loginInfo(formData).then(({ code, type, List }) => {
+            console.log('List typeof--------  ',typeof List)
+            console.log('List--------  ',List)
+            if(code == 200)
+            {
+                this.setState({list:List});
+            }
+        })  
+    }
+
     render() { 
         return ( 
             <View style={{flex:1}}>
@@ -220,9 +241,9 @@ const styles = {
                     </View>
                     <TouchableOpacity style={styles.avatar}  onPress={() => this.getUserinfo('sdfsd')}>
                         <View style={styles.ViewImg}>
-                            <Image style={{width:'100%',height:'100%'}} source={require('../../public/Iamge/Head/14.jpg')} />
+                            <Image style={{width:'100%',height:'100%'}} source={{uri:this.state.list.avatar}} />
                         </View>
-                        <Text style={styles.ViewText}>Konmer <Image style={{width:20,height: 20}} source={require('../../public/Iamge/Else/edit_1.png')} /> </Text>
+                        <Text style={styles.ViewText}>{this.state.list.username} <Image style={{width:20,height: 20}} source={require('../../public/Iamge/Else/edit_1.png')} /> </Text>
                     </TouchableOpacity>
                     <View style={styles.optionArrs}>
                        {
@@ -261,6 +282,7 @@ const styles = {
                         </View>
                     </View>
                 </View>
+                <Floatball/> 
             </View>
          );
     }

@@ -20,6 +20,8 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 // Actions表示要进行路由的JS操作了,可以跳特到新路由
 import { Actions } from 'react-native-router-flux'
 
+import Floatball from "../../middleware/Floatball.js"
+
 //Echart
 import Echarts from 'native-echarts';
 
@@ -251,6 +253,7 @@ export default class Trend extends Component{
             </View>          
         </ScrollView>
         </ScrollableTabView>
+        <Floatball/> 
       </View>
     );
   }

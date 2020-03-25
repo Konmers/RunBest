@@ -46,7 +46,7 @@ const styles = {
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,.5)'
+    backgroundColor: 'rgba(0,0,0,0.5)'
   },
   loadingImage: {
     width: 60,
@@ -60,7 +60,7 @@ const styles = {
     alignContent:'center',
     alignItems: 'center',
     margin:10,
-   borderRadius:15,
+    borderRadius:15,
     shadowColor:'#000000',
     shadowOpacity:0.9,
     shadowRadius:10,
@@ -89,7 +89,7 @@ const styles = {
     alignContent:'center',
     marginHorizontal:10,
     marginBottom:20,
-   borderRadius:15,
+    borderRadius:15,
     shadowColor:'#000000',
     shadowOpacity:0.9,
     shadowRadius:10,

@@ -23,17 +23,18 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 
 //页面引用
-import Home from './src/screens/Home/Home.js'; //首页
+// import Home from './src/screens/Home/Home.js'; //首页
+import Home from './src/screens/Home/HomeInfo.js'; //首页
 // import Shop from './src/screens/Demo.js';//商城
 import Rank from './src/screens/Rank/Rank.js';//排行榜
 import Trend from './src/screens/Trend/Trend.js';//走势
 import Personal from './src/screens/Personal/Personal.js';//个人中心
 
 const dataSource = [
-  {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'首页',component:Home},
-  {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Rank',tabName:'排行榜',component:Rank},
-  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Trend',tabName:'走势',component:Trend},
-  {icon:require('./src/public/Iamge/Bottom/personal.png'),selectedIcon:require('./src/public/Iamge/Bottom/personal-after.png'),tabPage:'Personal',tabName:'个人中心',component:Personal}
+  {icon:require('./src/public/Iamge/Bottom/home.png'),selectedIcon:require('./src/public/Iamge/Bottom/home-after.png'),tabPage:'Home',tabName:'Home',component:Home},
+  {icon:require('./src/public/Iamge/Bottom/rank.png'),selectedIcon:require('./src/public/Iamge/Bottom/rank-after.png'),tabPage:'Rank',tabName:'Rank',component:Rank},
+  {icon:require('./src/public/Iamge/Bottom/statistical.png'),selectedIcon:require('./src/public/Iamge/Bottom/statistical-after.png'),tabPage:'Trend',tabName:'Trend',component:Trend},
+  {icon:require('./src/public/Iamge/Bottom/personal.png'),selectedIcon:require('./src/public/Iamge/Bottom/personal-after.png'),tabPage:'Personal',tabName:'Personal',component:Personal}
 ]
 var navigation = null;
 export default class App extends Component {

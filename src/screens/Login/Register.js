@@ -24,13 +24,15 @@ const { width,height } = Dimensions.get('window')
 
 import SplashScreen from 'react-native-splash-screen' //引导页
 
-import { Toast } from 'teaset'
-import api from '../../server/api'
-import storage from '../../server/storage'
-import DeviceInfo from 'react-native-device-info';
+//验证码
+import CountDownButton from '../../middleware/CountDownButton';
 
 // Actions表示要进行路由的JS操作了,可以跳特到新路由
 import { Actions } from 'react-native-router-flux'
+
+import api from '../../server/api'
+
+import { Toast } from 'teaset'
  
  class Login extends Component {
  
@@ -39,6 +41,10 @@ import { Actions } from 'react-native-router-flux'
         this.state = {
             name_value:"",//设置用户名初始值，用了判断清除图标的显隐
             pwd_value:"",//设置用密码初始值
+            phone_value:"",
+            email_value:"",
+            verification_code:'',
+            getverification_code:'',
             img_eye_close:true,//设置默认显示眼睛关闭的图标
             is_show_pwd:true //设置是否明文显示密码
         }
@@ -105,12 +111,12 @@ import { Actions } from 'react-native-router-flux'
             >
             {/* <StatusBar barStyle='light-content' backgroundColor='rgba(0.2,0.2,0.2,0.2)' translucent={true}></StatusBar> //状态栏沉浸 */}
             
-                <ImageBackground  style={styles.container} behavior="padding" source={require('../../public/Iamge/Login/backIamge.jpg')}>
+                <ImageBackground style={[styles.container,{paddingTop:'20%'}]} behavior="padding" source={require('../../public/Iamge/Login/backIamge.jpg')}>
                     <View style={styles.header}>
-                        <Image style={styles.img_log} source={require('../../public/Iamge/Head/15.jpg')}/>
+                        <Text style={styles.headertext}>Sign Up</Text>
                     </View>
                     <View style={styles.login_view}>
-                        <View style={styles.item_name}>
+                        <View style={styles.item_texteara}>
                             <Image style={styles.img_user} source={require('../../public/Iamge/Login/user.png')}/>
                             <TextInput
                                 value={this.state.name_value}
@@ -130,6 +136,62 @@ import { Actions } from 'react-native-router-flux'
                             <Image style={styles.tag_clear} source={require('../../public/Iamge/Login/confirm.png')}  />
                             </TouchableNativeFeedback>}
                         </View>
+                        <View style={styles.item_texteara}>
+                            <Image style={styles.img_user} source={require('../../public/Iamge/Login/phone.png')}/>
+                            <TextInput
+                                value={this.state.phone_value}
+                                style={styles.textcont}
+                                keyboardType='numeric'
+                                placeholder=" Phone"
+                                placeholderTextColor="white"
+                                onChangeText={(text) => this.setState({
+                                    phone_value:text
+                                })}
+                            />
+                            {this.state.phone_value===""?(null):<TouchableNativeFeedback onPress={()=>this.setState(
+                                {
+                                    phone_value:""
+                                }
+                            )}>
+                            <Image style={styles.tag_clear} source={require('../../public/Iamge/Login/confirm.png')}  />
+                            </TouchableNativeFeedback>}
+                        </View>
+                        <View style={styles.item_texteara}>
+                            <Image style={styles.img_user} source={require('../../public/Iamge/Login/e-mail.png')}/>
+                            <TextInput
+                                value={this.state.email_value}
+                                style={styles.textcont}
+                                keyboardType='email-address'
+                                placeholder=" Email"
+                                placeholderTextColor="white"
+                                onChangeText={(text) => this.setState({
+                                    email_value:text
+                                })}
+                            />
+                            {this.state.email_value===""?(null):<TouchableNativeFeedback onPress={()=>this.setState(
+                                {
+                                    email_value:""
+                                }
+                            )}>
+                            <Image style={styles.tag_clear} source={require('../../public/Iamge/Login/confirm.png')}  />
+                            </TouchableNativeFeedback>}
+                        </View>
+                        <View style={styles.item_verification}>
+                            <View style={[styles.item_texteara,{marginTop:0,height:'100%'}]}>
+                                <Image style={styles.img_user} source={require('../../public/Iamge/Login/confirm.png')}/>
+                                <TextInput
+                                    value={this.state.verification_code}
+                                    style={[styles.textcont,{marginRight:5}]}
+                                    keyboardType='numeric'
+                                    placeholder=" Verification code "
+                                    placeholderTextColor="white"
+                                    onChangeText={(text) => this.setState({
+                                        verification_code:text
+                                    })}
+                                />
+                            </View>
+                            <CountDownButton enable={true} timerCount={10} onClick={(_shouldStartCount) => { _shouldStartCount(true),this.onGetcode()}}/>
+                        </View>
                         <View style={styles.item_pwd}>
                             <Image  style={styles.img_pwd} source={require('../../public/Iamge/Login/password.png')}/>
                             <TextInput
@@ -143,15 +205,6 @@ import { Actions } from 'react-native-router-flux'
                                 })}
                                 secureTextEntry={this.state.is_show_pwd}
                             />
-                            {/* {this.state.pwd_value===""?(null):
-                            <TouchableNativeFeedback onPress={
-                                ()=>this.setState(
-                                {
-                                    pwd_value:""
-                                })
-                            }>
-                                <Image style={styles.tag_clear} source={require('../../public/Iamge/Login/confirm.png')}  />
-                                </TouchableNativeFeedback>} */}
                             {this.state.pwd_value===""?null:
                                 <TouchableNativeFeedback onPress={
                                     ()=>this.setState({
@@ -160,22 +213,15 @@ import { Actions } from 'react-native-router-flux'
                                     })
                                 }>
                                 {this.state.img_eye_close===true?<Image style={styles.tag_img} source={require('../../public/Iamge/Login/closeeyes.png')}/>:<Image style={styles.tag_img} source={require('../../public/Iamge/Login/openeyes.png')}/>}
-                                </TouchableNativeFeedback>}
-                        </View>
-                        <View style={styles.login_forgetpass}>
-                            <Text style={[styles.login_forgetpasstxt,{paddingLeft:10,textAlign:'left'}]}
-                            onPress={() => this.onLoginregister()}
-                            >Sign Up</Text>
-                            <Text style={[styles.login_forgetpasstxt,{paddingRight:10,textAlign:'right'}]}
-                            onPress={() => this.onForget()}
-                            > Forget Password?</Text>
+                                </TouchableNativeFeedback>
+                            }
                         </View>
                         <View style={styles.buttonView}>
                             <TouchableOpacity
                             style={styles.button}
-                            onPress={() => this.onPressLogin()}
+                            onPress={() => this.onJoin()}
                             >
-                                <Text style={styles.buttonText}>Sign in</Text>
+                                <Text style={styles.buttonText}>Join</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -183,51 +229,59 @@ import { Actions } from 'react-native-router-flux'
             </ScrollView>
         )
     }
-    async onPressLogin() {
-        // console.log('设备ID:', DeviceInfo.getDeviceId());
-        await storage.add('devicesid',DeviceInfo.getDeviceId())
-        // FIXME: 发送数据 for android
-        const devicesid = await storage.get('devicesid')
-        console.log('devicesid-------  ',devicesid)
-        const formData = {
-            username:this.state.name_value,
-            password:this.state.pwd_value,
-            devices:devicesid
-        }
-        api.user.login(formData).then((Data) => {
-            console.log('Data-------  ',Data)
-            if (Data.type === true) 
-            {
-                storage.add('key', Data.key)
-                storage.add('uid', Data.uid)
-                Toast.message('登陆成功');
-                const {navigation} = this.props;
-                if (navigation) {
-                    // Actions.app()// 空传参
-                    Actions.homeInfo()
-                }  
-            } 
-            else 
-            {
-                Toast.message(Data.msg);
+    onJoin() {
+        if(this.state.verification_code === this.state.getverification_code)
+        {
+            const formData = {
+                name:this.state.name_value || Toast.message('请填写用户名'),
+                phone:this.state.phone_value || Toast.message('请填写电话'),
+                email:this.state.email_value || Toast.message('请填写邮箱'),
+                pwd:this.state.pwd_value || Toast.message('请填写密码')
             }
-        })
+            api.user.createUser(formData).then((Data) => {
+                if (Data.type === true) 
+                {
+                    Toast.message('Registration Successful !!  ^_^');
+                    const {navigation} = this.props;
+                    if (navigation) {
+                        // this.props.navigation.navigate('Home');
+                        Actions.Login()// 空传参
+                        // Actions.Demo1()// 空传参
+                    }
+                } 
+                else 
+                {
+                    Toast.message('Registration Error !! -_-//');
+                }
+            })
+        }
+        else
+        {
+            Toast.message('请填写邮箱验证码');
+        }
     }
-    onLoginregister() {
-        const {navigation} = this.props;
-        if (navigation) {
-            // this.props.navigation.navigate('Home');
-            Actions.Register()// 空传参
-            // Actions.Demo1()// 空传参
-        }  
-    }
-    onForget() {
-        const {navigation} = this.props;
-        if (navigation) {
-            // this.props.navigation.navigate('Home');
-            Actions.Forget()// 空传参
-            // Actions.Demo1()// 空传参
-        }  
+    onGetcode() {
+        if(this.state.email_value)
+        {
+            const email = this.state.email_value 
+            const formData = new Object()
+            formData['email'] = email
+            api.user.verificationcode(formData).then((Data) => {
+                if (Data.type === true) 
+                {
+                    this.setState({getverification_code:Data.verification})
+                    Toast.message('请查看邮箱验证码');
+                } 
+                else 
+                {
+                    Toast.message(Data.msg);
+                }
+            })
+        }
+        else
+        {
+            Toast.message('请填写邮箱')
+        }
     }
 }
  
@@ -236,23 +290,26 @@ import { Actions } from 'react-native-router-flux'
         flex:1,
     },
     header:{
-        height:'40%',
-        width:"80%",
-        alignItems: 'center',
+        marginTop:10,
+        width:"90%",
         alignSelf:'center',
-        marginVertical:10
+        flexDirection:'row'
+    },
+    headertext:{
+        fontSize:30,
+        fontWeight:'700',
+        color:'#17C6AC',
+        paddingLeft:10
     },
     login_view:{
-        marginTop:20,
+        marginTop:10,
         alignSelf:'center',
+        // backgroundColor:'red',
         backgroundColor: 'transparent',
-        width:"80%",
-        height:"40%",
+        width:"90%",
+        height:"60%",
     },
-    img_log:{
-        marginTop:30,
-    },
-    item_name:{
+    item_texteara:{
         flexDirection:'row',
         flex:1,
         alignSelf:'center',
@@ -260,9 +317,19 @@ import { Actions } from 'react-native-router-flux'
         marginTop:10,
         borderRadius:6,
         borderColor:"#efecea",
-        borderBottomWidth:1,
-        // borderWidth:1,
-        width:280
+        borderBottomWidth:2,
+        width:"90%",
+        height:'20%'
+    },
+    item_verification:{
+        flexDirection:'row',
+        flex:1,
+        alignSelf:'center',
+        alignItems:'center',
+        alignContent:'center',
+        marginTop:20,
+        height:'20%',
+        width:"90%",
     },
     item_pwd:{
         flexDirection:'row',
@@ -271,9 +338,9 @@ import { Actions } from 'react-native-router-flux'
         alignItems:'center',
         borderRadius:6,
         borderColor:"#efecea",
-        // borderWidth:1,
-        borderBottomWidth:1,
-        width:280,
+        borderBottomWidth:2,
+        width:"90%",
+        height:'20%',
         marginTop:10
     },
     img_user:{
@@ -302,20 +369,6 @@ import { Actions } from 'react-native-router-flux'
         width:20,
         height:20,
         right:10
-    },
-    login_forgetpass:{
-        height:20, 
-        width:"100%",
-        marginVertical:10,
-        display:"flex",
-        flexDirection:'row'
-    },
-    login_forgetpasstxt:{
-        width:"50%",
-        height:"100%",
-        fontSize:16,
-        fontWeight:'700',
-        color:'#17C6AC',
     },
     buttonView: {
         alignItems:'center',

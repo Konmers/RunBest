@@ -23,6 +23,7 @@ import { Actions } from 'react-native-router-flux'
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 var ScreenWidth = Dimensions.get('window').width;
+import Floatball from "../../middleware/Floatball.js"
 
 const loading = require('../../public/Iamge/Banner/loading.gif')
 
@@ -362,6 +363,7 @@ export default class Rank extends Component {
           </View>
         </ScrollView>
         </ScrollableTabView>
+        <Floatball/> 
       </View>
     )
   }

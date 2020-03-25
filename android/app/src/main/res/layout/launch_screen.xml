@@ -5,5 +5,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/loading1"
     android:gravity="center">  
-    
 </LinearLayout>

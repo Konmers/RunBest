@@ -44,6 +44,14 @@ target 'runs' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'runsTests' do
     inherit! :search_paths
     # Pods for testing

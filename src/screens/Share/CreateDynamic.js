@@ -135,10 +135,10 @@ const styles = {
   },
   chooseButtonIcon:{
     fontSize: 18,
-    color: '#DCDCDC',
-    // backgroundColor: '#DCDCDC',
+    color: '#fff',
+    backgroundColor: '#DCDCDC',
     position:'absolute',
-    top:0,
+    top:-5,
     right:0,
     borderRadius:5,
   }
@@ -198,7 +198,6 @@ export default class CreateDynamic extends Component{
   componentDidMount = async () =>{
     // console.log('storage key-------  ',await storage.get('key'))
     // console.warn('storage uid-------  ',await storage.get('uid'))
-    const id = await storage.get('uid')
      const user = {uid:await storage.get('uid')}
     api.user.loginInfo(user).then((data) => {
         // console.log('data--------  ',data)
@@ -240,7 +239,8 @@ export default class CreateDynamic extends Component{
                 multiline={false} // 是否为多行文本，默认为: false
                 onFocus={()=> this.setState({borderStyle:con_titless})}
                 onBlur={()=>this.setState({borderStyle:con_title})}
-                onChangeText={() => this._onChangeTitle}//输入框改变触发的函数
+                onChangeText={(text) => this.setState({title:text})}
+                // onChangeText={() => this._onChangeTitle}//输入框改变触发的函数
               />
               <TextInput
                   placeholder = {' Please xia ji ba edit ~'} 
@@ -248,7 +248,8 @@ export default class CreateDynamic extends Component{
                   editable={true} // 是否可编辑，默认为: true
                   multiline={true} // 是否为多行文本，默认为: false
                   style = {styles.con_cont}
-                  onChangeText={() => this._onChangeCont}//输入框改变触发的函数
+                  onChangeText={(text) => this.setState({content:text})}
+                  // onChangeText={() => this._onChangeCont}//输入框改变触发的函数
               />
               <View style={styles.imgArr}>
                 {/* <Image style={styles.chooseImage} source={require('../../public/Iamge/Head/10.jpg')} />  */}
@@ -256,7 +257,7 @@ export default class CreateDynamic extends Component{
                   this.state.ImgArrs.map((item,i) =>
                   <TouchableOpacity style={styles.chooseView} key={i}>
                     <Image style={styles.chooseImage} source={{uri:item}} />
-                    <Icon name="delete" style={styles.chooseButtonIcon} onPress={() =>this.save()}/>
+                    <Icon name="delete" style={styles.chooseButtonIcon} onPress={() =>this._deleteImg(item,i)}/>
                   </TouchableOpacity>
                     // {
                     //   this.state.ImgArrs[0] ? (<Image style={styles.chooseImage} source={{uri:item}} />) : null
@@ -299,44 +300,42 @@ export default class CreateDynamic extends Component{
       this.setState({
         ImgArrs:list
       });
-      console.warn('ImgArrs22----------- ',this.state.ImgArrs)
+      // console.warn('ImgArrs22----------- ',this.state.ImgArrs)
 
     })
   }
 
-  _onChangeTitle(inputData){
-    console.log("输入的内容",inputData);
-    //把获取到的内容，设置给showValue
-    this.setState({
-      title:inputData
-    });
-  }
-
-  _onChangeCont(inputData){
-    console.log("输入的内容",inputData);
-    //把获取到的内容，设置给showValue
-    this.setState({
-      content:inputData
-    });
-  }
-
-  save(){
-
-    console.log('this.state-------  ',this.state)
-    console.log('this.state-title------  ',this.state.title)
-    console.log('this.state-content------  ',this.state.content)
-    console.log('this.state-avatar------  ',this.state.avatar)
-    console.log('this.state-name------  ',this.state.name)
-    console.log('this.state-ImgArrs------  ',this.state.ImgArrs)
+  async save(){
+    let Imglist=[]
+    for (const item of this.state.ImgArrs) {
+      let formData = new FormData()
+        var uri =item
+        var index = uri.lastIndexOf("\/")
+        var name = uri.substring(index + 1 ,uri.length)
+        let file = {uri:uri, type:'multipart/form-data',name:name}
+        formData.append('file',file)
+       await api.Img.uploadImg(formData).then((data) =>{
+          // console.log('data-----  ',data)
+          if(data.type == 'success' )
+          {
+            Imglist.push(data.url)
+          }
+          else
+          {
+            Toast.message('Img error!!');
+          }
+        })
+    }
+    // console.log('Imglist--------  ',Imglist)
     const formData = {
-      uid:this.state.uid,
+      uid:this.state.id,
       title:this.state.title,
       content:this.state.content,
-      ImgArrs:this.state.ImgArrs
+      ImgArrs:Imglist
     }
-    console.log('formData------  ',formData)
+    // console.log('formData------  ',formData)
 
-    api.dynamic.createdynamic(formData).then((Data) => {
+    await api.dynamic.createdynamic(formData).then((Data) => {
       if (Data.type === true) 
       {
           Toast.message('create Successful !!  ^_^');
@@ -351,5 +350,16 @@ export default class CreateDynamic extends Component{
           Toast.message('create Error !! -_-//');
       }
     })
+  }
+
+  _deleteImg(value,index){
+      // console.warn('value----------- ',value)
+      // console.warn('index----------- ',index)
+      // console.warn('ImgArrs----------- ',this.state.ImgArrs)
+      let Imglist = index > 0 ? this.state.ImgArrs.splice(index, 1) :[]
+      // console.warn('Imglist----------- ',Imglist)
+      this.setState({
+        ImgArrs:Imglist
+      });
   }
 }

@@ -48,6 +48,13 @@ const api = {
   },
   dynamic:{
     createdynamic: data => instance.post(`/user/createDynamic`, data), //注册
+    dynamiclist: data => instance.get(`/user/dynamicList`, data), //列表
+  },
+  Img:{
+    uploadImg: data => instance.post(`/uploadImg`,data),//上传图片
+  },
+  video:{
+    uploadVideo: data => instance.post(`/uploadVideo`,data),//上传视频
   }
 }
 

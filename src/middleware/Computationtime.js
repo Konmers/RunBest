@@ -1,3 +1,6 @@
+//时间
+import dayjs from 'dayjs'
+
 // 计算两个时间差 dateBegin 开始时间
 const computationTimeOne = (startTime, endTime) =>{
     //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
@@ -35,11 +38,35 @@ const  computationTimeTwo = (startTime) =>{
 
     // var timeFn =hours+"小时 "+minutes+" 分钟"+seconds+" 秒"+minseconds+"毫秒";
     var timeFn =hours+" 小时 "+minutes+" 分钟 "+seconds+" 秒";
-    console.log('timeFn-----  ',timeFn)
+    // console.log('timeFn-----  ',timeFn)
     return timeFn;
+}
+
+//计算 时间戳
+const timeStamp = (timevalue) => {
+    let dataNow = dayjs().valueOf() //获取当前时间戳
+    // console.log('dataNow----------   ',dataNow)
+    // console.log('timevalue----------   ',timevalue)
+    let countdowmTime = dataNow-timevalue
+    // console.log('countdowmTime--------  ',countdowmTime)
+    let runTime = parseInt(countdowmTime / 1000);
+    let day = Math.floor(runTime / 86400);
+    runTime = runTime % 86400;
+    let hour = Math.floor(runTime / 3600);
+    runTime = runTime % 3600;
+    let minute = Math.floor(runTime / 60);
+    runTime = runTime % 60;
+    let second = runTime;
+    // console.log('day--------  ',day)
+    // console.log('hour--------  ',hour)
+    // console.log('minute--------  ',minute)
+    // console.log('second--------  ',second)
+
+    return day > 0 ? (day*24)+hour : hour;
 }
 
 export{
    computationTimeOne,
-   computationTimeTwo
+   computationTimeTwo,
+   timeStamp
 }

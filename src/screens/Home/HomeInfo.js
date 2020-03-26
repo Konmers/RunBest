@@ -6,6 +6,8 @@ import {
     Image,
     StyleSheet,
     Dimensions,
+    ActivityIndicator,
+    FlatList,
     TouchableHighlight,//选中跳转
     TouchableOpacity,
     ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
@@ -22,8 +24,16 @@ import SplashScreen from 'react-native-splash-screen'
 // import Icon from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/AntDesign';
 
+//swiper banner滚动
+import Swiper from 'react-native-swiper'
 
 import Floatball from "../../middleware/Floatball.js"
+
+//计算时间
+import {timeStamp} from '../../middleware/Computationtime.js';
+
+import api from '../../server/api'
+import storage from '../../server/storage'
 
 import Share from 'react-native-share';
 
@@ -36,19 +46,10 @@ const styles = StyleSheet.create({
     },
     contView: {
         flex: 1,
-        // width: '90%',
         flexDirection: 'column',
-        //     borderRadius:5,
-        //     shadowColor:'#000000',
-        //     shadowOpacity:0.9,
-        //     shadowRadius:10,
-        //     elevation: 5,//设置此项Android显示阴影，只能是灰色阴影，不支持其他颜色设置（Android） 
         backgroundColor: 'white',
-        // marginVertical: 10,
-        alignItems: 'center',
         borderBottomWidth:1,
         borderBottomColor:'#c1c1c1',
-        // paddingBottom: 10,
     },
     contViews: {
         flex: 1,
@@ -76,7 +77,6 @@ const styles = StyleSheet.create({
     },
     userAddress: {
         fontSize: 12,
-        // color: '#D2D2D2'
         color: '#999999'
     },
     contentInfo: {
@@ -84,12 +84,6 @@ const styles = StyleSheet.create({
         width: '90%',
         flexDirection: 'column',
         marginTop: 3,
-        // marginVertical: 10,
-        // marginHorizontal: 5,
-        // alignItems: 'center',
-        // alignContent: 'center',
-        // paddingHorizontal: 10,
-        // backgroundColor: 'rgba(0,0,0,.5)'
     },
     contentInfoTitle: {
         fontSize: 16,
@@ -113,6 +107,9 @@ const styles = StyleSheet.create({
         // backgroundColor: '#dddddd',
         // marginTop:5
         marginVertical:10
+    },
+    wrapper: {
+        height: height*0.3,
     },
     footerBox: {
         flexDirection: 'row',
@@ -138,184 +135,296 @@ const styles = StyleSheet.create({
     down: {
         color: '#333',
         paddingRight: 25
-    }
+    },
+    endTxt:{
+        marginVertical:5
+    },
+    //----------------------
+    footer: {
+        flexDirection: 'row',
+        height: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    zanwu:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:30,
+    },
+    hidden:{
+        display:'none'
+    }, 
+    animating:{
+        flexDirection:'row',
+        flex:1,
+        justifyContent:'center',
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
+    },
 })
 
+
 class HomeInfo extends Component {
-    componentDidMount() {
+    async componentDidMount() {
         //3秒后关闭启动页
         setTimeout(() => { SplashScreen.hide() }, 1000)
+
+        await api.dynamic.dynamiclist().then((data) => {
+            // console.log('data--------  ',data)
+            if(data.type == 'success')
+            {
+              this.setState({list:data.list,pageNo:data.page,totalPage:data.pages});
+            }
+            else
+            {
+              console.log('333')
+            }
+        }) 
+        this.setState({uid:await storage.get('uid')})
+        // console.log('this.state ----------  ',this.state)
     };
     constructor(props) {
         super(props)
         this.state = {
-            list: [
-                {
-                    id:'111111',
-                    name: '张三',
-                    address: '重庆',
-                    time: 3,
-                    avatar: require('../../public/Iamge/Head/10.jpg'),
-                    title: '震惊！！撒谎记得发哈史蒂夫婚纱',
-                    content: '受到警方还撒谎地方客设计的风口浪尖啊上岛咖啡是否健康搭街坊立刻据了解撒旦户介绍的方式快点发货开杀毒和飞机撒肯定恢复计划时间到货付款',
-                    contetnImage: require('../../public/Iamge/Banner/banner_1.jpg'),
-                    pageView: 0,//浏览量
-                    like: 1,//点赞 1.true  0.flase 
-                    comment: 'sdfsadf'//评论
-                },
-                {
-                    id:'111112',
-                    name: '李四',
-                    address: '四川',
-                    time: 6,
-                    avatar: require('../../public/Iamge/Head/12.jpg'),
-                    title: '震惊！！撒谎哒哒哒哒哒哒',
-                    content: '',
-                    contetnImage: require('../../public/Iamge/Banner/banner_4.jpg'),
-                    pageView: 0,//浏览量
-                    like: 0,//点赞 1.true  0.flase 
-                    comment: 'sdfsadf'//评论
-                },
-                {
-                    id:'111113',
-                    name: '王五',
-                    address: '成都',
-                    time: 31,
-                    avatar: require('../../public/Iamge/Head/4.jpg'),
-                    title: '',
-                    content: '受到警方还撒谎地方客户介绍的方式快点发货开杀毒和飞机撒肯定恢复计划时间到货付款',
-                    contetnImage: '',
-                    pageView: 0,//浏览量
-                    like: 1,//点赞 1.true  0.flase 
-                    comment: 'sdfsadf'//评论
-                },
-                {
-                    id:'111114',
-                    name: '赵六',
-                    address: '北京',
-                    time: 3,
-                    avatar: require('../../public/Iamge/Head/11.png'),
-                    title: '震惊！！撒谎记得发哈史蒂夫婚纱',
-                    content: '受到警方还撒谎地方客户介绍司法鉴定喀什假大空犯了杀戒弗兰克的方式快点发货开杀毒和飞机撒肯定恢复计划时间到货付款',
-                    contetnImage: require('../../public/Iamge/Banner/banner_7.jpg'),
-                    pageView: 0,//浏览量
-                    like: 0,//点赞 1.true  0.flase 
-                    comment: 'sdfsadf'//评论
-                },
-                {
-                    id:'111115',
-                    name: '田七',
-                    address: '上海',
-                    time: 3,
-                    avatar: require('../../public/Iamge/Head/13.jpg'),
-                    title: '震惊！！撒谎记得发哈史蒂夫婚纱',
-                    content: '',
-                    contetnImage: require('../../public/Iamge/Banner/banner_6.jpeg'),
-                    pageView: 0,//浏览量
-                    like: 1,//点赞 1.true  0.flase 
-                    comment: 'sdfsadf'//评论
-                }
-            ]
+            list:[],
+            animating: true,
+            status:0,
+            pageNo:1,      //控制页数
+            showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
+            isRefreshing: false,//下拉控制
+            totalPage:1,
+            uid:'',
         }
     }
 
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <ScrollView style={{flex: 1}}>
-                    <View style={styles.cont}>
-                        {
-                            this.state.list.map((item, i) =>
-                                <View style={styles.contView} key={i}>
-                                    <View style={styles.contViews}>
-                                        <View style={styles.userInfo}>
-                                            <Image style={styles.userImg} source={item.avatar} />
-                                            <View>
-                                                <Text style={styles.userName}>{item.name}</Text>
-                                                <Text style={styles.userAddress}>{item.address}</Text>
-                                            </View>
-                                        </View>
-                                        <Text style={styles.useTime}>{item.time}h</Text>
-                                    </View>
-                                    <TouchableOpacity style={styles.contentInfo} onPress={() => this.getVideoList(i)}>
-                                        {
-                                            item.title ? (<Text style={styles.contentInfoTitle}>{item.title}</Text>) : null
-                                        }
-                                        {
-                                            item.content ? (
-                                                <Text
-                                                    style={styles.contentInfoCons}
-                                                    numberOfLines={2} //行数
-                                                    ellipsizeMode='tail' //末尾 ...
-                                                >
-                                                    {/* &emsp;&emsp;{`${item.content}`} */}
-                                                    {item.content}
-                                                </Text>) : null
-                                        }
-                                        {
-                                            item.contetnImage ? (<Image style={styles.contentInfoImg} source={item.contetnImage} />) : null
-                                        }
-                                    </TouchableOpacity>
-
-                                    {/*浏览量&点赞&评论&分享*/}
-                                    <View style={styles.cellFooter} >
-                                        {/* 浏览量 */}
-                                        <View style={styles.footerBox} >
-                                            {/*浏览量文字*/}
-                                            <Text style={styles.boxText}>浏览量：{item.pageView}</Text>
-                                        </View>
-                                        <View style={[styles.footerBox,{justifyContent:'flex-end'}]}>
-                                            {/*点赞*/}
-                                            {/* <View style={styles.footerBox} > */}
-                                                <Icon
-                                                    name={item.like == 1 ? "heart": "hearto"}
-                                                    size={20}
-                                                    onPress={() => this._likeCase(item.id,item.like)}
-                                                    style={item.like == 1 ? styles.up : styles.down}
-                                                />
-                                                {/*点赞文字*/}
-                                                {/* <Text style={styles.boxText} onPress={this._up}>点赞</Text> */}
-                                            {/* </View> */}
-
-                                            {/*评论*/}
-                                            {/* <View style={styles.footerBox}> */}
-                                                <Icon name="message1"
-                                                    size={20}
-                                                    style={styles.boxIcon}
-                                                    // onPress={() => this._Share(item)}
-                                                />
-                                                {/*评论文字*/}
-                                                {/* <Text style={styles.boxText}>评论</Text> */}
-                                            {/* </View> */}
-
-                                            {/* 分享 */}
-                                            {/* <View style={styles.footerBox}> */}
-                                                <Icon name="sharealt"
-                                                    size={20}
-                                                    style={styles.boxIcon,{paddingRight: 10}}
-                                                />
-                                                {/*分享文字*/}
-                                                {/* <Text style={styles.boxText}>评论</Text> */}
-                                            {/* </View> */}
-                                        </View>
-                                    </View>
-
-                                </View>
-                            )
-                        }
-                    </View>
-                </ScrollView>
+                <FlatList
+                    data={this.state.list}
+                    renderItem={this._renderItemView}
+                    /**
+                     * 添加尾巴布局
+                     */
+                    ItemSeparatorComponent={this._separator}
+                    ListFooterComponent={this._renderFooter.bind(this)}
+                    /**
+                     * 从下往上拉去的时候加载更多
+                     */
+                    onEndReached={this._onEndReached.bind(this)}
+                    onEndReachedThreshold={0.2}
+                    /**
+                     * 关于下拉刷新
+                     */
+                    onRefresh={this._onRefresh.bind(this)}
+                    refreshing={this.state.isRefreshing}
+                />
                 <Floatball/> 
             </View>
         )
     }
 
+    //显示FlatList的布局
+    _renderItemView=({ item })=>{
+        // console.log('item---------- ',item)
+        return(
+            <View style={item   == '' ? styles.hidden :''}>
+                <View style={styles.cont}>
+                    <View style={styles.contView} >
+                        <View style={styles.contViews}>
+                            <View style={styles.userInfo}>
+                                {/* <Image style={styles.userImg} source={item.avatar} /> */}
+                                <Image style={styles.userImg} source={{uri:item.avatar}} />
+                                <View>
+                                    <Text style={styles.userName}>{item.name}</Text>
+                                    <Text style={styles.userAddress}>{item.address}</Text>
+                                </View>
+                            </View>
+                            <Text style={styles.useTime}>{`${timeStamp(item.time)}`}h</Text>
+                        </View>
+                        <View style={styles.contentInfo} >
+                            {
+                                item.title ? (<Text style={styles.contentInfoTitle}>{item.title}</Text>) : null
+                            }
+                            {
+                                item.content ? (
+                                    <Text
+                                        style={styles.contentInfoCons}
+                                        numberOfLines={2} //行数
+                                        ellipsizeMode='tail' //末尾 ...
+                                    >
+                                        &emsp;{`${item.content}`}
+                                        {/* {item.content} */}
+                                    </Text>) : null
+                            }
+                            {
+                                item.contentImage[0] ? (
+                                    <Swiper style={styles.wrapper} 
+                                        // onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
+                                        dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+                                        activeDot={<View style={{backgroundColor: '#17C6AC', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+                                        paginationStyle={{
+                                            bottom: 10,
+                                        }}
+                                        autoplay  //bool值  循环属性 
+                                        autoplayTimeout = {7} //循环时间
+                                    >
+                                    {
+                                        item.contentImage.map((items, j) =>
+                                        <View style={styles.slide}>
+                                        <Image resizeMode='stretch' style={styles.contentInfoImg} source={{uri:items}} />
+                                        </View>
+                                            // <Image style={styles.contentInfoImg} source={{uri:items}} />
+                                        )
+                                    }
+                                    </Swiper>
+                                ) : null
+                            }
+                        </View>
+                        {/*浏览量&点赞&评论&分享*/}
+                        <View style={styles.cellFooter} >
+                            {/* 浏览量 */}
+                            <View style={styles.footerBox} >
+                                {/*浏览量文字*/}
+                                <Text style={styles.boxText}>浏览量：{item.pageView}</Text>
+                            </View>
+                            <View style={[styles.footerBox,{justifyContent:'flex-end'}]}>
+                                {/*点赞*/}
+                                {/* <View style={styles.footerBox} > */}
+                                    <Icon
+                                        name={item.like == 1 ? "heart": "hearto"}
+                                        size={20}
+                                        onPress={() => this._likeCase(item.id,item.like)}
+                                        style={item.like == 1 ? styles.up : styles.down}
+                                    />
+                                    {/*点赞文字*/}
+                                    {/* <Text style={styles.boxText} onPress={this._up}>点赞</Text> */}
+                                {/* </View> */}
+
+                                {/*评论*/}
+                                {/* <View style={styles.footerBox}> */}
+                                    <Icon name="message1"
+                                        size={20}
+                                        style={styles.boxIcon}
+                                        // onPress={() => this._Share(item)}
+                                    />
+                                    {/*评论文字*/}
+                                    {/* <Text style={styles.boxText}>评论</Text> */}
+                                {/* </View> */}
+
+                                {/* 分享 */}
+                                {/* <View style={styles.footerBox}> */}
+                                    <Icon name="sharealt"
+                                        size={20}
+                                        style={styles.boxIcon,{paddingRight: 10}}
+                                    />
+                                    {/*分享文字*/}
+                                    {/* <Text style={styles.boxText}>评论</Text> */}
+                                {/* </View> */}
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    // 加载时加载动画
+    _renderFooter() {
+        if (this.state.showFoot === 1) {
+            return (
+                <View style={{ height: 30, alignItems: 'center', justifyContent: 'flex-start', }}>
+                    <Text style={{ color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5, }}>
+                        没有更多数据了
+                    </Text>
+                </View>
+            );
+        } 
+        else if (this.state.showFoot === 2) {
+            return (
+                <View style={styles.footer}>
+                    <ActivityIndicator />
+                    <Text>正在加载更多数据...</Text>
+                </View>
+            );
+        } 
+        else if (this.state.showFoot === 0) {
+            return (
+                <View style={styles.footer}>
+                    <Text></Text>
+                </View>
+            );
+        }
+    }
+
+    // 下拉方法
+    _onRefresh=()=>{
+        // 不处于 下拉刷新
+        console.log('下拉刷新');
+        if(!this.state.isRefresh){
+            this.page = 1
+            this._getHotList()
+        }
+    }
+
+    _getHotList=()=>{
+        let that=this;
+        console.log('开始执行下拉刷新执行的函数');
+        // that.state.pageNo=1;
+        that.setState({
+            list: [],
+            showFoot: 0,
+            isRefreshing: false,
+        });
+        that.componentDidMount();
+    }
+    
+    // 上拉触底事件，进行判断
+    _onEndReached=()=>{
+        console.log('上拉加载');
+        let that=this;
+        // 如果是正在加载中或没有更多数据了，则返回
+        console.log('that.state-------  ',that.state)
+        if (that.state.showFoot != 0) {
+            return;
+        } else {
+            // let page=that.state.pageNo;
+            console.log('that.state.pageNo-------  ',that.state.pageNo)
+            console.log('that.state.totalPage-------  ',that.state.totalPage)
+            if((that.state.pageNo+1) <= that.state.totalPage)
+            {
+                let pages=that.state.pageNo+1;
+                console.log('pages-------- ',pages)
+                that.setState({
+                    pageNo:pages
+                });
+                that.fetchData(pages);
+            }
+        }
+        //底部显示正在加载更多数据
+        that.setState({ showFoot: 2 });
+        //获取数据    
+    }
+
+    //网络请求——获取第pageNo页数据
+    fetchData(page) {
+        //这里进行网络请求数据
+    }
+
+//---------------------------------------------
+    //跳转 视频页面
     getVideoList = () => {
         // console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
         Actions.videodetail()// 空传参
     }
 
+    //跳转视频详情
     getVideoListsz = () => {
         // console.warn('wwwwwwwwwww')
         // Actions.videodetail({id:10}) //传参
@@ -333,7 +442,7 @@ class HomeInfo extends Component {
         })
     }
 
-    //Share
+    //分享
     _Share = (user) =>{
         console.warn('user-------   ',user)
         Actions.createdynamic({user})

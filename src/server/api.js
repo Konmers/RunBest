@@ -47,8 +47,10 @@ const api = {
     loginInfo: data => instance.get(`/user/userInfo`, {params:data}) //获取个人信息
   },
   dynamic:{
-    createdynamic: data => instance.post(`/user/createDynamic`, data), //注册
-    dynamiclist: data => instance.get(`/user/dynamicList`, {params:data}), //列表
+    createdynamic: data => instance.post(`/dynamic/createDynamic`, data), //新增动态
+    dynamiclist: data => instance.get(`/dynamic/dynamicList`, {params:data}), //动态列表
+    dynamicInfo: data => instance.get(`/dynamic/dynamicInfo`, {params:data}), //动态详细信息
+    dynamiclike: data => instance.post(`/dynamic/like`,data)//点赞
   },
   Img:{
     uploadImg: data => instance.post(`/uploadImg`,data),//上传图片

@@ -27,11 +27,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         // top: 600,
         // left: 280,
-        top: height*0.45,
+        top: height*0.40,
         // left: height*0.43,
         right:-height*0.01,
         width:width*0.2,
-        height:height*0.55,
+        height:height*0.52,
         // backgroundColor: 'red',
         // backgroundColor: 'transparent',
     },
@@ -58,7 +58,7 @@ export default class Floatball extends Component {
             <View style={styles.cont}>
                 {/* 浮框 */}
                 {/* icon 地址 https://oblador.github.io/react-native-vector-icons/ */}
-                <ActionButton buttonColor='#17C6AC' size={60}  
+                <ActionButton buttonColor='#17C6AC' size={55}  
                     //  onPress={() => { alert('你点了我！')}}
                     renderIcon={() => (
                         <View style={styles.actionButtonView}>

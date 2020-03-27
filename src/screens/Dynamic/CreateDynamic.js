@@ -354,14 +354,8 @@ export default class CreateDynamic extends Component{
   }
 
   _deleteImg(value,index){
-      console.warn('value----------- ',value)
-      console.warn('index----------- ',index)
-      console.warn('ImgArrs----------- ',this.state.ImgArrs)
-      // let Imglist = index !=0 ? this.state.ImgArrs.splice(index, 1) : []
-      // let Imglist = []
       this.state.ImgArrs.splice(index,1)
-      console.log('this.state.ImgArrs----------  ',this.state.ImgArrs)
-      // console.warn('Imglist----------- ',Imglist)
+      // console.log('this.state.ImgArrs----------  ',this.state.ImgArrs)
       this.setState({
         ImgArrs:this.state.ImgArrs
       });

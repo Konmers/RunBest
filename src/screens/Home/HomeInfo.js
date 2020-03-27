@@ -32,6 +32,8 @@ import Floatball from "../../middleware/Floatball.js"
 //计算时间
 import {timeStamp} from '../../middleware/Computationtime.js';
 
+import { Toast } from 'teaset'
+
 import api from '../../server/api'
 import storage from '../../server/storage'
 
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         marginTop: 10,
+        borderRadius:5,
     },
     userInfo: {
         flex: 1,
@@ -173,8 +176,9 @@ class HomeInfo extends Component {
         //3秒后关闭启动页
         setTimeout(() => { SplashScreen.hide() }, 1000)
         const formData = {
+            uid:await storage.get('uid'),
             page:1,
-            limit:10
+            limit:3
         }
         await api.dynamic.dynamiclist(formData).then((data) => {
             // console.log('data--------  ',data)
@@ -277,17 +281,15 @@ class HomeInfo extends Component {
                                         autoplayTimeout = {7} //循环时间
                                     >
                                     {
-                                        item.contentImage.map((items, j) =>
-                                        <View style={styles.slide}>
-                                        <Image resizeMode='stretch' style={styles.contentInfoImg} source={{uri:items}} />
-                                        </View>
-                                            // <Image style={styles.contentInfoImg} source={{uri:items}} />
+                                        item.contentImage.map((items) =>
+                                            <Image resizeMode='stretch' style={styles.contentInfoImg} source={{uri:items}} />
                                         )
                                     }
                                     </Swiper>
                                 ) : null
                             }
                         </View>
+                       
                         {/*浏览量&点赞&评论&分享*/}
                         <View style={styles.cellFooter} >
                             {/* 浏览量 */}
@@ -297,13 +299,15 @@ class HomeInfo extends Component {
                             </View>
                             <View style={[styles.footerBox,{justifyContent:'flex-end'}]}>
                                 {/*点赞*/}
-                                {/* <View style={styles.footerBox} > */}
-                                    <Icon
-                                        name={item.like == 1 ? "heart": "hearto"}
-                                        size={20}
-                                        onPress={() => this._likeCase(item.id,item.like)}
-                                        style={item.like == 1 ? styles.up : styles.down}
-                                    />
+                                    {/* <View style={styles.footerBox} > */}
+                                    { 
+                                        <Icon
+                                            name={ item.like == true ?"heart":"hearto"}
+                                            size={20}
+                                            onPress={() => this._likeCase(item.id,this.state.uid)}
+                                            style={item.like == true ? styles.up : styles.down}
+                                        />
+                                    }
                                     {/*点赞文字*/}
                                     {/* <Text style={styles.boxText} onPress={this._up}>点赞</Text> */}
                                 {/* </View> */}
@@ -313,7 +317,7 @@ class HomeInfo extends Component {
                                     <Icon name="message1"
                                         size={20}
                                         style={styles.boxIcon}
-                                        // onPress={() => this._Share(item)}
+                                        onPress={() => this.getDynamicInfo(item.id,this.state.uid)}
                                     />
                                     {/*评论文字*/}
                                     {/* <Text style={styles.boxText}>评论</Text> */}
@@ -416,8 +420,9 @@ class HomeInfo extends Component {
     fetchData = async (page) => {
         const dataList = this.state.list
         const formData = {
+            uid:await storage.get('uid'),
             page:page,
-            limit:10
+            limit:3
         }
         await api.dynamic.dynamiclist(formData).then((data) => {
             if(data.type == 'success')
@@ -435,28 +440,34 @@ class HomeInfo extends Component {
     }
 
 //---------------------------------------------
-    //跳转 视频页面
-    getVideoList = () => {
-        // console.warn('wwwwwwwwwww')
-        // Actions.videodetail({id:10}) //传参
-        Actions.videodetail()// 空传参
-    }
-
-    //跳转视频详情
-    getVideoListsz = () => {
-        // console.warn('wwwwwwwwwww')
-        // Actions.videodetail({id:10}) //传参
-        Actions.videodetail()// 空传参
+    //跳转 动态详情
+    getDynamicInfo = (dynamicId,uid) => {
+        Actions.dynamicinfo({dynamicId:dynamicId,uid:uid})// 空传参
     }
 
     //点赞
-    _likeCase = (id,value) =>{
-        console.log('dddddd')
-        console.log('id----  ',id,'val----- ',value)
-        const listData = [...this.state.list] //复制数组--浅拷贝
-        //修改对象中某元素值
-        this.setState({
-            list:listData.map((item,index) => item.id === id ?{...item, like: value ? 0 : 1 } : item ),
+    _likeCase = async (dynamicId,uid) =>{
+        // console.log('uid----  ',uid,'dynamicId----- ',dynamicId)
+        const formData = {
+            uid:uid,
+            dynamicId:dynamicId,
+        }
+        await api.dynamic.dynamiclike(formData).then((Data) => {
+            if (Data.type === true) 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            }
+            const listData = [...this.state.list] //复制数组--浅拷贝
+            //修改对象中某元素值
+            this.setState({
+                list:listData.map((item) => item.id === dynamicId ?{...item, like: Data.list } : item ),
+            })
         })
     }
 

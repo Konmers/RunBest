@@ -60,7 +60,6 @@ export default  class Main extends Component {
                     <Scene key='trend' component={TrendScreen} navTransparent={true}></Scene>
                     <Scene key='personal' component={PersonalScreen} navTransparent={true}></Scene>
 
-
                     <Scene key='videodetail' component={VideoDetailScreen} title='VideoDetailScreen组件'></Scene>
                     <Scene key='videoplay' component={VideoPlayScreen} title='VideoPlayScreen组件'></Scene>
                     <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'></Scene>

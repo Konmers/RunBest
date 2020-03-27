@@ -19,6 +19,7 @@ import { Actions } from 'react-native-router-flux'
 import ActionButton from 'react-native-action-button';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Icons from 'react-native-vector-icons/FontAwesome5';
 
 const styles = StyleSheet.create({
     cont:{
@@ -26,11 +27,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         // top: 600,
         // left: 280,
-        top: height*0.5,
+        top: height*0.45,
         // left: height*0.43,
         right:-height*0.01,
         width:width*0.2,
-        height:height*0.52,
+        height:height*0.55,
         // backgroundColor: 'red',
         // backgroundColor: 'transparent',
     },
@@ -57,35 +58,33 @@ export default class Floatball extends Component {
             <View style={styles.cont}>
                 {/* 浮框 */}
                 {/* icon 地址 https://oblador.github.io/react-native-vector-icons/ */}
-                <ActionButton buttonColor='#17C6AC' size={50}  
+                <ActionButton buttonColor='#17C6AC' size={60}  
                     //  onPress={() => { alert('你点了我！')}}
                     renderIcon={() => (
                         <View style={styles.actionButtonView}>
-                            <Icon name="plus" style={styles.actionButtonIcon} />
+                            <Icon name="plus" style={[styles.actionButtonIcon,{fontSize: 40,}]} />
                             {/* <Text style={{color:"#ffffff"}}>新增</Text> */}
                         </View>)
                     }
                 >
                     {/* CreateDynamic  title="编写分享"*/}
-                    <ActionButton.Item buttonColor='#17C6AC'  onPress={() => { Actions.createdynamic() }}>
-                        {/* //md-create */}
-                        {/* <Icon name="md-list" style={styles.actionButtonIcon} /> */}
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.createdynamic() }}>
                         <Icon name="form" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
-                    {/* Ranking List  title="排行榜"*/}
-                    <ActionButton.Item buttonColor='#17C6AC'  onPress={() => { Actions.rank() }}>
-                        {/* //md-create */}
-                        {/* <Icon name="md-list" style={styles.actionButtonIcon} /> */}
-                        <Icon name="bars" style={styles.actionButtonIcon} />
+                    {/* Ranking List  title="动态"*/}
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.homeInfo() }}>
+                        <Icons name="hotjar" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
+                    {/* Ranking List  title="排行榜"*/}
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.rank() }}>
+                        <Icon name="bars" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>                   
                     {/* Personal Direction title="个人统计"*/}
-                    <ActionButton.Item buttonColor='#17C6AC'  onPress={() => { Actions.trend() }}>
-                        {/* <Icon name="md-notifications-off" style={styles.actionButtonIcon} /> */}
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.trend() }}>
                         <Icon name="linechart" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                     {/* Personal Center title="个人中心"*/}
-                    <ActionButton.Item buttonColor='#17C6AC'  onPress={() => { Actions.personal() }}>
-                        {/* <Icon name="md-person" style={styles.actionButtonIcon} /> */}
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.personal() }}>
                         <Icon name="user" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                 </ActionButton>

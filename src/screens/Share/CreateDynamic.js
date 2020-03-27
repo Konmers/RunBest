@@ -21,6 +21,7 @@ import ImagePicker from 'react-native-image-picker'
 import Floatball from "../../middleware/Floatball.js"
 
 import Icon from 'react-native-vector-icons/AntDesign';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Toast } from 'teaset'
 
@@ -134,11 +135,11 @@ const styles = {
      borderRadius:5,
   },
   chooseButtonIcon:{
-    fontSize: 18,
-    color: '#fff',
-    backgroundColor: '#DCDCDC',
+    fontSize: 20,
+    color: '#DCDCDC',
+    // backgroundColor: '#DCDCDC',
     position:'absolute',
-    top:-5,
+    top:-1,
     right:0,
     borderRadius:5,
   }
@@ -257,7 +258,7 @@ export default class CreateDynamic extends Component{
                   this.state.ImgArrs.map((item,i) =>
                   <TouchableOpacity style={styles.chooseView} key={i}>
                     <Image style={styles.chooseImage} source={{uri:item}} />
-                    <Icon name="delete" style={styles.chooseButtonIcon} onPress={() =>this._deleteImg(item,i)}/>
+                    <Icons name="delete-forever-outline" style={styles.chooseButtonIcon} onPress={() =>this._deleteImg(item,i)}/>
                   </TouchableOpacity>
                     // {
                     //   this.state.ImgArrs[0] ? (<Image style={styles.chooseImage} source={{uri:item}} />) : null
@@ -353,13 +354,16 @@ export default class CreateDynamic extends Component{
   }
 
   _deleteImg(value,index){
-      // console.warn('value----------- ',value)
-      // console.warn('index----------- ',index)
-      // console.warn('ImgArrs----------- ',this.state.ImgArrs)
-      let Imglist = index > 0 ? this.state.ImgArrs.splice(index, 1) :[]
+      console.warn('value----------- ',value)
+      console.warn('index----------- ',index)
+      console.warn('ImgArrs----------- ',this.state.ImgArrs)
+      // let Imglist = index !=0 ? this.state.ImgArrs.splice(index, 1) : []
+      // let Imglist = []
+      this.state.ImgArrs.splice(index,1)
+      console.log('this.state.ImgArrs----------  ',this.state.ImgArrs)
       // console.warn('Imglist----------- ',Imglist)
       this.setState({
-        ImgArrs:Imglist
+        ImgArrs:this.state.ImgArrs
       });
   }
 }

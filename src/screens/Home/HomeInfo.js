@@ -168,13 +168,15 @@ const styles = StyleSheet.create({
     },
 })
 
-
 class HomeInfo extends Component {
     async componentDidMount() {
         //3秒后关闭启动页
         setTimeout(() => { SplashScreen.hide() }, 1000)
-
-        await api.dynamic.dynamiclist().then((data) => {
+        const formData = {
+            page:1,
+            limit:10
+        }
+        await api.dynamic.dynamiclist(formData).then((data) => {
             // console.log('data--------  ',data)
             if(data.type == 'success')
             {
@@ -339,7 +341,7 @@ class HomeInfo extends Component {
         if (this.state.showFoot === 1) {
             return (
                 <View style={{ height: 30, alignItems: 'center', justifyContent: 'flex-start', }}>
-                    <Text style={{ color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5, }}>
+                    <Text style={{ color: '#999999', fontSize: 14, marginVertical:6, }}>
                         没有更多数据了
                     </Text>
                 </View>
@@ -385,35 +387,51 @@ class HomeInfo extends Component {
     }
     
     // 上拉触底事件，进行判断
-    _onEndReached=()=>{
+    _onEndReached = async ()=>{
         console.log('上拉加载');
         let that=this;
-        // 如果是正在加载中或没有更多数据了，则返回
-        console.log('that.state-------  ',that.state)
-        if (that.state.showFoot != 0) {
-            return;
-        } else {
-            // let page=that.state.pageNo;
-            console.log('that.state.pageNo-------  ',that.state.pageNo)
-            console.log('that.state.totalPage-------  ',that.state.totalPage)
-            if((that.state.pageNo+1) <= that.state.totalPage)
-            {
+        if(that.state.pageNo != that.state.totalPage)
+        {
+            // 如果是正在加载中或没有更多数据了，则返回
+            if (that.state.showFoot != 0) {
+                return;
+            } else {
+                //底部显示正在加载更多数据
+                that.setState({ showFoot: 2 });
                 let pages=that.state.pageNo+1;
-                console.log('pages-------- ',pages)
                 that.setState({
                     pageNo:pages
                 });
                 that.fetchData(pages);
             }
         }
-        //底部显示正在加载更多数据
-        that.setState({ showFoot: 2 });
+        else
+        {
+            that.setState({ showFoot: 1 });
+        }
         //获取数据    
     }
 
     //网络请求——获取第pageNo页数据
-    fetchData(page) {
-        //这里进行网络请求数据
+    fetchData = async (page) => {
+        const dataList = this.state.list
+        const formData = {
+            page:page,
+            limit:10
+        }
+        await api.dynamic.dynamiclist(formData).then((data) => {
+            if(data.type == 'success')
+            {
+              data.list.map(((item,index) =>{
+                dataList.push(item)
+              }))
+              this.setState({list:dataList});
+            }
+            else
+            {
+              console.log('333')
+            }
+        }) 
     }
 
 //---------------------------------------------

@@ -97,6 +97,11 @@ const styles = StyleSheet.create({
     contentInfoCons: {
         fontSize: 14,
         marginBottom: 5,
+    },    
+    wrapper: {
+        // backgroundColor: 'black',
+        height: height*0.3,
+        borderRadius:5,
     },
     contentInfoImg: {
         width: width * 0.9,
@@ -111,9 +116,7 @@ const styles = StyleSheet.create({
         // marginTop:5
         marginVertical:10
     },
-    wrapper: {
-        height: height*0.3,
-    },
+
     footerBox: {
         flexDirection: 'row',
         backgroundColor: 'white',
@@ -251,7 +254,7 @@ class HomeInfo extends Component {
                                     <Text style={styles.userAddress}>{item.address}</Text>
                                 </View>
                             </View>
-                            <Text style={styles.useTime}>{`${timeStamp(item.time)}`}h</Text>
+                            <Text style={styles.useTime}>{`${timeStamp(item.time)}`}</Text>
                         </View>
                         <View style={styles.contentInfo} >
                             {
@@ -272,8 +275,8 @@ class HomeInfo extends Component {
                                 item.contentImage[0] ? (
                                     <Swiper style={styles.wrapper} 
                                         // onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
-                                        dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
-                                        activeDot={<View style={{backgroundColor: '#17C6AC', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+                                        dot={<View style={{backgroundColor:'rgba(255,255,255,.5)', width: 8, height: 8,borderRadius: 4,marginHorizontal:3,marginVertical:3,}} />}
+                                        activeDot={<View style={{backgroundColor: '#17C6AC', width: 8, height: 8, borderRadius: 4,marginHorizontal:3,marginVertical:3}} />}
                                         paginationStyle={{
                                             bottom: 10,
                                         }}
@@ -282,7 +285,8 @@ class HomeInfo extends Component {
                                     >
                                     {
                                         item.contentImage.map((items) =>
-                                            <Image resizeMode='stretch' style={styles.contentInfoImg} source={{uri:items}} />
+                                            // resizeMode enum('cover', 'contain', 'stretch', 'repeat', 'center')
+                                            <Image resizeMode='cover' style={styles.contentInfoImg} source={{uri:items}} />
                                         )
                                     }
                                     </Swiper>
@@ -393,31 +397,26 @@ class HomeInfo extends Component {
     // 上拉触底事件，进行判断
     _onEndReached = async ()=>{
         console.log('上拉加载');
-        let that=this;
-        if(that.state.pageNo != that.state.totalPage)
-        {
-            // 如果是正在加载中或没有更多数据了，则返回
-            if (that.state.showFoot != 0) {
-                return;
-            } else {
-                //底部显示正在加载更多数据
-                that.setState({ showFoot: 2 });
-                let pages=that.state.pageNo+1;
-                that.setState({
-                    pageNo:pages
-                });
-                that.fetchData(pages);
-            }
+        // 如果是正在加载中或没有更多数据了，则返回
+        if (this.state.showFoot == 1) {
+            console.log('1111----------  ',this.state.showFoot)
+            return;
+        } else {
+            console.log('2222----------  ',this.state.showFoot)
+            //底部显示正在加载更多数据
+            this.setState({ showFoot: 2 });
+            let pages=this.state.pageNo+1;
+            this.setState({
+                pageNo:pages
+            });        
+            //获取数据  
+            this.fetchData(pages);
         }
-        else
-        {
-            that.setState({ showFoot: 1 });
-        }
-        //获取数据    
     }
 
     //网络请求——获取第pageNo页数据
-    fetchData = async (page) => {
+    fetchData = async (page) => {                
+        console.log('333----------  ',this.state.showFoot)
         const dataList = this.state.list
         const formData = {
             uid:await storage.get('uid'),
@@ -427,10 +426,11 @@ class HomeInfo extends Component {
         await api.dynamic.dynamiclist(formData).then((data) => {
             if(data.type == 'success')
             {
-              data.list.map(((item,index) =>{
+              data.list.map(((item) =>{
                 dataList.push(item)
               }))
               this.setState({list:dataList});
+              data.page === data.pages ? this.setState({ showFoot: 1 }) : null
             }
             else
             {

@@ -62,7 +62,18 @@ const timeStamp = (timevalue) => {
     // console.log('minute--------  ',minute)
     // console.log('second--------  ',second)
 
-    return day > 0 ? (day*24)+hour : hour;
+    // return day > 0 ? (day*24)+hour : hour;
+    let showData
+    if( day > 0 )
+    {
+        showData = dayjs(timevalue).format('MM-DD')
+    }
+    else
+    {
+        showData = hour +'h'
+    }
+    return showData
+
 }
 
 export{

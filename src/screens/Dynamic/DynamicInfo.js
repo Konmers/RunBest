@@ -215,7 +215,8 @@ export default class DynamicInfo extends Component {
 
     async componentDidMount() {
         // console.log('this.props uid--------   ',this.props.uid)
-        console.log('this.props dynamicId--------   ',this.props.dynamicId)
+        // console.log('this.props dynamicId--------   ',this.props.dynamicId)
+        //用户信息
         const user = {uid:this.props.uid}
         await api.user.loginInfo(user).then((data) => {
             // console.log('data-----  ',data)
@@ -229,6 +230,8 @@ export default class DynamicInfo extends Component {
                 console.log('2222')
             }
         }) 
+
+        //动态信息
         const dynamic = {dynamicId:this.props.dynamicId}
         await api.dynamic.dynamicInfo(dynamic).then((data) => {
             // console.log('data--------  ',data)
@@ -238,7 +241,24 @@ export default class DynamicInfo extends Component {
                 this.setState({dynamicInfo:data.list});
                 // console.log('this.state.dynamicInfo-----  ',this.state.dynamicInfo)
             }
-        }) 
+        })
+
+        //评论列表
+        const formData = {
+            uid:this.props.uid,
+            dynamic_id:this.props.dynamicId,
+            page:1,
+            limit:3
+        }
+        await api.dynamic.dynamiccomment(formData).then((data) => {
+            // console.log('data--------  ',data)
+            console.log('comment msg-----  ',data.msg)
+            if(data.type == 'success')
+            {
+                this.setState({comment:data.list});
+                console.log('this.state.comment-----  ',this.state.comment)
+            }
+        })
     }
 
     constructor (props) {
@@ -247,38 +267,38 @@ export default class DynamicInfo extends Component {
             dynamicInfo:{},
             userInfo:{},
             comment:[
-                {
-                    avatar:require('../../public/Iamge/Head/10.jpg'),
-                    name:'张三',
-                    time:'1585389280574',
-                    like:2222,
-                    likeState:true,
-                    content:'哒哒哒哒圣诞节快乐飞机ask的jfk就是打开考生考卷发卡机离开家客服经理是哒哒',
-                },
-                {
-                    avatar:require('../../public/Iamge/Head/12.jpg'),
-                    name:'李四',
-                    time:'1585216480000',
-                    like:11031,
-                    likeState:false,
-                    content:'哒哒哒了科技时代咖啡开发进度卡就升级到了放宽哒哒哒',
-                },
-                                {
-                    avatar:require('../../public/Iamge/Head/4.jpg'),
-                    name:'王五',
-                    time:'1585302880000',
-                    like:2,
-                    likeState:true,
-                    content:'哒哒哒哒哒哒',
-                },
-                {
-                    avatar: require('../../public/Iamge/Head/8.jpg'),
-                    name:'赵六',
-                    time:'1584957280000',
-                    like:2,
-                    likeState:false,
-                    content:'哒哒哒哒哒哒',
-                },
+                // {
+                //     avatar:require('../../public/Iamge/Head/10.jpg'),
+                //     name:'张三',
+                //     time:'1585389280574',
+                //     like:2222,
+                //     likeState:true,
+                //     content:'哒哒哒哒圣诞节快乐飞机ask的jfk就是打开考生考卷发卡机离开家客服经理是哒哒',
+                // },
+                // {
+                //     avatar:require('../../public/Iamge/Head/12.jpg'),
+                //     name:'李四',
+                //     time:'1585216480000',
+                //     like:11031,
+                //     likeState:false,
+                //     content:'哒哒哒了科技时代咖啡开发进度卡就升级到了放宽哒哒哒',
+                // },
+                //                 {
+                //     avatar:require('../../public/Iamge/Head/4.jpg'),
+                //     name:'王五',
+                //     time:'1585302880000',
+                //     like:2,
+                //     likeState:true,
+                //     content:'哒哒哒哒哒哒',
+                // },
+                // {
+                //     avatar: require('../../public/Iamge/Head/8.jpg'),
+                //     name:'赵六',
+                //     time:'1584957280000',
+                //     like:2,
+                //     likeState:false,
+                //     content:'哒哒哒哒哒哒',
+                // },
             ],
             pageNo:1,      //控制页数
             showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
@@ -357,6 +377,7 @@ export default class DynamicInfo extends Component {
               keyboardVerticalOffset={60}>
                 <View style={{flexDirection:'row',minHeight:height*0.07,maxHeight:height*0.1,width,}}>
                     <TextInput
+                        ref='input'
                         style={{height:'100%',fontSize:16,paddingLeft:10,width:'70%',flexGrow:1}}
                         editable={true} // 是否可编辑，默认为: true
                         multiline={true} // 是否为多行文本，默认为: false
@@ -389,7 +410,7 @@ export default class DynamicInfo extends Component {
                 <View style={styles.comuserInfo}>
                     <View style={styles.comuserInfos}>
                         {/* <Image style={styles.userImg} source={{uri:this.state.item.avatar}} /> */}
-                        <Image style={styles.comuserImg} source={item.avatar} />
+                        <Image style={styles.comuserImg} source={{uri:item.avatar}} />
                         <Text style={styles.comuserName}>{item.name}</Text>
                         <Text style={styles.comuseTime}>{`${timeStamp(item.time)}`}</Text> 
                     </View>
@@ -463,6 +484,34 @@ export default class DynamicInfo extends Component {
     postComment = async () =>{
         console.log('this.state.creatComment------------  ',this.state.creatComment)
         console.log('this.props uid--------   ',this.props.uid)
+        this.refs['input'].blur();
+        const formData = {
+            uid:this.props.uid,
+            dynamicId:this.props.dynamicId,
+            content:this.state.creatComment,
+        }
+        console.log('formData--------   ',formData)
+
+        await api.dynamic.dynamiccommentlike(formData).then((Data) => {
+            console.log('Data----  ',Data)
+
+            if (Data.type === true) 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            }
+            this.setState({creatComment:''})        
+            setTimeout(() => {
+                Toast.success(Data.msg);
+                this.componentDidMount()
+            }, 2000);
+        })
+
     } 
 
 }

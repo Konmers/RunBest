@@ -8,6 +8,7 @@ import {
     Dimensions,
     ActivityIndicator,
     FlatList,
+    BackHandler,
     TouchableHighlight,//选中跳转
     TouchableOpacity,
     ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
@@ -176,6 +177,9 @@ const styles = StyleSheet.create({
 
 class HomeInfo extends Component {
     async componentDidMount() {
+       console.log('token home------------  ',await storage.get('token'))
+
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         //3秒后关闭启动页
         setTimeout(() => { SplashScreen.hide() }, 1000)
         const formData = {
@@ -197,6 +201,36 @@ class HomeInfo extends Component {
         this.setState({uid:await storage.get('uid')})
         // console.log('this.state ----------  ',this.state)
     };
+
+    componentWillUnmount() {
+        this.backHandler.remove()
+    }
+
+    handleBackPress = () => {
+        if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+            //最近2秒内按过back键，可以退出应用。
+            BackHandler.exitApp();//退出整个应用
+            return false
+        }
+    
+        this.lastBackPressed = Date.now();
+        console.log('再按一次要退出了')
+        // Toast.sad('再按一次退出应用');
+        // Toast.show({
+        //     text:'再按一次退出应用',
+        //     icon: <ActivityIndicator/>,
+        //     position: 'center',
+        //     duration: 2000,
+        // })
+        Toast.show({
+            text:'再按一次退出应用',
+            position: 'center',
+            duration: 2000,
+        })
+    
+        return true;
+    }
+
     constructor(props) {
         super(props)
         this.state = {

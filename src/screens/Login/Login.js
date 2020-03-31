@@ -57,7 +57,9 @@ import { Actions } from 'react-native-router-flux'
       * 或者发起网络请求。这个函数也是只被调用一次
       * （能够使用setState()来改变属性 有且只有一次）
       */
-     componentDidMount() {
+    async componentDidMount() {
+       console.log('token login------------  ',await storage.get('token'))
+
         // 隐藏启动页，如果不设置消失时间，在组件加载完启动页自动隐藏
         setTimeout(() => {
             SplashScreen.hide();
@@ -198,7 +200,7 @@ import { Actions } from 'react-native-router-flux'
             console.log('Data-------  ',Data)
             if (Data.type === true) 
             {
-                storage.add('key', Data.key)
+                storage.add('token', Data.key)
                 storage.add('uid', Data.uid)
                 Toast.message('登陆成功');
                 const {navigation} = this.props;

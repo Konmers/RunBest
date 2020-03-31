@@ -38,6 +38,8 @@ import VideoPlayScreen from './src/screens/Video/VideoPlayer.js';//视频播放
 
 import Demo1 from './src/screens/Demo/Demo1.js'//测试
 
+import storage from './src/server/storage'
+
 {/* key 就是给页面的标签,供Actions使用 */}
 {/* component 设置关联的页面 */}
 {/* title 就是给页面标题 */}
@@ -50,9 +52,18 @@ if (!window.navigator.userAgent) {
   }  
 
 export default  class Main extends Component {
+    async componentDidMount() {
+       const token = await storage.get('token')
+       console.log('token main------------  ',token)
+       const tokenstate = token ? true : false 
+       this.setState({isLogin: tokenstate })
+    }
+
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {
+            isLogin:false,
+        }
     }
     render() { 
         return ( 
@@ -64,16 +75,16 @@ export default  class Main extends Component {
                     <Scene key='Login' component={LoginScreen} initial={true} navTransparent={true} hideNavBar={true} ></Scene>
 
                     {/* 注册 */}
-                    <Scene key='Register' component={RegisterScreen}navTransparent={true} navBarButtonColor="#ffffff" ></Scene>
+                    <Scene key='Register' component={RegisterScreen} navTransparent={true} navBarButtonColor="#ffffff" ></Scene>
 
                     {/* 忘记密码 */}
-                    <Scene key='Forget' component={ForgetScreen}navTransparent={true} navBarButtonColor="#ffffff" ></Scene>
+                    <Scene key='Forget' component={ForgetScreen} navTransparent={true} navBarButtonColor="#ffffff" ></Scene>
                    
                     {/* 主页一 */}
                     <Scene key='home' component={HomeScreen} navTransparent={true}></Scene>
 
                     {/* 主页二 */}
-                    <Scene key='homeInfo' component={HomeInfoScreen} initial={true} navTransparent={true} hideNavBar={true} ></Scene>
+                    <Scene key='homeInfo' component={HomeInfoScreen}  initial={this.state.isLogin} navTransparent={true} hideNavBar={true} ></Scene>
 
                     {/* 排行榜 */}
                     <Scene key='rank' component={RankScreen} navTransparent={true}></Scene>

@@ -52,7 +52,8 @@ const api = {
     dynamicInfo: data => instance.get(`/dynamic/dynamicInfo`, {params:data}), //动态详细信息
     dynamiclike: data => instance.post(`/dynamic/like`,data),//点赞
     dynamiccomment: data => instance.get(`/dynamic/commentList`,{params:data}),//评论列表
-    dynamiccommentlike: data => instance.post(`/dynamic/createComment`,data)//新增评论
+    dynamiccommentlike: data => instance.post(`/dynamic/createComment`,data),//新增评论
+    dynamiccommentlikestate: data => instance.post(`/dynamic/commentLike`,data)//评论点赞
   },
   Img:{
     uploadImg: data => instance.post(`/uploadImg`,data),//上传图片

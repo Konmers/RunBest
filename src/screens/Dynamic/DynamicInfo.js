@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'white',
-        borderBottomWidth:1,
-        borderBottomColor:'#c1c1c1',
     },
     contentSwper: {
         width: width,
@@ -138,7 +135,8 @@ const styles = StyleSheet.create({
     dynamicComment:{
         width: width*0.9,
         flexDirection: 'column',
-        marginTop: 3
+        marginTop: 3,
+        marginBottom: 6
     },
     commentView:{
         width: width*0.9,
@@ -312,64 +310,64 @@ export default class DynamicInfo extends Component {
         return (
         <View style={styles.cont}>
             <ScrollView>
-            <View style={styles.contView}>
-                <View style={ Array.prototype.isPrototypeOf(this.state.dynamicInfo.ImgArr)&&this.state.dynamicInfo.ImgArr.length ===0 ? styles.hidden : styles.contentSwper}>
-                    {
-                        this.state.dynamicInfo.ImgArr ? (
-                            <Swiper style={styles.wrapperView} 
-                                // renderPagination = {renderPagination}
-                                dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4,marginHorizontal:5,marginBottom:-20}} />}
-                                activeDot={<View style={{backgroundColor: 'white', width: 8, height: 8, borderRadius: 4,marginHorizontal:5,marginBottom:-20}} />}
-                                autoplay  //bool值  循环属性 
-                                autoplayTimeout = {7} //循环时间
-                            >
-                            {
-                                this.state.dynamicInfo.ImgArr.map((items) =>
-                                    <Image 
-                                        resizeMode='contain' 
-                                        style={styles.swiperImg} 
-                                        source={{uri:items}} 
-                                    />
-                                )
-                            }
-                            </Swiper>
-                        ) : null
-                    }
-                </View>
-                <View style={styles.dynamicUser}>
-                    <View style={styles.userInfo}>
-                        <Image style={styles.userImg} source={{uri:this.state.userInfo.avatar}} />
-                        <View>
-                            <Text style={styles.userName}>{this.state.userInfo.username}</Text>
-                            <Text style={styles.userAddress}>{this.state.userInfo.address}</Text>
-                        </View>
+                <View style={styles.contView}>
+                    <View style={ Array.prototype.isPrototypeOf(this.state.dynamicInfo.ImgArr)&&this.state.dynamicInfo.ImgArr.length ===0 ? styles.hidden : styles.contentSwper}>
+                        {
+                            this.state.dynamicInfo.ImgArr ? (
+                                <Swiper style={styles.wrapperView} 
+                                    // renderPagination = {renderPagination}
+                                    dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4,marginHorizontal:5,marginBottom:-20}} />}
+                                    activeDot={<View style={{backgroundColor: 'white', width: 8, height: 8, borderRadius: 4,marginHorizontal:5,marginBottom:-20}} />}
+                                    autoplay  //bool值  循环属性 
+                                    autoplayTimeout = {7} //循环时间
+                                >
+                                {
+                                    this.state.dynamicInfo.ImgArr.map((items) =>
+                                        <Image 
+                                            resizeMode='contain' 
+                                            style={styles.swiperImg} 
+                                            source={{uri:items}} 
+                                        />
+                                    )
+                                }
+                                </Swiper>
+                            ) : null
+                        }
                     </View>
-                    <Text style={styles.useTime}>{`${timeStamp(this.state.dynamicInfo.craeteDate)}`}</Text>  
+                    <View style={styles.dynamicUser}>
+                        <View style={styles.userInfo}>
+                            <Image style={styles.userImg} source={{uri:this.state.userInfo.avatar}} />
+                            <View>
+                                <Text style={styles.userName}>{this.state.userInfo.username}</Text>
+                                <Text style={styles.userAddress}>{this.state.userInfo.address}</Text>
+                            </View>
+                        </View>
+                        <Text style={styles.useTime}>{`${timeStamp(this.state.dynamicInfo.craeteDate)}`}</Text>  
+                    </View>
+                    <View style={styles.dynamicCont}>
+                    {
+                        this.state.dynamicInfo.title ? (<Text style={styles.contentInfoTitle}>{this.state.dynamicInfo.title}</Text>) : null
+                    }
+                    {
+                        this.state.dynamicInfo.content ? (
+                        <Text
+                            style={styles.contentInfoCons}
+                        >
+                            &emsp;{`${this.state.dynamicInfo.content}`}
+                        </Text>) : null
+                    }  
+                    </View>
+                    <View style={styles.dynamicComment}>
+                        <Text style={{fontSize:18,color:'#000'}}>评论</Text>
+                        <FlatList
+                            data={this.state.comment}
+                            renderItem={this._renderItemView}
+                            //从下往上拉去的时候加载更多
+                            onEndReached={this._onEndReached.bind(this)}
+                            onEndReachedThreshold={0.2}
+                        />
+                    </View>
                 </View>
-                <View style={styles.dynamicCont}>
-                {
-                    this.state.dynamicInfo.title ? (<Text style={styles.contentInfoTitle}>{this.state.dynamicInfo.title}</Text>) : null
-                }
-                {
-                    this.state.dynamicInfo.content ? (
-                    <Text
-                        style={styles.contentInfoCons}
-                    >
-                        &emsp;{`${this.state.dynamicInfo.content}`}
-                    </Text>) : null
-                }  
-                </View>
-                <View style={styles.dynamicComment}>
-                    <Text style={{fontSize:18,color:'#000'}}>评论</Text>
-                    <FlatList
-                        data={this.state.comment}
-                        renderItem={this._renderItemView}
-                        //从下往上拉去的时候加载更多
-                        onEndReached={this._onEndReached.bind(this)}
-                        onEndReachedThreshold={0.2}
-                    />
-                </View>
-            </View>
             </ScrollView>
             <KeyboardAvoidingView
               enabled
@@ -420,7 +418,7 @@ export default class DynamicInfo extends Component {
                             <Icon
                                 name={ item.likeState == true ?"like1":"like2"}
                                 size={20}
-                                onPress={() => this._likeCase(item.id,this.state.uid)}
+                                onPress={() => this._likeCase(item.id,this.props.uid)}
                                 style={item.likeState == true ? styles.up : styles.down}
                             />
                         }
@@ -482,17 +480,40 @@ export default class DynamicInfo extends Component {
     
     //提交评论
     postComment = async () =>{
-        console.log('this.state.creatComment------------  ',this.state.creatComment)
-        console.log('this.props uid--------   ',this.props.uid)
+
         this.refs['input'].blur();
         const formData = {
             uid:this.props.uid,
             dynamicId:this.props.dynamicId,
             content:this.state.creatComment,
         }
-        console.log('formData--------   ',formData)
 
         await api.dynamic.dynamiccommentlike(formData).then((Data) => {
+            // console.log('Data----  ',Data)
+
+            if (Data.type === true) 
+            {
+                console.log('Data.msg----  ',Data.msg)
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+            }
+            this.setState({creatComment:''})     
+            Toast.success(Data.msg);
+            this.componentDidMount()   
+        })
+
+    } 
+
+    //点赞
+    _likeCase = async (commentId,uid) =>{
+        console.log('uid----  ',uid,'commentId----- ',commentId)
+        const formData = {
+            uid:uid,
+            commentId:commentId,
+        }
+        await api.dynamic.dynamiccommentlikestate(formData).then((Data) => {
             console.log('Data----  ',Data)
 
             if (Data.type === true) 
@@ -505,13 +526,12 @@ export default class DynamicInfo extends Component {
                 console.log('Data.msg----  ',Data.msg)
                 // Toast.message(Data.msg);
             }
-            this.setState({creatComment:''})        
-            setTimeout(() => {
-                Toast.success(Data.msg);
-                this.componentDidMount()
-            }, 2000);
+            const listData = [...this.state.comment] //复制数组--浅拷贝
+            //修改对象中某元素值
+            this.setState({
+                comment:listData.map((item) => item.id === commentId ?{...item, likeState: Data.state , like: Data.cont} : item ),
+            })
         })
-
-    } 
+    }
 
 }

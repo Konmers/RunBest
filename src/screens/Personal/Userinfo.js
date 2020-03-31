@@ -29,6 +29,8 @@ import {
 
   //bounced 
   import ModalBox from 'react-native-modalbox'
+
+  import storage from '../../server/storage'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
@@ -325,9 +327,13 @@ import {
     }
 
     //openBirthday
-    openBirthday = () =>{
+    openBirthday = async() =>{
+        console.log('token 111------------  ',await storage.get('token'))
+        storage.delete('token', '')
+        console.log('token 222------------  ',await storage.get('token'))
         console.warn('DatetimePicker------- ',this.refs.datetimePicker.state.currentDate)
         this.state.dataArr[3].data = this.refs.datetimePicker.state.currentDate
+        Actions.Login()
     }
 
     //pass vlaue web

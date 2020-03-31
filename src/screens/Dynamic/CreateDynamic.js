@@ -19,6 +19,7 @@ import { Actions } from 'react-native-router-flux'
 import ImagePicker from 'react-native-image-picker'
 
 import Floatball from "../../middleware/Floatball.js"
+import { preventDoublePress } from "../../middleware/PreventDoublePress.js"
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -217,10 +218,10 @@ export default class CreateDynamic extends Component{
     return (      
       <View style={{flex:1}}>
         <View style={styles.Title}>
-          <Text style={styles.Toptext}>Run - Share</Text>
+          <Text style={styles.Toptext}> Create Dynamic</Text>
           <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
             {/* <Image style={{width:30,height: 30}} source={require('../../public/Iamge/Else/share.png')} /> */}
-            <Icon name="save" style={styles.actionButtonIcon} onPress={() =>this.save()}/>
+            <Icon name="save" style={styles.actionButtonIcon} onPress={() => preventDoublePress.onPress(() =>this.save(),50000)}/>
           </TouchableOpacity >
         </View>
         <View style={styles.cont}>

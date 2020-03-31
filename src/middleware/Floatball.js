@@ -58,7 +58,7 @@ export default class Floatball extends Component {
             <View style={styles.cont}>
                 {/* 浮框 */}
                 {/* icon 地址 https://oblador.github.io/react-native-vector-icons/ */}
-                <ActionButton buttonColor='#17C6AC' size={55}  
+                <ActionButton buttonColor='#17C6AC' size={55}   offsetY={3} 
                     //  onPress={() => { alert('你点了我！')}}
                     renderIcon={() => (
                         <View style={styles.actionButtonView}>

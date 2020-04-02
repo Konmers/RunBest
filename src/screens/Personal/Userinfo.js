@@ -30,12 +30,13 @@ import {
   //bounced 
   import ModalBox from 'react-native-modalbox'
 
+  import api from '../../server/api'
   import storage from '../../server/storage'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
 
-  const styles = {
+  const styles = StyleSheet.create({
     BigView:{
         width,
         height,
@@ -129,7 +130,7 @@ import {
         fontSize:18,
         color:'#424242'
       }
-  }
+  })
 
   //choose camera
   var photoOptions = {
@@ -162,46 +163,95 @@ import {
   ]
 
  class Userinfo extends Component {
+    //初始化
+    componentDidMount = async () =>{
+        const user = {uid:await storage.get('uid')}
+        api.user.loginInfo(user).then((data) => {
+            console.log('userinfo msg-----  ',data.msg)
+            if(data.type == 'success')
+            {
+            }
+            else
+            {
+                console.log('2222')
+            }
+            const dataArr = [...this.state.dataArr] //复制数组--浅拷贝
+            
+            //demo 1
+            //const listdata = data.list
+            // for (const key in dataArr) {
+            //     console.log(' listData[key]--------  ', dataArr[key].value)
+            //     if (listdata.hasOwnProperty(dataArr[key].value)) {
+            //         console.log('listdata.hasOwnProperty(dataArr[key].value)--------  ', listdata.hasOwnProperty(dataArr[key].value))
+            //         let varss = dataArr[key].value
+            //         console.log('listdata--------  ',listdata[varss])
+            //         dataArr[key].data = listdata[varss]
+            //     }
+            // }
+
+            //demo 2
+            this.setState({
+                dataArr:dataArr.map((item,key) => data.list.hasOwnProperty(dataArr[key].value) ?{...item, data: data.list[dataArr[key].value] } : item.data ),
+            })
+        }) 
+    }
+
     constructor(props) {
         super(props);
         this.state ={
             dataArr : [
                 {
                     title:'Avatar',
-                    data:'https://github.com/Dliveaman/RunBest/blob/master/src/public/Iamge/Head/14.jpg'
+                    value:'avatar',
+                    // data:'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
+                    data:''
                 },
                 {
                     title:'Name',
-                    data:'Konmer'
+                    value:'username',
+                    // data:'Konmer',
+                    data:''
                 },
                 {
                     //1.男 0.女
                     title:'Gender',
-                    data:0
+                    value:'sex',
+                    // data:0,
+                    data:''
                 },
                 {
                     title:'Birthday',
-                    data:'2019-11-28'
+                    value:'birthday',
+                    // data:'2019-11-28',
+                    data:''
                 },
-                {
-                    title:'Stature',
-                    data:'180'
-                },
-                {
-                    title:'Weight',
-                    data:'128'
-                },
+                // {
+                //     title:'Stature',
+                //     // data:'180',
+                //     data:''
+                // },
+                // {
+                //     title:'Weight',
+                //     // data:'128',
+                //     data:''
+                // },
                 {
                     title:'City',
-                    data:'chongqing'
+                    value:'address',
+                    // data:'chongqing',
+                    data:''
                 },
                 {
                     title:'Phone',
-                    data:'17623261139'
+                    value:'phone',
+                    // data:'17623261139',
+                    data:''
                 },
                 {
                     title:'E-mail',
-                    data:'1916794877@qq.com'
+                    value:'email',
+                    // data:'1916794877@qq.com',
+                    data:''
                 },
             ],
             imgURL: 'https://img3.doubanio.com/view/photo/sqxs/public/p2551857803.webp',
@@ -223,7 +273,7 @@ import {
                                 {
                                     i==0?(
                                         <TouchableOpacity style={styles.datailsTouch} onPress={() => this.cameraAction()}>
-                                            <Image style={styles.datailsImage} source={{uri:this.state.imgURL}} />      
+                                            <Image style={styles.datailsImage} source={{uri:item.data}} />      
                                         </TouchableOpacity>
                                     ):(
                                         item.title == 'Gender'?(
@@ -242,7 +292,7 @@ import {
                                                     <DatetimePicker  ref={'datetimePicker'} child = {this.state.dataArr[3].data}/>
                                                 </TouchableOpacity>
                                             ):(
-                                                <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data)}>
+                                                <TouchableOpacity style={styles.datailsTouch} onPress={() => this.editUserinfo(item.title,item.data,item.value)}>
                                                     <Text style={styles.datailsData}>{item.data}</Text>         
                                                 </TouchableOpacity>
                                             )
@@ -337,9 +387,9 @@ import {
     }
 
     //pass vlaue web
-    editUserinfo = (title,value) =>{
+    editUserinfo = (title,data,value) =>{
         // Actions.videodetail({id:10}) //传参
-        Actions.userinfoedit({title:title,data:value})// 空传参
+        Actions.userinfoedit({title:title,data:data,value:value})// 空传参
     }
  
     //camera

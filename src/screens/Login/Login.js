@@ -27,6 +27,7 @@ import SplashScreen from 'react-native-splash-screen' //引导页
 import { Toast } from 'teaset'
 import api from '../../server/api'
 import storage from '../../server/storage'
+import { strongFormData } from '../../server/formData'
 import DeviceInfo from 'react-native-device-info';
 
 // Actions表示要进行路由的JS操作了,可以跳特到新路由

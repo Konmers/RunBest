@@ -154,7 +154,7 @@ import api from '../../server/api'
                 email:this.state.email_value || Toast.message('请填写邮箱'),
                 pwd:this.state.pwd_value || Toast.message('请填写密码')
             }
-            api.user.updateUser(formData).then((Data) => {
+            api.user.updateUserpass(formData).then((Data) => {
                 if (Data.type === true) 
                 {
                     Toast.message('Fotget Successful !!  ^_^');

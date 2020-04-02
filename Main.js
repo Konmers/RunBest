@@ -87,13 +87,13 @@ export default  class Main extends Component {
                     <Scene key='homeInfo' component={HomeInfoScreen}  initial={this.state.isLogin} navTransparent={true} hideNavBar={true} ></Scene>
 
                     {/* 排行榜 */}
-                    <Scene key='rank' component={RankScreen} navTransparent={true}></Scene>
+                    <Scene key='rank' component={RankScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 走势图 */}
-                    <Scene key='trend' component={TrendScreen} navTransparent={true}></Scene>
+                    <Scene key='trend' component={TrendScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 个人中心 */}
-                    <Scene key='personal' component={PersonalScreen} navTransparent={true}></Scene>
+                    <Scene key='personal' component={PersonalScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 个人信息 */}
                     <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'></Scene>

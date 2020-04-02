@@ -27,12 +27,21 @@ import Floatball from "../../middleware/Floatball.js"
 
 const loading = require('../../public/Iamge/Banner/loading.gif')
 
-const styles = {
-  Toptext:{
+const styles = StyleSheet.create({
+  Title:{
     width,
-    height: height*0.06,
+    height: height*0.08,
     textAlign: 'center',
     lineHeight: height*0.06,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
+  Toptext:{
+    textAlign: 'center',
     fontSize: 20,
     color: '#333'
   },
@@ -130,7 +139,7 @@ const styles = {
     flex: 1,
      marginVertical: 10,
   },
-}
+})
 
 const Slide = props => {
   return (<View style={styles.slide}>
@@ -229,7 +238,9 @@ export default class Rank extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <Text style={styles.Toptext}>Lazy - Rank</Text>
+        <View style={styles.Title}>
+          <Text style={styles.Toptext}>Lazy - Rank</Text>
+        </View>
         <View style={styles.SwiperView}>
           <Swiper style={styles.wrapper}
           dot={<View style={{marginLeft:10,width:10,height:10,borderRadius:50,backgroundColor: '#fff'}} />}

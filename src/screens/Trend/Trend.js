@@ -33,10 +33,10 @@ var ScreenWidth = Dimensions.get('window').width;
 
   //marginHorizontal相同于同时设置marginLeft和marginRight
   //marginVertical相同于同时设置marginTop和marginBottom
-const styles = {
+const styles = StyleSheet.create({
   Title:{
     width,
-    height: height*0.06,
+    height: height*0.08,
     textAlign: 'center',
     lineHeight: height*0.06,
     flexDirection: 'row',
@@ -85,7 +85,7 @@ const styles = {
      fontSize: 40,
      marginTop: -50
   }
-}
+})
 export default class Trend extends Component{
   constructor (props) {
     super(props)

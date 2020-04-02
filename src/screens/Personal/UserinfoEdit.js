@@ -7,18 +7,22 @@ import {
     StyleSheet,
     Dimensions,
     Button,
+    ActivityIndicator,
     TouchableHighlight,//选中跳转
     TouchableOpacity,
     ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
   } from 'react-native'
   
-  //时间
-  import dayjs from 'dayjs'
-
-  import { Actions } from 'react-native-router-flux';
+  import api from '../../server/api'
+  import storage from '../../server/storage'
   
   // Dimensions 用于获取设备宽、高、分辨率
   const { width,height } = Dimensions.get('window')
+
+  import { Toast } from 'teaset'
+
+  // Actions表示要进行路由的JS操作了,可以跳特到新路由
+  import { Actions } from 'react-native-router-flux'
 
     const styles = StyleSheet.create({
         editView:{
@@ -78,7 +82,7 @@ class UserinfoEdit extends Component {
                     <Button 
                         title='耍得黑粉黛花海见客户' 
                         color="#17C6AC"
-                        onPress={() => this.saveVlue(this.state.text)}
+                        onPress={() => this.DataVlue(this.state.text)}
                     >
                     </Button>
                 </View>
@@ -90,8 +94,35 @@ class UserinfoEdit extends Component {
         //把获取到的内容，设置给showValue
         this.setState({text:inputData});
     }
-    saveVlue(vlaue){
+    async DataVlue(vlaue){
+        console.warn('value----------------',this.props.value)
         console.warn('save----------------',vlaue)
+        console.warn('this.state.inputData----------------',this.state.inputData)
+        const Data = {
+            uid: await storage.get('uid'),
+            valuename:this.props.value,
+            valuetxt:this.state.text
+        }
+        console.warn('Data----------------',Data)
+        api.user.updateUserinfo(Data).then((data) => {
+            console.log('data-----  ',data)
+            console.log('userinfo msg-----  ',data.msg)
+            if(data.type == 'success')
+            {
+                Toast.show({
+                    text:data.msg,
+                    icon: <ActivityIndicator/>,
+                    position: 'center',
+                    duration: 2000,
+                })
+                console.log('data-----  ',data.value)
+                Actions.userinfo({valuename:this.props.value,valuetxt:this.state.text})// 空传参
+            }
+            else
+            {
+                console.log('2222')
+            }
+        }) 
     }
 }
 

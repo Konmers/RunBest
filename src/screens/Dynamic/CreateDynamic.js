@@ -32,16 +32,18 @@ import storage from '../../server/storage'
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
 
-const styles = {
+const styles =  StyleSheet.create({
   Title:{
     width,
-    height: height*0.06,
+    height: height*0.08,
     textAlign: 'center',
     lineHeight: height*0.06,
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white'
   },
   Toptext:{
     textAlign: 'center',
@@ -51,6 +53,12 @@ const styles = {
   Share:{
     position:'absolute',
     right: 15
+  },
+  actionButtonIcon: {
+    fontSize: 30,
+    width:30,
+    height: 30,
+    color: '#17C6AC',
   },
   cont:{
     width,
@@ -98,10 +106,6 @@ const styles = {
     textAlignVertical: 'top', // 文字居上
     marginTop:15
   },
-  actionButtonIcon: {
-    fontSize: 30,
-    color: '#17C6AC',
-  },
   imgArr:{
     width:width*0.9,
     height: height*0.5, 
@@ -144,7 +148,7 @@ const styles = {
     right:0,
     borderRadius:5,
   }
-}
+})
 
 //choose camera
 var photoOptions = {

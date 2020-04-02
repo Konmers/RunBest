@@ -207,7 +207,7 @@ const renderPagination = (index, total, context) => {
         </Text>
       </View>
     );
-  }
+}
 
 export default class DynamicInfo extends Component {
 

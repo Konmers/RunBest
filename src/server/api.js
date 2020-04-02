@@ -43,8 +43,9 @@ const api = {
     verificationcode: data => instance.post(`/user/verificationcode`, data), //获取验证码
     createUser: data => instance.post(`/user/createUser`, data), //注册
     forverificationcode: data => instance.post(`/user/forverificationcode`, data), //重新验证
-    updateUser: data => instance.post(`/user/updateUser`, data), //注册
-    loginInfo: data => instance.get(`/user/userInfo`, {params:data}) //获取个人信息
+    updateUserpass: data => instance.post(`/user/updateUser`, data), //注册
+    loginInfo: data => instance.get(`/user/userInfo`, {params:data}), //获取个人信息
+    updateUserinfo: data => instance.post(`/user/updateUser`, data) //修改个人信息
   },
   dynamic:{
     createdynamic: data => instance.post(`/dynamic/createDynamic`, data), //新增动态

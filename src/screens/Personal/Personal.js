@@ -19,16 +19,15 @@ import { Actions } from 'react-native-router-flux'
 
 // Dimensions 用于获取设备宽、高、分辨率
 const { width,height } = Dimensions.get('window')
-var ScreenWidth = Dimensions.get('window').width;
 
-import { baseFormData } from '../../server/formData'
 import Floatball from "../../middleware/Floatball.js"
 import api from '../../server/api'
+import storage from '../../server/storage'
 
-const styles = {
+const styles = StyleSheet.create({
     Title:{
       width,
-      height: height*0.06,
+      height: height*0.08,
       textAlign: 'center',
       lineHeight: height*0.06,
       display: 'flex',
@@ -105,7 +104,7 @@ const styles = {
         borderColor: '#c9c9c9',
     },
     optionArrss:{
-        isplay: 'flex',
+        display: 'flex',
         width,
         height: '8%',
         flexDirection: 'column',
@@ -160,7 +159,7 @@ const styles = {
         width:15,
         height:15,
     },
-}
+})
 
 class Personal extends Component {
     constructor(props) {
@@ -212,18 +211,19 @@ class Personal extends Component {
 
     //初始化
     componentDidMount = async () =>{
-        // const formData = baseFormData()
-        const formData = new FormData()
-        // formData.append('tid', 1)
-        // formData.append('page', 1)
-        api.user.loginInfo(formData).then(({ code, type, List }) => {
-            console.log('List typeof--------  ',typeof List)
-            console.log('List--------  ',List)
-            if(code == 200)
+        const user = {uid:await storage.get('uid')}
+        api.user.loginInfo(user).then((data) => {
+            console.log('data-----  ',data)
+            console.log('userinfo msg-----  ',data.msg)
+            if(data.type == 'success')
             {
-                this.setState({list:List});
+                this.setState({list:data.list});
             }
-        })  
+            else
+            {
+                console.log('2222')
+            }
+        }) 
     }
 
     render() { 

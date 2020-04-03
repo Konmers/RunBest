@@ -5,7 +5,7 @@ import {View,Text,Image} from 'react-native';
 // Router:就相当干昨天我们所学的HashRouter
 // Stack:这是一个分组的容器,他不表示具体的路由,专门用来给路由分组的 
 // Scene:就表示一个具体的路由规则,好比昨天学到的Route
-import {Router,Stack,Scene} from 'react-native-router-flux'
+import {Router,Stack,Scene,Actions} from 'react-native-router-flux'
 
 //引用页面
 import App from './App.js'
@@ -96,7 +96,7 @@ export default  class Main extends Component {
                     <Scene key='personal' component={PersonalScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 个人信息 */}
-                    <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'></Scene>
+                    <Scene key='userinfo' component={UserinfoScreen} title='Userinfo' onLeft={()=>{Actions.personal()}}></Scene>
 
                     {/* 个人信息编辑 */}
                     <Scene key='userinfoedit' component={UserinfoEditScreen} title='UserinfoEdit'></Scene>

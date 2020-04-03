@@ -46,13 +46,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         alignItems: 'center',
         alignContent: 'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#f1f1f1',
     },
     contView: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white',
-        borderBottomWidth:1,
-        borderBottomColor:'#c1c1c1',
+
+        marginVertical:10
     },
     contViews: {
         flex: 1,
@@ -68,15 +70,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     useTime: {
-        fontSize: 20
+        fontSize: 16
     },
     userImg: {
         width: 35,
         height: 35,
-        borderRadius: 5,
+        borderRadius: 20,
+        borderWidth:1,
+        borderColor:'#f1f1f1',
         marginRight: 10
     },
     userName: {
+        color: '#000000',
+        fontWeight:"bold",
         fontSize: 16
     },
     userAddress: {
@@ -90,8 +96,8 @@ const styles = StyleSheet.create({
         marginTop: 3,
     },
     contentInfoTitle: {
-        fontSize: 16,
-        fontStyle: 'italic',
+        fontSize: 18,
+        // fontStyle: 'italic',
         color: '#000000',
         marginVertical: 3,
     },
@@ -301,7 +307,7 @@ class HomeInfo extends Component {
                                         numberOfLines={2} //行数
                                         ellipsizeMode='tail' //末尾 ...
                                     >
-                                        &emsp;{`${item.content}`}
+                                       {`${item.content}`}
                                         {/* {item.content} */}
                                     </Text>) : null
                             }
@@ -341,7 +347,7 @@ class HomeInfo extends Component {
                                     { 
                                         <Icon
                                             name={ item.like == true ?"heart":"hearto"}
-                                            size={20}
+                                            size={15}
                                             onPress={() => this._likeCase(item.id,this.state.uid)}
                                             style={item.like == true ? styles.up : styles.down}
                                         />
@@ -353,7 +359,7 @@ class HomeInfo extends Component {
                                 {/*评论*/}
                                 {/* <View style={styles.footerBox}> */}
                                     <Icon name="message1"
-                                        size={20}
+                                        size={15}
                                         style={styles.boxIcon}
                                         onPress={() => this.getDynamicInfo(item.id,this.state.uid)}
                                     />
@@ -364,7 +370,7 @@ class HomeInfo extends Component {
                                 {/* 分享 */}
                                 {/* <View style={styles.footerBox}> */}
                                     <Icon name="sharealt"
-                                        size={20}
+                                        size={15}
                                         style={styles.boxIcon,{paddingRight: 10}}
                                     />
                                     {/*分享文字*/}

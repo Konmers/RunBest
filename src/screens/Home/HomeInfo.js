@@ -43,18 +43,16 @@ import Share from 'react-native-share';
 const styles = StyleSheet.create({
     cont: {
         flex: 1,
-        backgroundColor: 'transparent',
-        alignItems: 'center',
-        alignContent: 'center',
-        borderBottomWidth:1,
-        borderBottomColor:'#f1f1f1',
+        // backgroundColor: 'transparent',
+
     },
     contView: {
         flex: 1,
         flexDirection: 'column',
+        alignItems: 'center',
+        alignContent: 'center',
         backgroundColor: 'white',
-
-        marginVertical:10
+        marginVertical:5
     },
     contViews: {
         flex: 1,
@@ -91,9 +89,12 @@ const styles = StyleSheet.create({
     },
     contentInfo: {
         flex: 1,
-        width: '90%',
+        width: width*0.9,
         flexDirection: 'column',
         marginTop: 3,
+        paddingBottom:10,
+        borderBottomWidth:1,
+        borderBottomColor:'#CCC',
     },
     contentInfoTitle: {
         fontSize: 18,
@@ -123,17 +124,23 @@ const styles = StyleSheet.create({
         // marginTop:5
         marginVertical:10
     },
-
     footerBox: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         flex: 1,
         marginLeft: 1,
         alignItems:'center',
     },
+    footerBoxview: {
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'red',
+        marginHorizontal:5
+    },
     boxIcon: {
         color: '#333',
-        paddingRight: 25
+        paddingRight: 5
     },
     boxText: {
         fontSize: 14,
@@ -143,11 +150,11 @@ const styles = StyleSheet.create({
     },
     up: {
         color: '#FF6666',
-        paddingRight: 25
+        paddingRight: 3,
     },
     down: {
         color: '#333',
-        paddingRight: 25
+        paddingRight: 3
     },
     endTxt:{
         marginVertical:5
@@ -253,7 +260,7 @@ class HomeInfo extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1,backgroundColor:'#ddd' }}>
                 <FlatList
                     data={this.state.list}
                     renderItem={this._renderItemView}
@@ -283,7 +290,7 @@ class HomeInfo extends Component {
         // console.log('item---------- ',item)
         return(
             <View style={item   == '' ? styles.hidden :''}>
-                <View style={styles.cont}>
+                {/* <View style={styles.cont}> */}
                     <View style={styles.contView} >
                         <View style={styles.contViews}>
                             <View style={styles.userInfo}>
@@ -343,7 +350,7 @@ class HomeInfo extends Component {
                             </View>
                             <View style={[styles.footerBox,{justifyContent:'flex-end'}]}>
                                 {/*点赞*/}
-                                    {/* <View style={styles.footerBox} > */}
+                                <View style={styles.footerBoxview} >
                                     { 
                                         <Icon
                                             name={ item.like == true ?"heart":"hearto"}
@@ -353,19 +360,19 @@ class HomeInfo extends Component {
                                         />
                                     }
                                     {/*点赞文字*/}
-                                    {/* <Text style={styles.boxText} onPress={this._up}>点赞</Text> */}
-                                {/* </View> */}
+                                    <Text style={styles.boxText}>33</Text>
+                                </View>
 
                                 {/*评论*/}
-                                {/* <View style={styles.footerBox}> */}
+                                <View style={styles.footerBoxview}>
                                     <Icon name="message1"
                                         size={15}
                                         style={styles.boxIcon}
                                         onPress={() => this.getDynamicInfo(item.id,this.state.uid)}
                                     />
-                                    {/*评论文字*/}
-                                    {/* <Text style={styles.boxText}>评论</Text> */}
-                                {/* </View> */}
+                                    {/* 评论文字*/}
+                                    <Text style={styles.boxText}>222</Text> 
+                               </View>
 
                                 {/* 分享 */}
                                 {/* <View style={styles.footerBox}> */}
@@ -379,7 +386,7 @@ class HomeInfo extends Component {
                             </View>
                         </View>
                     </View>
-                </View>
+                {/* </View> */}
             </View>
         )
     }

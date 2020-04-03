@@ -65,14 +65,14 @@ const styles =  StyleSheet.create({
     height,
     alignContent:'center',
     alignItems:'center',
-    backgroundColor: '#f0f0f0'  //底色
+    backgroundColor: '#ddd'  //底色
   },  
   usershow:{
     width,
     height:height*0.1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop:20,
+    marginTop:15,
     // backgroundColor: 'red',
     backgroundColor: 'white',
     marginHorizontal:15,

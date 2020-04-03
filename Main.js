@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import {View,Text,Image} from 'react-native';
+import {
+    Modal,
+    Text,
+    View,
+    Image,
+    Button,
+    StyleSheet,
+    Dimensions,
+    TouchableHighlight,//选中跳转
+    TouchableOpacity,
+    ScrollView,//页面滚动组件 （默认 一个页面长度大于手机的长度，使用这个组件）
+  } from 'react-native'
 
 //导入路由相关的组件
 // Router:就相当干昨天我们所学的HashRouter
 // Stack:这是一个分组的容器,他不表示具体的路由,专门用来给路由分组的 
 // Scene:就表示一个具体的路由规则,好比昨天学到的Route
 import {Router,Stack,Scene,Actions} from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/AntDesign';
 
 //引用页面
 import App from './App.js'
@@ -39,6 +51,7 @@ import VideoPlayScreen from './src/screens/Video/VideoPlayer.js';//视频播放
 import Demo1 from './src/screens/Demo/Demo1.js'//测试
 
 import storage from './src/server/storage'
+import { transform } from '@babel/core';
 
 {/* key 就是给页面的标签,供Actions使用 */}
 {/* component 设置关联的页面 */}
@@ -50,6 +63,15 @@ import storage from './src/server/storage'
 if (!window.navigator.userAgent) {
     window.navigator.userAgent = "react-native";
   }  
+
+const styles = StyleSheet.create({
+    boxIcon: {
+        color: '#333',
+        marginLeft:15,
+        // backgroundColor:'red'
+    },
+})
+
 
 export default  class Main extends Component {
     async componentDidMount() {
@@ -96,16 +118,76 @@ export default  class Main extends Component {
                     <Scene key='personal' component={PersonalScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 个人信息 */}
-                    <Scene key='userinfo' component={UserinfoScreen} title='Userinfo' onLeft={()=>{Actions.personal()}}></Scene>
+                    <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'  
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.personal()}
+                        />
+                        )}
+                    ></Scene>
 
                     {/* 个人信息编辑 */}
-                    <Scene key='userinfoedit' component={UserinfoEditScreen} title='UserinfoEdit'></Scene>
+                    <Scene key='userinfoedit' component={UserinfoEditScreen} title='UserinfoEdit'
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.userinfo()}
+                        />
+                        )}
+                    ></Scene>
 
                     {/* 创建动态 */}
-                    <Scene key='createdynamic' component={CreateDynamicScreen} navTransparent={true}></Scene>
+                    <Scene key='createdynamic' component={CreateDynamicScreen} navTransparent={true} 
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.homeInfo()}
+                        />
+                        )}
+                    ></Scene>
 
                     {/* 动态详情 */}
-                    <Scene key='dynamicinfo' component={DynamicInfoScreen} navTransparent={true}></Scene>
+                    <Scene key='dynamicinfo' component={DynamicInfoScreen} title='Dynamicinfo'
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.pop("homeInfo")}
+                        />
+                        )}// style={[styles.boxIcon,{color:'white'}]}
+                    ></Scene>
 
                     {/* 视频详情 */}
                     <Scene key='videodetail' component={VideoDetailScreen} title='VideoDetailScreen组件'></Scene>

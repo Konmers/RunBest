@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     //    backgroundColor: 'red',
     },
     ViewImg:{
-        width: '35%',
-        height: '55%',
+        width: 120,
+        height: 120,
         borderRadius: 100,
         display: 'flex',
         justifyContent: 'center',

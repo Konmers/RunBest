@@ -49,7 +49,7 @@
     "teaset": "^0.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
+    "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.7.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",

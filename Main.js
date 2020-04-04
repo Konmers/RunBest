@@ -51,7 +51,7 @@ import VideoPlayScreen from './src/screens/Video/VideoPlayer.js';//视频播放
 import Demo1 from './src/screens/Demo/Demo1.js'//测试
 
 import storage from './src/server/storage'
-import { transform } from '@babel/core';
+// import { transform } from '@babel/core';
 
 {/* key 就是给页面的标签,供Actions使用 */}
 {/* component 设置关联的页面 */}

@@ -19,7 +19,7 @@ function formatTime(second) {
   return [zero(h), zero(i), zero(s)].join(":");
 }
 
-export default class Videopalyer extends Component<Props> {
+export default class Videopalyer extends Component{
   
   static navigationOptions = {
     headerTitle: '测试视频播放'

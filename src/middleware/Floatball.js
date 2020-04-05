@@ -84,7 +84,7 @@ export default class Floatball extends Component {
                         <Icon name="linechart" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                     {/* Personal Center title="个人中心"*/}
-                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.personal() }}>
+                    <ActionButton.Item buttonColor='#17C6AC' size={40}  onPress={() => { Actions.personaltwo() }}>
                         <Icon name="user" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                 </ActionButton>

@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     cont: {
         flex: 1,
         // backgroundColor: 'transparent',
-
     },
     contView: {
         flex: 1,
@@ -132,11 +131,12 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     footerBoxview: {
+        width:width*0.1,
         flexDirection: 'row',
         justifyContent:'center',
         alignItems:'center',
         // backgroundColor:'red',
-        marginHorizontal:5
+        marginHorizontal:3
     },
     boxIcon: {
         color: '#333',
@@ -360,7 +360,7 @@ class HomeInfo extends Component {
                                         />
                                     }
                                     {/*点赞文字*/}
-                                    <Text style={styles.boxText}>33</Text>
+                                <Text style={styles.boxText}>{item.likenumber}</Text>
                                 </View>
 
                                 {/*评论*/}
@@ -371,18 +371,17 @@ class HomeInfo extends Component {
                                         onPress={() => this.getDynamicInfo(item.id,this.state.uid)}
                                     />
                                     {/* 评论文字*/}
-                                    <Text style={styles.boxText}>222</Text> 
+                                    <Text style={styles.boxText}>{item.commentnumber}</Text> 
                                </View>
-
                                 {/* 分享 */}
-                                {/* <View style={styles.footerBox}> */}
+                                <View style={styles.footerBoxview,{marginHorizontal:0}}>
                                     <Icon name="sharealt"
                                         size={15}
                                         style={styles.boxIcon,{paddingRight: 10}}
                                     />
                                     {/*分享文字*/}
                                     {/* <Text style={styles.boxText}>评论</Text> */}
-                                {/* </View> */}
+                                </View>
                             </View>
                         </View>
                     </View>

@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
+  TextInput,
   KeyboardAvoidingView,
   ActivityIndicator,
   TouchableHighlight,//选中跳转
@@ -18,25 +19,21 @@ import {
 //swiper banner滚动
 import Swiper from 'react-native-swiper'
 
-// Actions表示要进行路由的JS操作了,可以跳特到新路由
-import { Actions } from 'react-native-router-flux'
-
 // Dimensions 用于获取设备宽、高、分辨率
 const { width , height } = Dimensions.get('window')
-import Floatball from "../../middleware/Floatball.js"
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { Toast } from 'teaset'
 
 import api from '../../server/api'
-import storage from '../../server/storage'
 
 const loading = require('../../public/Iamge/Banner/loading.gif')
 
 //计算时间
 import {timeStamp} from '../../middleware/Computationtime.js';
-import { TextInput } from 'react-native-gesture-handler';
+// import { TextInput } from 'react-native-gesture-handler';
+
 
 const styles = StyleSheet.create({
     cont: {
@@ -188,17 +185,38 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     comuserCont:{
-        width: '100%',
+        width,
+        justifyContent:'flex-end',
         paddingLeft:40,
-        textAlign:'right',
         // backgroundColor:'red'
     },
     keyView:{
+        width,
+        // height:height*0.08,
+        minHeight:height*0.09,
         borderTopWidth:1,
         borderTopColor:'#c1c1c1',
+        paddingVertical:5,
+        // backgroundColor:'red'
+        backgroundColor:'#333'
+    },
+    keyViews:{
+        alignItems:'center',
+        flexDirection:'row',
+        justifyContent:'space-around',
+    },
+    keyInput:{
+        fontSize:16,
+        // paddingLeft:10,
+        width:'70%',
+        height:'100%',
+        borderRadius:5,
+        // flexGrow:1,
+        backgroundColor:'white'
     }
 })
 
+//图片数量显示
 const renderPagination = (index, total, context) => {
     return (
       <View style= {styles.paginationStyle}>
@@ -249,14 +267,19 @@ export default class DynamicInfo extends Component {
             limit:3
         }
         await api.dynamic.dynamiccomment(formData).then((data) => {
-            // console.log('data--------  ',data)
+            console.log('data--------  ',data)
             console.log('comment msg-----  ',data.msg)
             if(data.type == 'success')
             {
-                this.setState({comment:data.list});
-                console.log('this.state.comment-----  ',this.state.comment)
+                this.setState({showFoot: 0,comment:data.list,pageNo:data.page,totalPage:data.pages});
+                data.page === data.pages ? this.setState({ showFoot: 1 }) : null
             }
         })
+    }
+
+    //计算输入框动态行数高度
+    onContentSizeChange(event) {
+        this.setState({height: event.nativeEvent.contentSize.height});
     }
 
     constructor (props) {
@@ -264,45 +287,12 @@ export default class DynamicInfo extends Component {
         this.state = {
             dynamicInfo:{},
             userInfo:{},
-            comment:[
-                // {
-                //     avatar:require('../../public/Iamge/Head/10.jpg'),
-                //     name:'张三',
-                //     time:'1585389280574',
-                //     like:2222,
-                //     likeState:true,
-                //     content:'哒哒哒哒圣诞节快乐飞机ask的jfk就是打开考生考卷发卡机离开家客服经理是哒哒',
-                // },
-                // {
-                //     avatar:require('../../public/Iamge/Head/12.jpg'),
-                //     name:'李四',
-                //     time:'1585216480000',
-                //     like:11031,
-                //     likeState:false,
-                //     content:'哒哒哒了科技时代咖啡开发进度卡就升级到了放宽哒哒哒',
-                // },
-                //                 {
-                //     avatar:require('../../public/Iamge/Head/4.jpg'),
-                //     name:'王五',
-                //     time:'1585302880000',
-                //     like:2,
-                //     likeState:true,
-                //     content:'哒哒哒哒哒哒',
-                // },
-                // {
-                //     avatar: require('../../public/Iamge/Head/8.jpg'),
-                //     name:'赵六',
-                //     time:'1584957280000',
-                //     like:2,
-                //     likeState:false,
-                //     content:'哒哒哒哒哒哒',
-                // },
-            ],
+            comment:[],
             pageNo:1,      //控制页数
             showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
-            isRefreshing: false,//下拉控制
             totalPage:1,
-            creatComment:''
+            creatComment:'',
+            height: 1,
         }
     }
     
@@ -365,35 +355,39 @@ export default class DynamicInfo extends Component {
                             //从下往上拉去的时候加载更多
                             onEndReached={this._onEndReached.bind(this)}
                             onEndReachedThreshold={0.2}
+                            //添加尾巴布局
+                            ItemSeparatorComponent={this._separator}
+                            ListFooterComponent={this._renderFooter.bind(this)}
                         />
                     </View>
                 </View>
             </ScrollView>
             <KeyboardAvoidingView
-              enabled
-              style={styles.keyView}
-              keyboardVerticalOffset={60}>
-                <View style={{flexDirection:'row',minHeight:height*0.07,maxHeight:height*0.1,width,}}>
+            //   enabled
+            style={[styles.keyView,{height:Math.max(35,this.state.height)}]}
+            //   keyboardVerticalOffset={400}
+            >
+                <View style={styles.keyViews}> 
                     <TextInput
                         ref='input'
-                        style={{height:'100%',fontSize:16,paddingLeft:10,width:'70%',flexGrow:1}}
+                        style={styles.keyInput}
                         editable={true} // 是否可编辑，默认为: true
                         multiline={true} // 是否为多行文本，默认为: false
-                        onChangeText={text => this.setState({creatComment:text})}
+                        onContentSizeChange={this.onContentSizeChange.bind(this)}
+                        onChangeText={text => this.setState({creatComment: text })}
                         value={this.state.creatComment}
                         placeholder="Pleace tian ha ni de hua ~"
                     >
                     </TextInput>
-                    <View style={{height:'100%',width:'20%',alignItems:'center',justifyContent:'center',}}>
+                    <View style={{height:'100%',width:'20%',justifyContent:'center',}}>
                         <Button
                             title='发送'
                             // type='solid'
-                            onPress={()=>this.postComment()}
-                            style={{color:'#fff',fontSize:16,}}
+                            onPress={()=> { this.state.creatComment ? this.postComment(): Toast.message('输入框不能为空')  }}
+                            style={{color:'#fff',fontSize:16,width:'100%',height:'100%'}}
                         />
-                    </View>   
-
-                </View> 
+                    </View>
+                </View>   
             </KeyboardAvoidingView>
             {/* <Floatball/>  */}
         </View>
@@ -432,10 +426,41 @@ export default class DynamicInfo extends Component {
         )
     }
 
+    // 加载时加载动画
+    _renderFooter() {
+        if (this.state.showFoot === 1) {
+            return (
+                <View style={{ height: 30, alignItems: 'center', justifyContent: 'flex-start', }}>
+                    <Text style={{ color: '#999999', fontSize: 14, marginVertical:6, }}>
+                        没有更多数据了
+                    </Text>
+                </View>
+            );
+        } 
+        else if (this.state.showFoot === 2) {
+            return (
+                <View style={styles.footer}>
+                    <ActivityIndicator />
+                    <Text>正在加载更多数据...</Text>
+                </View>
+            );
+        } 
+        else if (this.state.showFoot === 0) {
+            return (
+                <View style={styles.footer}>
+                    <Text></Text>
+                </View>
+            );
+        }
+    }
+
     // 上拉触底事件，进行判断
     _onEndReached = async ()=>{
         console.log('上拉加载');
         // 如果是正在加载中或没有更多数据了，则返回
+        console.log('pageNo 1111----------  ',this.state.pageNo)
+        console.log('totalPage  1111----------  ',this.state.totalPage)
+
         if (this.state.showFoot == 1) {
             console.log('1111----------  ',this.state.showFoot)
             return;
@@ -449,33 +474,37 @@ export default class DynamicInfo extends Component {
                 pageNo:pages
             });        
             //获取数据  
-            this.fetchData(pages);
+            await this.fetchData(pages);
         }
     }
 
     //网络请求——获取第pageNo页数据
     fetchData = async (page) => {                
-        // console.log('333----------  ',this.state.showFoot)
-        // const dataList = this.state.list
-        // const formData = {
-        //     uid:await storage.get('uid'),
-        //     page:page,
-        //     limit:3
-        // }
-        // await api.dynamic.dynamiclist(formData).then((data) => {
-        //     if(data.type == 'success')
-        //     {
-        //       data.list.map(((item) =>{
-        //         dataList.push(item)
-        //       }))
-        //       this.setState({list:dataList});
-        //       data.page === data.pages ? this.setState({ showFoot: 1 }) : null
-        //     }
-        //     else
-        //     {
-        //       console.log('333')
-        //     }
-        // }) 
+        console.log('333----------  ',this.state.showFoot)
+        const dataList = this.state.comment
+        const formData = {
+            uid:this.props.uid,
+            dynamic_id:this.props.dynamicId,
+            page:page,
+            limit:3
+        }
+        await api.dynamic.dynamiccomment(formData).then((data) => {
+            console.log('data--------  ',data)
+            console.log('comment msg-----  ',data.msg)
+            if(data.type == 'success')
+            {
+                data.list.map(((item) =>{
+                    dataList.push(item)
+                }))
+                this.setState({comment:dataList});
+                data.page === data.pages ? this.setState({ showFoot: 1 }) : null
+                console.log('this.state.comment-----  ',this.state.comment)
+            }
+            else
+            {
+              console.log('333')
+            }
+        })
     }
     
     //提交评论

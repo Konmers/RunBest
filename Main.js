@@ -34,7 +34,9 @@ import HomeInfoScreen from './src/screens/Home/HomeInfo.js'; //主页二
 import RankScreen from './src/screens/Rank/Rank.js';//排行榜
 import TrendScreen from './src/screens/Trend/Trend.js';//走势图
 
-import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心
+import PersonalScreen from './src/screens/Personal/Personal.js';//个人中心 
+import PersonaltwoScreen from './src/screens/Personal/Personaltwo.js';//个人中心 Personaltwo
+
 import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 
@@ -116,6 +118,9 @@ export default  class Main extends Component {
 
                     {/* 个人中心 */}
                     <Scene key='personal' component={PersonalScreen} navTransparent={true} hideNavBar={true}></Scene>
+
+                    {/* 个人中心 */}
+                    <Scene key='personaltwo' component={PersonaltwoScreen} navTransparent={true} hideNavBar={true}></Scene>
 
                     {/* 个人信息 */}
                     <Scene key='userinfo' component={UserinfoScreen} title='Userinfo'  

@@ -32,6 +32,9 @@
 		7BE649D599DB4D44B17CC755 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E780550F45E24B57976CC560 /* Octicons.ttf */; };
 		5D34306A9140443A980B578B /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CA5B75711F14699A6C4194E /* SimpleLineIcons.ttf */; };
 		EDF8D0C21105411BA14DF8DE /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88270C2AF55042DC8B6BF12C /* Zocial.ttf */; };
+		CC4601F1FD2B44499CCC0437 /* Coda-Heavy-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9030F661A066413CB29675B0 /* Coda-Heavy-webfont.ttf */; };
+		EC2A9BD323444D62B55B60B1 /* JockeyOne-Regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50DC61EFE8F243A1ACBFAE35 /* JockeyOne-Regular-webfont.ttf */; };
+		ACF24F8FA4E04FA29C9B2E33 /* MAK Freeset Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAECC92E6B84E68A6ADC10B /* MAK Freeset Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +87,9 @@
 		E780550F45E24B57976CC560 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8CA5B75711F14699A6C4194E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		88270C2AF55042DC8B6BF12C /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9030F661A066413CB29675B0 /* Coda-Heavy-webfont.ttf */ = {isa = PBXFileReference; name = "Coda-Heavy-webfont.ttf"; path = "../src/public/Fonts/Coda-Heavy-webfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		50DC61EFE8F243A1ACBFAE35 /* JockeyOne-Regular-webfont.ttf */ = {isa = PBXFileReference; name = "JockeyOne-Regular-webfont.ttf"; path = "../src/public/Fonts/JockeyOne-Regular-webfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DCAECC92E6B84E68A6ADC10B /* MAK Freeset Bold.ttf */ = {isa = PBXFileReference; name = "MAK Freeset Bold.ttf"; path = "../src/public/Fonts/MAK Freeset Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +217,9 @@
 				E780550F45E24B57976CC560 /* Octicons.ttf */,
 				8CA5B75711F14699A6C4194E /* SimpleLineIcons.ttf */,
 				88270C2AF55042DC8B6BF12C /* Zocial.ttf */,
+				9030F661A066413CB29675B0 /* Coda-Heavy-webfont.ttf */,
+				50DC61EFE8F243A1ACBFAE35 /* JockeyOne-Regular-webfont.ttf */,
+				DCAECC92E6B84E68A6ADC10B /* MAK Freeset Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -369,6 +378,9 @@
 				7BE649D599DB4D44B17CC755 /* Octicons.ttf in Resources */,
 				5D34306A9140443A980B578B /* SimpleLineIcons.ttf in Resources */,
 				EDF8D0C21105411BA14DF8DE /* Zocial.ttf in Resources */,
+				CC4601F1FD2B44499CCC0437 /* Coda-Heavy-webfont.ttf in Resources */,
+				EC2A9BD323444D62B55B60B1 /* JockeyOne-Regular-webfont.ttf in Resources */,
+				ACF24F8FA4E04FA29C9B2E33 /* MAK Freeset Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

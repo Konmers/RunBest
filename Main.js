@@ -135,7 +135,7 @@ export default  class Main extends Component {
                             <Icon name="arrowleft"
                             size={25}
                             style={styles.boxIcon}
-                            onPress={() => Actions.personal()}
+                            onPress={() => Actions.personaltwo()}
                         />
                         )}
                     ></Scene>

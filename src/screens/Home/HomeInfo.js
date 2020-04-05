@@ -249,7 +249,6 @@ class HomeInfo extends Component {
         this.state = {
             list:[],
             animating: true,
-            status:0,
             pageNo:1,      //控制页数
             showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
             isRefreshing: false,//下拉控制
@@ -264,19 +263,13 @@ class HomeInfo extends Component {
                 <FlatList
                     data={this.state.list}
                     renderItem={this._renderItemView}
-                    /**
-                     * 添加尾巴布局
-                     */
+                    // 添加尾巴布局
                     ItemSeparatorComponent={this._separator}
                     ListFooterComponent={this._renderFooter.bind(this)}
-                    /**
-                     * 从下往上拉去的时候加载更多
-                     */
+                    //从下往上拉去的时候加载更多
                     onEndReached={this._onEndReached.bind(this)}
                     onEndReachedThreshold={0.2}
-                    /**
-                     * 关于下拉刷新
-                     */
+                    //关于下拉刷新
                     onRefresh={this._onRefresh.bind(this)}
                     refreshing={this.state.isRefreshing}
                 />

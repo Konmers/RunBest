@@ -109,6 +109,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         display: 'flex',
         justifyContent: 'center',
+        borderWidth:3,
+        borderColor:'white',
         overflow: 'hidden'
     },
     ViewText:{
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
     },
     tabStyle: {
         flex: 1,
-        // marginVertical: 10,
+        marginBottom: 40,
         backgroundColor:'#ddd'
     },
     //-------------
@@ -251,6 +253,16 @@ const styles = StyleSheet.create({
     endTxt:{
         marginVertical:5
     },
+    footer: {
+        flexDirection: 'row',
+        height: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 2,
+    },
+    hidden:{
+        display:'none'
+    }
 })
 
 class Personal extends Component {
@@ -318,8 +330,9 @@ class Personal extends Component {
             page:1,
             limit:3
         }
-        await api.dynamic.dynamiclist(formData).then((data) => {
-            // console.log('data--------  ',data)
+
+        await api.dynamic.userDynamicList(formData).then((data) => {
+            // console.log('data 111--------  ',data)
             if(data.type == 'success')
             {
               this.setState({list:data.list,pageNo:data.page,totalPage:data.pages});
@@ -346,13 +359,12 @@ class Personal extends Component {
                     {this.weather()}
                     </View> */}
                     <ImageBackground style={styles.avatar}  
-                        onPress={() => this.getUserinfo('sdfsd')} 
-                        source={require('../../public/Iamge/Banner/banner_9.jpg')}
+                        source={require('../../public/Iamge/Banner/banner_4.jpg')}
                     >
                         <View style={styles.ViewImg}>
                             <Image style={{width:'100%',height:'100%'}} source={{uri:this.state.userList.avatar}} />
                         </View>
-                        <Text style={styles.ViewText}>{this.state.userList.username}<Image style={{width:20,height: 20}} source={require('../../public/Iamge/Else/edit_1.png')} /> </Text>
+                        <Text onPress={() => this.getUserinfo('sdfsd')}  style={styles.ViewText}>{this.state.userList.username}<Image style={{width:20,height: 20}} source={require('../../public/Iamge/Else/edit_1.png')} /> </Text>
                     </ImageBackground>
                     <ScrollableTabView
                         style={styles.container}
@@ -360,7 +372,7 @@ class Personal extends Component {
                         tabBarUnderlineStyle={styles.lineStyle}
                         tabBarActiveTextColor='#17C6AC' // choose color
                     >
-                        <View style={styles.tabStyle} tabLabel='Like'>
+                        <View style={styles.tabStyle} tabLabel='Dynamic'>
                             <FlatList
                                 data={this.state.list}
                                 renderItem={this._renderItemView}
@@ -377,7 +389,7 @@ class Personal extends Component {
                         </View>
                         <View style={styles.tabStyle} tabLabel='Communtlike'>
                         </View>
-                        <View style={styles.tabStyle} tabLabel='Dynamic'>
+                        <View style={styles.tabStyle} tabLabel='Like'>
                         </View>
                     </ScrollableTabView>
                 </View>
@@ -504,9 +516,10 @@ class Personal extends Component {
 
     // 加载时加载动画
     _renderFooter() {
+        console.log('renderFooter--------   ',this.state.showFoot)
         if (this.state.showFoot === 1) {
             return (
-                <View style={{ height: 30, alignItems: 'center', justifyContent: 'flex-start', }}>
+                <View style={styles.footer}>
                     <Text style={{ color: '#999999', fontSize: 14, marginVertical:6, }}>
                         没有更多数据了
                     </Text>
@@ -581,7 +594,7 @@ class Personal extends Component {
             page:page,
             limit:3
         }
-        await api.dynamic.dynamiclist(formData).then((data) => {
+        await api.dynamic.userDynamicList(formData).then((data) => {
             if(data.type == 'success')
             {
                 data.list.map(((item) =>{

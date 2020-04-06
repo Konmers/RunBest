@@ -167,25 +167,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
-    zanwu:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        marginTop:30,
-    },
     hidden:{
         display:'none'
-    }, 
-    animating:{
-        flexDirection:'row',
-        flex:1,
-        justifyContent:'center',
-    },
-    centering: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 8,
-    },
+    }
 })
 
 class HomeInfo extends Component {
@@ -248,7 +232,6 @@ class HomeInfo extends Component {
         super(props)
         this.state = {
             list:[],
-            animating: true,
             pageNo:1,      //控制页数
             showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
             isRefreshing: false,//下拉控制

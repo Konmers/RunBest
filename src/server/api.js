@@ -54,7 +54,10 @@ const api = {
     dynamiclike: data => instance.post(`/dynamic/like`,data),//点赞
     dynamiccomment: data => instance.get(`/dynamic/commentList`,{params:data}),//评论列表
     dynamiccommentlike: data => instance.post(`/dynamic/createComment`,data),//新增评论
-    dynamiccommentlikestate: data => instance.post(`/dynamic/commentLike`,data)//评论点赞
+    dynamiccommentlikestate: data => instance.post(`/dynamic/commentLike`,data),//评论点赞
+    userDynamicList: data => instance.get(`/dynamic/userDynamicList`,{params:data}),//个人动态列表
+    userLikeList: data => instance.get(`/dynamic/userLikeList`,{params:data}),//个人动态点赞列表
+    userCommuntList: data => instance.get(`/dynamic/userCommuntList`,{params:data})//个人动态评论列表
   },
   Img:{
     uploadImg: data => instance.post(`/uploadImg`,data),//上传图片

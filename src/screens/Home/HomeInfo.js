@@ -242,7 +242,7 @@ class HomeInfo extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1,backgroundColor:'#ddd' }}>
+            <View style={{ flex: 1,backgroundColor:'#ddd' ,position: "relative", overflow: "hidden"}}>
                 <FlatList
                     data={this.state.list}
                     renderItem={this._renderItemView}

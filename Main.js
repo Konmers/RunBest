@@ -40,6 +40,8 @@ import PersonaltwoScreen from './src/screens/Personal/Personaltwo.js';//个人�
 import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 
+import ExitScreen from './src/screens/Exit/Exit.js';//set 设置
+
 import CreateDynamicScreen from './src/screens/Dynamic/CreateDynamic.js';//创建动态
 import DynamicInfoScreen from './src/screens/Dynamic/DynamicInfo.js';//动态详情
 

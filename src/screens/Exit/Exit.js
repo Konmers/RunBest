@@ -4,6 +4,7 @@ import {
     Text,
     View,
     Image,
+    Switch,
     StyleSheet,
     Dimensions,
     TouchableHighlight,//选中跳转
@@ -47,7 +48,7 @@ import {
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 5,
+        // paddingHorizontal: 5,
         borderTopWidth: 0.5,
         borderColor: '#c9c9c9'
     }, 
@@ -67,7 +68,11 @@ import {
         width:15,
         height:15,
     },
+    datailsTouch:{
+    },
     datailsData:{
+        fontSize:15,
+        textAlign:'right',
         color: '#999999' 
     },
 
@@ -104,13 +109,6 @@ import {
     }
   })
 
-  //dafult gender
-  var datas=[
-    {
-        "selecteId": 0,
-        "selected": true
-    }
-  ]
 
  class Userinfo extends Component {
     //初始化
@@ -132,7 +130,7 @@ import {
                 },
                 {
                     title:'Version check',
-                    data:''
+                    data:'1.20 '
                 },
                 {
                     title:'Wipe cache',
@@ -156,30 +154,31 @@ import {
                                     {
                                         item.title != 'Push notification' ?
                                         (
-                                            <TouchableOpacity style={styles.datailsTouch} onPress={() => this.updatePass()}>
-                                                <Text style={styles.datailsData}>{item.data}</Text>         
-                                            </TouchableOpacity>  
-                                        ) :
+                                            item.title  == 'Version check' ? (
+                                                <View>
+                                                    <TouchableOpacity style={styles.datailsTouch} onPress={() => this.updatePass()}>
+                                                        <Text style={styles.datailsData}>{item.data}</Text>         
+                                                    </TouchableOpacity>  
+                                                    <Text style={styles.datailsData}>当前版本</Text>  
+                                                </View>
+                                            ) : (
+                                                    <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
+                                            )
+                                        ) : 
                                         (
-                                            <RadioModal
-                                                options={{id:'selecteId',value:'content',disabled:'selected'}}
-                                                innerStyle={{width:'100%',paddingLeft: 20}} //每个单选按钮的样式
-                                                txtColor={'#000'} //每个单选按钮文字的样式
-                                                noneColor={'#efefef'} //不点击按钮样式
-                                                selectedValue={this.state.isPushnotification}
-                                                onValueChange={(id,item) => this.changeMassage(id,item)}
-                                                seledImg={require('../../public/Iamge/Check/chooseChange.png')}
-                                                selImg={require('../../public/Iamge/Check/choose.png')}
-                                                // selnoneImg={require('./imgs/selectnone.png')}
-                                                dataOption={datas}
-                                                style={{
-                                                    justifyContent:'space-around',
-                                                    // backgroundColor:'#666',
-                                                }} 
+                                            <Switch
+                                                // disabled={true}//是否可以响应,默认为false,true是无法点击
+                                                onTintColor='#17C6AC'  //开关打开时的背景颜色
+                                                thumbTintColor='#17C6AC' //开关上原形按钮的颜色
+                                                tintColor='#c9c9c9' //关闭时背景颜色
+                                                //当状态值发生变化值回调
+                                                // onValueChange={() => this.setState({isOn: !this.state.isOn})} 
+                                
+                                                value={this.state.isPushnotification == true}//默认状态
+                                                onValueChange={(e) => this.switchValue(e)} 当状态值发生变化值回调
                                             />
                                         )
                                     }
-                                    <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
                                 </View>
                             </View>
                         )
@@ -193,9 +192,9 @@ import {
     }
 
     // change massage
-    changeMassage = (id,item) => {
-        console.log('id--------  ',id,'item-------  ',item)
-        this.setState({isPushnotification: datas[id].selecteId})
+    switchValue =(e) => {
+        console.log('e------- ',e);
+        this.setState({ isPushnotification: e});
     }
 
     // click exit   

@@ -196,6 +196,26 @@ export default  class Main extends Component {
                         )}// style={[styles.boxIcon,{color:'white'}]}
                     ></Scene>
 
+
+                    {/* 设置 */}
+                    <Scene key='Exiting' component={ExitScreen} title='Exit'  
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.personaltwo()}
+                        />
+                        )}
+                    ></Scene>
+                    
+
                     {/* 视频详情 */}
                     <Scene key='videodetail' component={VideoDetailScreen} title='VideoDetailScreen组件'></Scene>
 

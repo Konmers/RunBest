@@ -196,7 +196,8 @@ class Personal extends Component {
     }
 
     onPress = () => {
-        console.warn('ddddd') 
+        Actions.Exiting()
+        // console.warn('ddddd') 
     };
     getUserinfo = (value) =>{
         // console.warn('wwwwwwwwwww')

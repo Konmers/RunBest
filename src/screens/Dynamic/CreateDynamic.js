@@ -225,6 +225,7 @@ export default class CreateDynamic extends Component{
           <Text style={styles.Toptext}> Create Dynamic</Text>
           <TouchableOpacity  style={styles.Share} onPress={this.onPress}> 
             {/* <Image style={{width:30,height: 30}} source={require('../../public/Iamge/Else/share.png')} /> */}
+            {/* <Icon name="save" style={styles.actionButtonIcon} onPress={() => preventDoublePress.onPress(() =>this.save(),50000)}/> */}
             <Icon name="save" style={styles.actionButtonIcon} onPress={() => preventDoublePress.onPress(() =>this.save(),50000)}/>
           </TouchableOpacity >
         </View>

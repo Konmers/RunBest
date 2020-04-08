@@ -15,9 +15,6 @@ import {
   //router
   import { Actions } from 'react-native-router-flux'
 
-  //radio
-  import RadioModal from 'react-native-radio-master'
-
   //bounced 
   import ModalBox from 'react-native-modalbox'
 
@@ -152,31 +149,41 @@ import {
                                 <Text style={styles.datailsTitle}>{item.title}</Text>
                                 <View style={styles.dataRightView}>
                                     {
-                                        item.title != 'Push notification' ?
-                                        (
-                                            item.title  == 'Version check' ? (
-                                                <View>
-                                                    <TouchableOpacity style={styles.datailsTouch} onPress={() => this.updatePass()}>
-                                                        <Text style={styles.datailsData}>{item.data}</Text>         
-                                                    </TouchableOpacity>  
-                                                    <Text style={styles.datailsData}>当前版本</Text>  
-                                                </View>
-                                            ) : (
-                                                    <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
+                                        item.title == 'Change password'?(
+                                            <TouchableOpacity style={styles.datailsTouch} onPress={()=> this.updatePass()} >
+                                                <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')} />
+                                            </TouchableOpacity>
+                                        )
+                                        :(
+                                            item.title == 'Push notification' ?
+                                            (
+                                                <Switch
+                                                    // disabled={true}//是否可以响应,默认为false,true是无法点击
+                                                    onTintColor='#17C6AC'  //开关打开时的背景颜色
+                                                    thumbTintColor='#17C6AC' //开关上原形按钮的颜色
+                                                    tintColor='#c9c9c9' //关闭时背景颜色
+                                                    //当状态值发生变化值回调
+                                                    // onValueChange={() => this.setState({isOn: !this.state.isOn})} 
+                                                    value={this.state.isPushnotification == true}//默认状态
+                                                    onValueChange={(e) => this.switchValue(e)} 当状态值发生变化值回调
+                                                />                                                
+                                            ) 
+                                            :(
+
+                                                item.title  == 'Version check' ? (
+                                                    <View>
+                                                        <TouchableOpacity style={styles.datailsTouch}>
+                                                            <Text style={styles.datailsData}>{item.data}</Text>         
+                                                        </TouchableOpacity>  
+                                                        <Text style={styles.datailsData}>当前版本</Text>  
+                                                    </View>
+                                                )
+                                                :(
+                                                    item.title == 'Wipe cache'?(
+                                                        <Image style={styles.datailsRight} source={require('../../public/Iamge/Else/rightnavigation.png')}/>
+                                                    ):null
+                                                )
                                             )
-                                        ) : 
-                                        (
-                                            <Switch
-                                                // disabled={true}//是否可以响应,默认为false,true是无法点击
-                                                onTintColor='#17C6AC'  //开关打开时的背景颜色
-                                                thumbTintColor='#17C6AC' //开关上原形按钮的颜色
-                                                tintColor='#c9c9c9' //关闭时背景颜色
-                                                //当状态值发生变化值回调
-                                                // onValueChange={() => this.setState({isOn: !this.state.isOn})} 
-                                
-                                                value={this.state.isPushnotification == true}//默认状态
-                                                onValueChange={(e) => this.switchValue(e)} 当状态值发生变化值回调
-                                            />
                                         )
                                     }
                                 </View>
@@ -206,9 +213,10 @@ import {
     }
 
     //pass vlaue web
-    updatePass = (title,data,value) =>{
+    updatePass = () =>{
+        console.log(1111111)
         // Actions.videodetail({id:10}) //传参
-        Actions.userinfoedit({title:title,data:data,value:value})// 空传参
+        Actions.updatapassword()// 空传参
     }
  
 }

@@ -43,7 +43,8 @@ const api = {
     verificationcode: data => instance.post(`/user/verificationcode`, data), //获取验证码
     createUser: data => instance.post(`/user/createUser`, data), //注册
     forverificationcode: data => instance.post(`/user/forverificationcode`, data), //重新验证
-    updateUserpass: data => instance.post(`/user/updateUser`, data), //注册
+    updateUserpass: data => instance.post(`/user/updateUser`, data), //找回密码修改
+    updatenowpassword: data => instance.post(`/user/updatenowpassword`, data), //修改密码
     loginInfo: data => instance.get(`/user/userInfo`, {params:data}), //获取个人信息
     updateUserinfo: data => instance.post(`/user/updateUser`, data) //修改个人信息
   },

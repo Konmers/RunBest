@@ -115,7 +115,7 @@ export default class Floatball extends Component {
                         size={50}   
                         offsetY={3} 
                         offsetX={3} 
-                        onPress={() => { console.log('你点了我！')}}
+                        // onPress={() => { console.log('你点了我！')}}
                         renderIcon={() => (
                             <View style={styles.actionButtonView}>
                                 <Icon name="plus" style={[styles.actionButtonIcon,{fontSize: 40,}]} />

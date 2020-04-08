@@ -41,6 +41,7 @@ import UserinfoScreen from './src/screens/Personal/Userinfo.js';//个人信息
 import UserinfoEditScreen from './src/screens/Personal/UserinfoEdit.js';//个人信息编辑
 
 import ExitScreen from './src/screens/Exit/Exit.js';//set 设置
+import UpdataPasswordScreen from './src/screens/Exit/UpdataPassword.js';//修改密码
 
 import CreateDynamicScreen from './src/screens/Dynamic/CreateDynamic.js';//创建动态
 import DynamicInfoScreen from './src/screens/Dynamic/DynamicInfo.js';//动态详情
@@ -211,6 +212,24 @@ export default  class Main extends Component {
                             size={25}
                             style={styles.boxIcon}
                             onPress={() => Actions.personaltwo()}
+                        />
+                        )}
+                    ></Scene>
+
+                    {/* 修改密码 */}
+                    <Scene key='updatapassword' component={UpdataPasswordScreen} title='UpdataPassword'  
+                        leftButtonStyle={{
+                            top: 0,
+                            height: 50,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        renderLeftButton={() => (
+                            <Icon name="arrowleft"
+                            size={25}
+                            style={styles.boxIcon}
+                            onPress={() => Actions.Exiting()}
                         />
                         )}
                     ></Scene>

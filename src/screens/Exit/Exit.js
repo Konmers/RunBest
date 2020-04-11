@@ -102,7 +102,8 @@ import {
         fontFamily:'MAK Freeset Bold',
         // fontFamily:'Coda-Heavy-webfont',
         // fontFamily:'JockeyOne-Regular-webfont', 
-        color:"#17C6AC"       
+        // color:"#17C6AC"       
+        color:"red"       
     }
   })
 
@@ -171,12 +172,12 @@ import {
                                             :(
 
                                                 item.title  == 'Version check' ? (
-                                                    <View>
-                                                        <TouchableOpacity style={styles.datailsTouch}>
+                                                    <TouchableOpacity>
+                                                        <View style={styles.datailsTouch}>
                                                             <Text style={styles.datailsData}>{item.data}</Text>         
-                                                        </TouchableOpacity>  
+                                                        </View>  
                                                         <Text style={styles.datailsData}>当前版本</Text>  
-                                                    </View>
+                                                    </TouchableOpacity>
                                                 )
                                                 :(
                                                     item.title == 'Wipe cache'?(
@@ -191,7 +192,7 @@ import {
                         )
                     } 
                     <TouchableOpacity style={styles.exitView}>
-                        <Text style={styles.exitTxt} onPress={()=>this.WithdrawAccount()}>Withdraw Account</Text>
+                        <Text style={styles.exitTxt} onPress={()=>this.WithdrawAccount()}>Out Account</Text>
                     </TouchableOpacity>
                 </View>
             </View>

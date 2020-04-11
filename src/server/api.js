@@ -46,7 +46,8 @@ const api = {
     updateUserpass: data => instance.post(`/user/updateUser`, data), //找回密码修改
     updatenowpassword: data => instance.post(`/user/updatenowpassword`, data), //修改密码
     loginInfo: data => instance.get(`/user/userInfo`, {params:data}), //获取个人信息
-    updateUserinfo: data => instance.post(`/user/updateUser`, data) //修改个人信息
+    updateUserinfo: data => instance.post(`/user/updateUser`, data), //修改个人信息单个
+    updateUserInfos: data => instance.post(`/user/updateUserInfo`, data) //修改个人信息全部
   },
   dynamic:{
     createdynamic: data => instance.post(`/dynamic/createDynamic`, data), //新增动态

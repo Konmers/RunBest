@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     exitView:{
         width:width*0.9,
-        height: height*0.1,
+        height: height*0.08,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor:'#17C6AC'
@@ -160,14 +160,7 @@ export class UpdataPassword extends Component {
                     />
                 </View>
                 <View style={styles.exitView}>
-                {/* <View  style={styles.Share} onPress={this.onPress}>  */}
                     <Text style={styles.exitTxt} onPress={()=>this.UpdataPassButton()} >Save Password</Text>
-                    {/* <Button 
-                        style={styles.exitTxt} 
-                        title='Save Password' 
-                        onPress={() => Actions.Exiting()} 
-                    >
-                    </Button> */}
                 </View>
             </View>
         )

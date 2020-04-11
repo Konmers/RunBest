@@ -1,8 +1,24 @@
 import React, {Component} from 'react';
-import {AppRegistry,StyleSheet,View,Text,TouchableOpacity} from 'react-native';
+import {AppRegistry,StyleSheet,View,Text,TouchableOpacity,DeviceEventEmitter} from 'react-native';
 import Picker from 'react-native-picker';
 
 class DatePicker extends Component{
+   
+    componentDidMount(){
+      var self = this;
+      //通知开始，获取到val  生日，调用setState 方法，刷新状态机，这时候实时的刷新了‘我的’图标
+      this.listener = DeviceEventEmitter.addListener('birthday',function(val){
+          self.setState({
+            currentDate:val
+          })
+      });
+    }
+    //最后别忘了移除通知
+    componentWillUnmount(){
+        this.listener.remove();
+    }
+
+
     constructor(props){
       super(props);
       this.state = {
@@ -90,21 +106,48 @@ class DatePicker extends Component{
               currentDate:str,
             })
         },
+        //取消日期
         onPickerCancel: (pickedValue, pickedIndex) => {
             console.warn('11111111111111')
-            console.warn('dateCancel------- ', pickedValue, pickedIndex);
+            let chooseDate = ''
+            pickedValue.map((item,i)=>{
+                chooseDate+=item
+            })
+            chooseDate=chooseDate.replace(/(\d{4}).(\d{1,2}).(\d{1,2})./, '$1-$2-$3');  
+            // console.warn('onPickerCancel chooseDate------- ', chooseDate);
+            // console.warn('onPickerCancel------- ', pickedValue, pickedIndex);
+            this.setState({currentDate:chooseDate})
         },
+
+        //选中 日期
         onPickerConfirm: (pickedValue, pickedIndex) => {
             console.warn('222222222222222')
-            console.warn('dateCancel------- ', pickedValue, pickedIndex);
+            let chooseDate = ''
+            pickedValue.map((item,i)=>{
+                chooseDate+=item
+            })
+            chooseDate=chooseDate.replace(/(\d{4}).(\d{1,2}).(\d{1,2})./, '$1-$2-$3');  
+            // console.warn('onPickerConfirm chooseDate------- ', chooseDate);
+            // console.warn('onPickerConfirm------- ', pickedValue, pickedIndex);
+            this.setState({currentDate:chooseDate})
         },
+        //显示当前日期
         onPickerSelect: (pickedValue, pickedIndex) => {
-            console.warn('dateSelect----- ', pickedValue, pickedIndex);
+          console.warn('333333333333333')
+            let chooseDate = ''
+            pickedValue.map((item,i)=>{
+                chooseDate+=item
+            })
+            chooseDate=chooseDate.replace(/(\d{4}).(\d{1,2}).(\d{1,2})./, '$1-$2-$3');  
+            // console.warn('onPickerSelect chooseDate------- ', chooseDate);
+            // console.warn('onPickerSelect----- ', pickedValue, pickedIndex);
+            this.setState({currentDate:chooseDate})
         }
       });
       Picker.show();
     }
     render(){
+      console.log('this.state.currentDate--------  ',this.state.currentDate)
       return(
         <View style={styles.container}>
           <View style={styles.content}>

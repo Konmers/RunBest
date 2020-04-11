@@ -316,22 +316,22 @@ export default class CreateDynamic extends Component{
     let Imglist=[]
     for (const item of this.state.ImgArrs) {
       let formData = new FormData()
-        var uri =item
-        var index = uri.lastIndexOf("\/")
-        var name = uri.substring(index + 1 ,uri.length)
-        let file = {uri:uri, type:'multipart/form-data',name:name}
-        formData.append('file',file)
-       await api.Img.uploadImg(formData).then((data) =>{
-          // console.log('data-----  ',data)
-          if(data.type == 'success' )
-          {
-            Imglist.push(data.url)
-          }
-          else
-          {
-            Toast.message('Img error!!');
-          }
-        })
+      var uri =item
+      var index = uri.lastIndexOf("\/")
+      var name = uri.substring(index + 1 ,uri.length)
+      let file = {uri:uri, type:'multipart/form-data',name:name}
+      formData.append('file',file)
+      await api.Img.uploadImg(formData).then((data) =>{
+        // console.log('data-----  ',data)
+        if(data.type == 'success' )
+        {
+          Imglist.push(data.url)
+        }
+        else
+        {
+          Toast.message('Img error!!');
+        }
+      })
     }
     // console.log('Imglist--------  ',Imglist)
     const formData = {

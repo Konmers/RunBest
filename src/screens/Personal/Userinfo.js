@@ -481,21 +481,25 @@ import {
             console.log('userinfo msg-----  ',data.msg)
             if(data.type == 'success')
             {
+                console.log('1111111')
                 Toast.show({
                     text:data.msg,
                     icon: <ActivityIndicator/>,
                     position: 'center',
                     duration: 2000,
                 })
-                this.componentDidMount()
                 //console.log('token 222------------  ',await storage.get('token'))           
                 // storage.delete('token', '')
-
             }
             else
             {
+                Toast.show({
+                    text:data.msg,
+                    position: 'center',
+                })
                 console.log('2222')
             }
+            this.componentDidMount()
         })
         // Actions.Login()
     }

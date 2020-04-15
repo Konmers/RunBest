@@ -15,8 +15,9 @@ axios.defaults.headers.delete['Content-Type'] = 'application/json'; //配置请�
 axios.defaults.headers.put['Content-Type'] = 'application/json'; //配置请求头
 
 const instance = {}
+const type = ['get', 'post', 'put', 'delete']
 
-;['get', 'post', 'put', 'delete'].forEach((key) => {
+type.forEach((key) => {
   instance[key] = function (...args) {
     // console.log([key], axios.defaults.baseURL,...args)
     return axios[key](...args)
@@ -57,6 +58,7 @@ const api = {
     dynamiccomment: data => instance.get(`/dynamic/commentList`,{params:data}),//评论列表
     dynamiccommentlike: data => instance.post(`/dynamic/createComment`,data),//新增评论
     dynamiccommentlikestate: data => instance.post(`/dynamic/commentLike`,data),//评论点赞
+    dynamictraffic: data => instance.post(`/dynamic/traffic`,data),//评论浏览量
     userDynamicList: data => instance.get(`/dynamic/userDynamicList`,{params:data}),//个人动态列表
     userLikeList: data => instance.get(`/dynamic/userLikeList`,{params:data}),//个人动态点赞列表
     userCommuntList: data => instance.get(`/dynamic/userCommuntList`,{params:data})//个人动态评论列表

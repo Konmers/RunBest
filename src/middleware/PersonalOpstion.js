@@ -27,6 +27,9 @@ import storage from '../server/storage'
 // import Icon from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/AntDesign';
 
+// Actions表示要进行路由的JS操作了,可以跳特到新路由
+import { Actions } from 'react-native-router-flux'
+
 //swiper banner滚动
 import Swiper from 'react-native-swiper'
 
@@ -450,6 +453,59 @@ class PersonalOpstion extends Component {
         }
     }
 
+    //点赞
+    _likeCase = async (dynamicId,uid) =>{
+        // console.log('uid----  ',uid,'dynamicId----- ',dynamicId)
+        const formData = {
+            uid:uid,
+            dynamicId:dynamicId,
+        }
+        await api.dynamic.dynamiclike(formData).then((Data) => {
+            if (Data.type === true) 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            }
+            const listData = [...this.state.list] //复制数组--浅拷贝
+            //修改对象中某元素值
+            this.setState({
+                list:listData.map((item) => item.id === dynamicId ?{...item, like: Data.list,likenumber: Data.cont } : item ),
+            })
+        })
+    }
+
+    //跳转 动态详情
+    getDynamicInfo = async (dynamicId,uid) => {
+        const formData = {
+            uid:uid,
+            dynamicId:dynamicId,
+        }
+        await api.dynamic.dynamictraffic(formData).then((Data) => {
+            console.log('data----------  ',Data)
+            if (Data.type === 'success') 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            }
+            const listData = [...this.state.list] //复制数组--浅拷贝
+            //修改对象中某元素值
+            this.setState({
+                list:listData.map((item) => item.id === dynamicId ?{...item, pageView: Data.cont } : item ),
+            })
+        })
+        Actions.dynamicinfo({dynamicId:dynamicId,uid:uid})// 空传参
+    }
+
     //网络请求——获取第pageNo页数据
     fetchData = async (page) => {                
         // console.log('333----------  ',this.state.showFoot)
@@ -475,6 +531,7 @@ class PersonalOpstion extends Component {
             }
         }) 
     }
+
 }
 
 export default PersonalOpstion;

@@ -463,8 +463,30 @@ class HomeInfo extends Component {
 
 //---------------------------------------------
     //跳转 动态详情
-    getDynamicInfo = (dynamicId,uid) => {
-        Actions.dynamicinfo({dynamicId:dynamicId,uid:uid})// 空传参
+    getDynamicInfo = async(dynamicId,uid) => {
+        const formData = {
+            uid:uid,
+            dynamicId:dynamicId,
+        }
+        await api.dynamic.dynamictraffic(formData).then((Data) => {
+            console.log('data----------  ',Data)
+            if (Data.type === 'success') 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            } 
+            else 
+            {
+                console.log('Data.msg----  ',Data.msg)
+                // Toast.message(Data.msg);
+            }
+            const listData = [...this.state.list] //复制数组--浅拷贝
+            //修改对象中某元素值
+            this.setState({
+                list:listData.map((item) => item.id === dynamicId ?{...item, pageView: Data.cont } : item ),
+            })
+        })
+        Actions.dynamicinfo({dynamicId:dynamicId,uid:uid})
     }
 
     //点赞
@@ -488,7 +510,7 @@ class HomeInfo extends Component {
             const listData = [...this.state.list] //复制数组--浅拷贝
             //修改对象中某元素值
             this.setState({
-                list:listData.map((item) => item.id === dynamicId ?{...item, like: Data.list } : item ),
+                list:listData.map((item) => item.id === dynamicId ?{...item, like: Data.list,likenumber: Data.cont } : item ),
             })
         })
     }

@@ -20,7 +20,7 @@ import {
 } from 'react-native-amap-geolocation';
 
 //地图组件
-import { MapView} from 'react-native-amap3d';
+import { MapView } from 'react-native-amap3d';
 
 //计算距离
 import {computedRange} from '../../middleware/ComputedRange.js';

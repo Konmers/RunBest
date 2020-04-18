@@ -10,7 +10,6 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import cn.qiuxiang.react.geolocation.AMapGeolocationPackage;
-import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;

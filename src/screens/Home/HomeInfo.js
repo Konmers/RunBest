@@ -344,7 +344,7 @@ class HomeInfo extends Component {
                                     <Icon name="message1"
                                         size={15}
                                         style={styles.boxIcon}
-                                        onPress={() => this.getDynamicInfo(item.id,this.state.uid)}
+                                        onPress={() => this.getDynamicInfo(item.id,item.uid)}
                                     />
                                     {/* 评论文字*/}
                                     <Text style={styles.boxText}>{item.commentnumber}</Text> 

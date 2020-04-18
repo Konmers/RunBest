@@ -66,5 +66,6 @@
     "assets": [
       "./src/public/Fonts/"
     ]
-  }
+  },
+  "optionalDependencies": {}
 }

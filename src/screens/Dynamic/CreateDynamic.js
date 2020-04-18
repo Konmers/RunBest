@@ -18,7 +18,6 @@ import { Actions } from 'react-native-router-flux'
 //camera 
 import ImagePicker from 'react-native-image-picker'
 
-import Floatball from "../../middleware/Floatball.js"
 import { preventDoublePress } from "../../middleware/PreventDoublePress.js"
 
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -107,29 +106,31 @@ const styles =  StyleSheet.create({
     marginTop:15
   },
   imgArr:{
-    width:width*0.9,
+    width:width,
     height: height*0.5, 
-    flex:1,
     flexDirection: 'row',
     flexWrap:"wrap",
-    marginTop:10
+    marginTop:10,
+    paddingHorizontal:20,
     // backgroundColor: 'blue',
     // backgroundColor: 'white',
   },
   Imgadd:{
     width:'20%',
-    height:'15%',
+    height:'17%',
     borderRadius:5,
     justifyContent: 'center',
     // alignContent:'center',
     alignItems:'center',
     padding:0,
     backgroundColor: '#f0f0f0',
-    marginVertical:10
+    // backgroundColor: 'red',
+    marginVertical:10,
+    marginRight:10
   },
   chooseView:{
     width:'20%',
-    height:'15%',
+    height:'17%',
     marginRight:10,
     marginVertical:10,
     // backgroundColor:'red'
@@ -259,6 +260,9 @@ export default class CreateDynamic extends Component{
                   // onChangeText={() => this._onChangeCont}//输入框改变触发的函数
               />
               <View style={styles.imgArr}>
+                <TouchableOpacity style={styles.Imgadd} onPress={() => this.cameraAction()}>
+                  <Image style={styles.uImage} source={require('../../public/Iamge/Else/add.png')} /> 
+                </TouchableOpacity>
                 {/* <Image style={styles.chooseImage} source={require('../../public/Iamge/Head/10.jpg')} />  */}
                 {
                   this.state.ImgArrs.map((item,i) =>
@@ -271,13 +275,9 @@ export default class CreateDynamic extends Component{
                     // }
                   )
                 }
-                <TouchableOpacity style={styles.Imgadd} onPress={() => this.cameraAction()}>
-                  <Image style={styles.uImage} source={require('../../public/Iamge/Else/add.png')} /> 
-                </TouchableOpacity>
               </View>
             </View>
         </View>
-        <Floatball/> 
       </View>
     );
   }
@@ -294,6 +294,7 @@ export default class CreateDynamic extends Component{
 
   //camera
   cameraAction = () => {
+      // console.warn('1111----------- ')
     ImagePicker.showImagePicker(photoOptions, (response) => {
       if (response.didCancel) {
         return

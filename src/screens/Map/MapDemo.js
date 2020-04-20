@@ -173,7 +173,7 @@ export default class MapDemo extends Component {
   render() {
       return (            
           <View style={{flex:1}}>
-              <MapView style={styles.mapBlock}
+              {/* <MapView style={styles.mapBlock}
                   mapType = "standard" //地图类型  standard: 标准地图  satellite: 卫星地图 navigation: 导航地图 night: 夜间地图  bus: 公交地图
                   ref={(ref) => {this._mapView = ref}}    
                   locationStyle={{fillColor:'rgba(0,0,0,0)',strokeWidth:0}}
@@ -234,7 +234,7 @@ export default class MapDemo extends Component {
                     color='rgba(255, 0, 0, 0.5)'
                     coordinates={this.state.line}
                 />
-              </MapView>
+              </MapView> */}
               <View >
               <Button
                 onPress={() => this._StartExercise()}

@@ -1,5 +1,5 @@
 const host = ''
-const defatutUrl = 'http://www.konmer.cn:3000/run/api'
+const defatutUrl = '服务器API地址'
 
 export {
     host,
